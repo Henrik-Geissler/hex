@@ -9,14 +9,11 @@ import './TileGame.css';
 const TileGame: React.FC = () => {
   return (
     <div className="tile-game-layout">
-      {/* Left Side - 1/Golden Ratio width */}
       <div className="left-panel">
         <Stats />
         <RelictBar />
         <Deck />
       </div>
-
-      {/* Right Side - Golden Ratio width */}
       <div className="right-panel">
         <Board />
         <Hand />
