@@ -51,6 +51,98 @@
   justify-content: center;
 }
 
+/* Relicts styling */
+.relicts-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  gap: 10px;
+}
+
+.relict-slot {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.relict-slot:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.relict-icon {
+  font-size: 24px;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Tooltip styling */
+.relict-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  z-index: 1000;
+  margin-bottom: 8px;
+  min-width: 200px;
+}
+
+.relict-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+.tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.tooltip-icon {
+  font-size: 18px;
+}
+
+.tooltip-name {
+  font-size: 14px;
+}
+
+.tooltip-description {
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 6px;
+  white-space: normal;
+}
+
+.tooltip-counter {
+  font-size: 11px;
+  color: #ffd700;
+  font-weight: bold;
+}
+
 .deck-component {
   flex: 1;
   background: rgba(0, 0, 255, 0.3); /* Blue background */
