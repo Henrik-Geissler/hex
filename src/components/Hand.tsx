@@ -48,7 +48,7 @@ const Hand: React.FC = () => {
     return {
       position: 'absolute',
       left: `calc(50% + ${xPosition}%)`,
-      bottom: `${yOffset}px`,
+      bottom: `${yOffset-Math.abs(rotation)}px`,
       transform: `translateX(-50%) rotate(${rotation}deg)`,
       zIndex: Math.round(zIndex),
       transition: 'all 0.3s ease',
