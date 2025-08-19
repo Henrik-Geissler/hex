@@ -90,6 +90,29 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* Phase Display */
+.phase-display {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.phase-display h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.current-phase {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffff00;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .tile-game-layout {

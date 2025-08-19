@@ -1,10 +1,20 @@
-import { InitRoundPhase } from '../phases/InitRoundPhase';
 import { Phase } from '../types/Phase';
 import { PhaseInterface } from '../types/PhaseInterface';
+import { InitPhase } from '../phases/InitPhase';
+import { InitRoundPhase } from '../phases/InitRoundPhase';
+import { InitTurnPhase } from '../phases/InitTurnPhase';
+import { CheckWinPhase } from '../phases/CheckWinPhase';
+import { CheckLoosePhase } from '../phases/CheckLoosePhase';
+import { WaitForInputPhase } from '../phases/WaitForInputPhase';
+import { PlayPhase } from '../phases/PlayPhase';
+import { TurnEndPhase } from '../phases/TurnEndPhase';
+import { ShopPhase } from '../phases/ShopPhase';
+import { LoosePhase } from '../phases/LoosePhase';
 
 export class StateMachine {
   private static instance: StateMachine;
   private currentPhase: Phase = 'InitPhase';
+  private listeners: Array<(phase: Phase) => void> = [];
 
   // Private constructor to prevent direct instantiation
   private constructor() {}
@@ -22,29 +32,91 @@ export class StateMachine {
     return this.currentPhase;
   }
 
-  // Set current phase
-  async setPhase(phase: Phase): void {
+  // Set current phase and run the phase
+  async setPhase(phase: Phase): Promise<void> {
     this.currentPhase = phase;
-    let phaseClass;switch (phase) {
-        case 'InitPhase':
-            phaseClass =  new InitPhase();
-        case 'InitRoundPhase':
-            phaseClass =  new InitRoundPhase();
-        case 'InitTurnPhase':
-            phaseClass =  new InitTurnPhase();
-        case 'CheckWinPhase':
-            phaseClass =  new CheckWinPhase();
-        case 'CheckLoosePhase':
-            phaseClass =  new CheckLoosePhase();
-        case 'WaitForInputPhase':
-            phaseClass =  new WaitForInputPhase();
-        case 'PlayPhase':
-            phaseClass =  new PlayPhase();
-        case 'TurnEndPhase':
     
-        default:
-            break;
+    let phaseClass: PhaseInterface;
+    
+    switch (phase) {
+      case 'InitPhase':
+        phaseClass = new InitPhase();
+        break;
+      case 'InitRoundPhase':
+        phaseClass = new InitRoundPhase();
+        break;
+      case 'InitTurnPhase':
+        phaseClass = new InitTurnPhase();
+        break;
+      case 'CheckWinPhase':
+        phaseClass = new CheckWinPhase();
+        break;
+      case 'CheckLoosePhase':
+        phaseClass = new CheckLoosePhase();
+        break;
+      case 'WaitForInputPhase':
+        phaseClass = new WaitForInputPhase();
+        break;
+      case 'PlayPhase':
+        phaseClass = new PlayPhase();
+        break;
+      case 'TurnEndPhase':
+        phaseClass = new TurnEndPhase();
+        break;
+      case 'ShopPhase':
+        phaseClass = new ShopPhase();
+        break;
+      case 'LoosePhase':
+        phaseClass = new LoosePhase();
+        break;
+      default:
+        throw new Error(`Unknown phase: ${phase}`);
     }
+    
+    // Notify listeners of phase change
+    this.notifyListeners(phase);
+    
+    // Run the phase
     await phaseClass.run();
-  } 
+  }
+
+  // Add listener for phase changes
+  addListener(listener: (phase: Phase) => void): void {
+    this.listeners.push(listener);
+  }
+
+  // Remove listener
+  removeListener(listener: (phase: Phase) => void): void {
+    this.listeners = this.listeners.filter(l => l !== listener);
+  }
+
+  // Notify all listeners
+  private notifyListeners(phase: Phase): void {
+    this.listeners.forEach(listener => listener(phase));
+  }
+
+  // Transition to next phase in the game loop
+  async transitionToNextPhase(): Promise<void> {
+    const phaseOrder: Phase[] = [
+      'InitPhase',
+      'InitRoundPhase',
+      'InitTurnPhase',
+      'CheckWinPhase',
+      'CheckLoosePhase',
+      'WaitForInputPhase',
+      'PlayPhase',
+      'TurnEndPhase',
+      'ShopPhase',
+      'LoosePhase'
+    ];
+
+    const currentIndex = phaseOrder.indexOf(this.currentPhase);
+    const nextIndex = (currentIndex + 1) % phaseOrder.length;
+    await this.setPhase(phaseOrder[nextIndex]);
+  }
+
+  // Reset to initial phase
+  async reset(): Promise<void> {
+    await this.setPhase('InitPhase');
+  }
 }
