@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Tile, Color, Location } from '../types/TileTypes';
+import { Tile } from '../types/Tile';
+import { Color } from '../types/Color';
+import { Location } from '../types/Location';
 import { TileFactory } from '../factories/TileFactory';
 import './TileGame.css';
 
