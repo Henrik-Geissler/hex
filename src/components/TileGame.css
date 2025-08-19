@@ -58,7 +58,27 @@
   align-items: center;
   height: 100%;
   gap: 10px;
+  position: relative;
 }
+
+/* Drop zones styling */
+.drop-zone {
+  width: 40px;
+  transform: scaleX(3);
+  height: 60px; 
+  border-radius: 8px;
+  transition: all 0.2s ease; 
+  position: relative;
+}
+
+.drop-zone.drag-over {
+  border-color: #ffa500;
+  background: rgba(255, 165, 0, 0.4);
+  transform: scaleX(3) scale(1.1);
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+}
+
+/* Remove position indicators from drop zones */
 
 .relict-slot {
   position: relative;
@@ -70,14 +90,48 @@
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  cursor: pointer;
+  cursor: grab;
   transition: all 0.3s ease;
+  user-select: none;
 }
 
 .relict-slot:hover {
   background: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.5);
   transform: scale(1.1);
+}
+
+.relict-slot:active {
+  cursor: grabbing;
+}
+
+.relict-slot.dragging {
+  opacity: 0.5;
+  transform: scale(1.1);
+  cursor: grabbing;
+}
+
+.relict-slot.empty {
+  opacity: 0.3;
+  cursor: default;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.relict-slot.empty:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: none;
+}
+
+.relict-slot.empty .relict-icon {
+  opacity: 0.5;
+}
+
+.relict-slot.drag-over {
+  border-color: #ffa500;
+  background: rgba(255, 165, 0, 0.2);
+  transform: scale(1.05);
 }
 
 .relict-icon {
@@ -141,6 +195,15 @@
   font-size: 11px;
   color: #ffd700;
   font-weight: bold;
+}
+
+.tooltip-sell-value {
+  font-size: 11px;
+  color: #ffa500;
+  font-weight: bold;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 6px;
+  margin-top: 6px;
 }
 
 .deck-component {

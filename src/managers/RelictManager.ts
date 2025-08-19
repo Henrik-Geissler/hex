@@ -39,6 +39,29 @@ export class RelictManager {
     return null;
   }
 
+  public insertRelict(fromIndex: number, toIndex: number): void {
+    if (fromIndex >= 0 && fromIndex < this.MAX_RELICTS && 
+        toIndex >= 0 && toIndex < this.MAX_RELICTS && 
+        fromIndex !== toIndex) {
+      
+      const relictToMove = this.relicts[fromIndex];
+      
+      if (fromIndex < toIndex) {
+        // Moving forward: shift elements left
+        for (let i = fromIndex; i < toIndex; i++) {
+          this.relicts[i] = this.relicts[i + 1];
+        }
+      } else {
+        // Moving backward: shift elements right
+        for (let i = fromIndex; i > toIndex; i--) {
+          this.relicts[i] = this.relicts[i - 1];
+        }
+      }
+      
+      this.relicts[toIndex] = relictToMove;
+    }
+  }
+
   // Lifecycle methods that iterate through all relicts
   onChoose = async () => Promise.all(this.relicts.filter(relict => relict.onChoose).map(relict => relict.onChoose!()));
   

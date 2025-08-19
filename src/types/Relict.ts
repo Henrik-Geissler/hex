@@ -9,6 +9,7 @@ export interface Relict {
   description: string;
   icon: string;
   counter?: number; // Optional score
+  sellValue: number; // Value when selling the relict
 
   // Optional methods - all return Triggering<T> and are async
   onChoose?(): Promise<Triggering>;
