@@ -1,244 +1,125 @@
-.tile-game {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+/* Golden Ratio Layout */
+.tile-game-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
   color: white;
+  overflow: hidden;
 }
 
-.tile-game h1 {
+/* Left Panel - 1/Golden Ratio width (approximately 38.2%) */
+.left-panel {
+  width: calc(100% / (1 + 1.618)); /* 1/Golden Ratio */
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-right: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Right Panel - Golden Ratio width (approximately 61.8%) */
+.right-panel {
+  width: calc(100% * 1.618 / (1 + 1.618)); /* Golden Ratio */
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+/* Left Panel Components */
+.stats-component {
+  flex: 1;
+  background: rgba(255, 0, 0, 0.3); /* Red background */
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.relict-bar-component {
+  flex: 1;
+  background: rgba(0, 255, 0, 0.3); /* Green background */
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.deck-component {
+  flex: 1;
+  background: rgba(0, 0, 255, 0.3); /* Blue background */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Right Panel Components */
+.board-component {
+  flex: calc(1.618); /* Golden Ratio height */
+  background: rgba(255, 255, 0, 0.3); /* Yellow background */
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.hand-component {
+  flex: 1; /* 1/Golden Ratio height */
+  background: rgba(255, 0, 255, 0.3); /* Magenta background */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Component Headers */
+.stats-component h2,
+.relict-bar-component h2,
+.deck-component h2,
+.board-component h2,
+.hand-component h2 {
+  margin: 0 0 15px 0;
+  font-size: 1.5rem;
   text-align: center;
-  margin-bottom: 30px;
-  font-size: 2.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.controls {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.controls h2 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  color: #fff;
-}
-
-.control-group {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.control-group label {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  font-weight: 500;
-}
-
-.control-group select {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
-  font-size: 14px;
-  min-width: 120px;
-}
-
-.control-group button {
-  padding: 10px 20px;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: background-color 0.3s;
-}
-
-.control-group button:hover {
-  background: #45a049;
-}
-
-.game-board {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.location-section {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.location-section h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  color: #fff;
-  text-align: center;
-  font-size: 1.2rem;
-}
-
-.tiles-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
-.tile {
-  width: 60px;
-  height: 80px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.tile:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.tile-score {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.tile-id {
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-top: 2px;
-}
-
-.remove-btn {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #ff4444;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.tile:hover .remove-btn {
-  opacity: 1;
-}
-
-.remove-btn:hover {
-  background: #cc0000;
-}
-
-.actions {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.actions h2 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  color: #fff;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.action-buttons button {
-  padding: 10px 15px;
-  background: #2196F3;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 500;
-  transition: background-color 0.3s;
-  white-space: nowrap;
-}
-
-.action-buttons button:hover {
-  background: #1976D2;
-}
-
-.stats {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.stats h2 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  color: #fff;
-}
-
-.stats p {
-  margin: 8px 0;
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
-  .tile-game {
-    padding: 10px;
-  }
-  
-  .control-group {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .game-board {
-    grid-template-columns: 1fr;
-  }
-  
-  .action-buttons {
+  .tile-game-layout {
     flex-direction: column;
   }
   
-  .action-buttons button {
+  .left-panel,
+  .right-panel {
     width: 100%;
+  }
+  
+  .left-panel {
+    height: 40%;
+  }
+  
+  .right-panel {
+    height: 60%;
+  }
+  
+  .stats-component,
+  .relict-bar-component,
+  .deck-component {
+    flex: 1;
+  }
+  
+  .board-component {
+    flex: 2;
+  }
+  
+  .hand-component {
+    flex: 1;
   }
 }
