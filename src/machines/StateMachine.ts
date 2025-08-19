@@ -23,6 +23,7 @@ export class StateMachine {
   public static getInstance(): StateMachine {
     if (!StateMachine.instance) {
       StateMachine.instance = new StateMachine();
+      StateMachine.instance.setPhase(StateMachine.instance.currentPhase);
     }
     return StateMachine.instance;
   }
@@ -35,7 +36,6 @@ export class StateMachine {
   // Set current phase and run the phase
   async setPhase(phase: Phase): Promise<void> {
     this.currentPhase = phase;
-    
     let phaseClass: PhaseInterface;
     
     switch (phase) {
