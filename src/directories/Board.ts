@@ -2,7 +2,6 @@ import { indexToPixel } from "./utils/boardSpace";
 
 export class Board {
   private static instance: Board;
-  private hexSize: number = 100; // Width and height of each hexagon
   private hexWidth: number = 100;
   private hexHeight: number = 100;
 
@@ -24,7 +23,6 @@ export class Board {
     const {x, y} = indexToPixel(position);
     return [x, y];
   }
- 
 
   /**
    * Get the 6 adjacent position numbers for a given position
@@ -134,46 +132,6 @@ export class Board {
     const positionInRing = this.axialToRingPosition(q, r, ring);
     
     return this.getPositionInRingNumber(ring, positionInRing);
-  }
-
-  /**
-   * Convert axial coordinates to screen coordinates
-   * @param q - Axial coordinate q
-   * @param r - Axial coordinate r
-   * @returns [x, y] screen coordinates
-   */
-  private axialToScreen(q: number, r: number): [number, number] {
-    const x = (3 * this.hexWidth / 2) * q / Math.sqrt(3);
-    const y = (3 * this.hexHeight / 2) * (q / 2 + r) / 2;
-    return [x, y];
-  }
-
-  /**
-   * Convert screen coordinates to axial coordinates
-   * @param x - Screen coordinate x
-   * @param y - Screen coordinate y
-   * @returns [q, r] axial coordinates
-   */
-  private screenToAxial(x: number, y: number): [number, number] {
-    const q = (Math.sqrt(3) * x) / (3 * this.hexWidth / 2);
-    const r = (2 * y) / (3 * this.hexHeight / 2) - q / 2;
-    
-    // Round to nearest hexagon
-    const qRound = Math.round(q);
-    const rRound = Math.round(r);
-    const sRound = Math.round(-q - r);
-    
-    const qDiff = Math.abs(qRound - q);
-    const rDiff = Math.abs(rRound - r);
-    const sDiff = Math.abs(sRound - (-q - r));
-    
-    if (qDiff > rDiff && qDiff > sDiff) {
-      return [-rRound - sRound, rRound];
-    } else if (rDiff > sDiff) {
-      return [qRound, -qRound - sRound];
-    } else {
-      return [qRound, rRound];
-    }
   }
 
   /**
