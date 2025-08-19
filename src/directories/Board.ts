@@ -1,3 +1,4 @@
+import { TileFactory } from "../factories/TileFactory";
 import { Tile } from "../types/Tile";
 import { TileDictionary } from "../types/TileDictionary";
 import { indexToPixel } from "./utils/boardSpace";
@@ -19,7 +20,12 @@ export class Board implements TileDictionary {
   }
 
   async add(tile: Tile): Promise<void> {
-    this.tiles.push(tile);
+    while(tile.pos>this.tiles.length)
+      TileFactory.getInstance().createOffTile(this.tiles.length);
+    if(tile.pos==this.tiles.length)
+      this.tiles.push(tile);
+    else
+    this.tiles[tile.pos] = tile;
     this.notifyListeners();
   }
 

@@ -5,6 +5,8 @@ import { Deck } from '../directories/Deck';
 import { Hand } from '../directories/Hand';
 import { DiscardPile } from '../directories/DiscardPile';
 import { Board } from '../directories/Board';
+import { SpotType } from '../types/SpotType';
+import { OffType } from '../types/OffType';
 
 export class TileFactory {
   private static instance: TileFactory;
@@ -55,9 +57,9 @@ export class TileFactory {
     return tile;
   }
 
-  createFreeTile = (pos: number): Tile => this.createTile(Location.Board, pos, Color.Free, 0);
+  createFreeTile = (pos: number): Tile => this.createTile(Location.Board, pos, Color.Free, SpotType.Free);
 
-  createOffTile = (pos: number): Tile => this.createTile(Location.Board, pos, Color.Off, 0);
+  createOffTile = (pos: number): Tile => this.createTile(Location.Board, pos, Color.Off, OffType.Free);
  
   async createStandardDeck(): Promise<void> {
     const scores = [1, 2, 3, 4, 5, 6, 7, 8, 9]; 

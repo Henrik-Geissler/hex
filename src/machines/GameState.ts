@@ -112,11 +112,6 @@ export class GameState {
 
   // Reset game state
   reset(): void {
-    this.round = 1;
-    this.discards = 0;
-    this.gold = 0;
-    this.targetScore = 100;
-    this.score = 0;
     this.notifyListeners();
   }
 }
