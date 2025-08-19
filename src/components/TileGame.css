@@ -34,7 +34,7 @@
 .stats-component {
   flex: 1;
   background: rgba(255, 0, 0, 0.3); /* Red background */
-  padding: 20px;
+  padding: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: column;
@@ -92,12 +92,12 @@
 
 /* Phase Display */
 .phase-display {
-  margin-top: 20px;
+  margin-top: 15px;
   text-align: center;
 }
 
 .phase-display h3 {
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
   font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.9);
 }
@@ -108,9 +108,60 @@
   color: #ffff00;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   background: rgba(0, 0, 0, 0.3);
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Game Stats */
+.game-stats {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-item h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: normal;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 5px;
+  min-width: 40px;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.round-value {
+  background: rgba(255, 165, 0, 0.7); /* Orange */
+  color: #fff;
+}
+
+.discard-value {
+  background: rgba(128, 0, 128, 0.7); /* Purple */
+  color: #fff;
+}
+
+.gold-value {
+  background: rgba(255, 215, 0, 0.7); /* Gold */
+  color: #000;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 /* Responsive Design */
