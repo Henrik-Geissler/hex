@@ -23,6 +23,7 @@ export class InitRoundPhase implements PhaseInterface {
       await TileFactory.getInstance().createOffTile(i);
     }
     for (let i = 0; i < 37; i++) {
+      if(Math.random()<.8)
       await TileFactory.getInstance().createFreeTile(i); 
     await new Promise(resolve => setTimeout(resolve, 25));
     }

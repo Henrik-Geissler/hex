@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Hand as HandDirectory } from '../directories/Hand';
 import { Tile } from '../types/Tile';
-import { ColorMap } from '../types/Color';
 import Hexagon from './Hexagon';
 
 const Hand: React.FC = () => {
@@ -67,8 +66,7 @@ const Hand: React.FC = () => {
             <Hexagon
               width={60}
               height={70}
-              color={ColorMap[tile.color]}
-              score={tile.score}
+              tile={tile}
               className="tile-hexagon"
             />
           </div>

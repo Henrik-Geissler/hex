@@ -1,10 +1,11 @@
 import React from 'react';
+import { Tile } from '../types/Tile';
+import { Color, ColorMap } from '../types/Color';
 
 interface HexagonProps {
   width: number;
   height: number;
-  color: string;
-  score: number;
+  tile: Tile;
   className?: string;
   rotation?: number; // Rotation in degrees
 }
@@ -12,8 +13,7 @@ interface HexagonProps {
 const Hexagon: React.FC<HexagonProps> = ({ 
   width, 
   height, 
-  color, 
-  score, 
+  tile, 
   className = '',
   rotation = 0 
 }) => {
@@ -30,6 +30,10 @@ const Hexagon: React.FC<HexagonProps> = ({
     const y = centerY + radius * Math.sin(angle);
     points.push(`${x},${y}`);
   }
+
+  // Get color and score from tile
+  const color = ColorMap[tile.color];
+  const score = (tile.color == Color.Free  ||tile.color == Color.Off )? "" : tile.score;
 
   return (
     <svg 

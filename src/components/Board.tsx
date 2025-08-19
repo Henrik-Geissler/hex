@@ -44,8 +44,7 @@ const Board: React.FC = () => {
         <Hexagon
           width={100}
           height={100}
-          color="#666666" // Off tile color
-          score={tile.score}
+          tile={tile}
           className="board-hexagon"
           rotation={30} // Rotate 30 degrees for proper honeycomb alignment
         />
