@@ -1,5 +1,7 @@
+import { Location } from '../types/Location';
 import { Tile } from '../types/Tile';
 import { TileDictionary } from '../types/TileDictionary';
+import { Deck } from './Deck';
 
 export class Hand implements TileDictionary {
   private static instance: Hand;
@@ -15,11 +17,22 @@ export class Hand implements TileDictionary {
     }
     return Hand.instance;
   }
-
+  public static HandSize = 7;
+  async drawFull(): Promise<void> {
+    while(this.tiles.length < Hand.HandSize) {
+      const tile = await Deck.getInstance().drawTile();
+      if (tile) {
+        this.add(tile);
+      }
+      else {
+        break;
+      }
+    }
+  }
   // Add a tile to the hand
   async add(tile: Tile): Promise<void> {
     this.tiles.push(tile);
-    tile.location = 'Hand';
+    tile.location = Location.Hand;
   }
 
   // Remove a tile from the hand
@@ -42,4 +55,7 @@ export class Hand implements TileDictionary {
     return this.tiles.length;
   }
 
+  clear(): void {
+    this.tiles = []; 
+  }
 }
