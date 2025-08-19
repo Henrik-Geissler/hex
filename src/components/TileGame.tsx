@@ -6,7 +6,7 @@ import { TileFactory } from '../factories/TileFactory';
 import './TileGame.css';
 
 const TileGame: React.FC = () => {
-  const [tileFactory] = useState(() => new TileFactory());
+  const [tileFactory] = useState(() => TileFactory.getInstance());
   const [tiles, setTiles] = useState<Tile[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<Location>('Deck');
   const [selectedColor, setSelectedColor] = useState<Color>('Off');
