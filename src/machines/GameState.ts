@@ -3,6 +3,8 @@ export class GameState {
   private round: number = 1;
   private discards: number = 0;
   private gold: number = 0;
+  private targetScore: number = 100;
+  private score: number = 0;
   private listeners: Array<() => void> = [];
 
   // Private constructor to prevent direct instantiation
@@ -29,6 +31,14 @@ export class GameState {
     return this.gold;
   }
 
+  getTargetScore(): number {
+    return this.targetScore;
+  }
+
+  getScore(): number {
+    return this.score;
+  }
+
   // Set values
   setRound(round: number): void {
     this.round = round;
@@ -42,6 +52,16 @@ export class GameState {
 
   setGold(gold: number): void {
     this.gold = gold;
+    this.notifyListeners();
+  }
+
+  setTargetScore(targetScore: number): void {
+    this.targetScore = targetScore;
+    this.notifyListeners();
+  }
+
+  setScore(score: number): void {
+    this.score = score;
     this.notifyListeners();
   }
 
@@ -70,6 +90,11 @@ export class GameState {
     return false;
   }
 
+  addScore(amount: number): void {
+    this.score += amount;
+    this.notifyListeners();
+  }
+
   // Add listener for state changes
   addListener(listener: () => void): void {
     this.listeners.push(listener);
@@ -90,6 +115,8 @@ export class GameState {
     this.round = 1;
     this.discards = 0;
     this.gold = 0;
+    this.targetScore = 100;
+    this.score = 0;
     this.notifyListeners();
   }
 }
