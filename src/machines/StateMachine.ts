@@ -95,28 +95,4 @@ export class StateMachine {
     this.listeners.forEach(listener => listener(phase));
   }
 
-  // Transition to next phase in the game loop
-  async transitionToNextPhase(): Promise<void> {
-    const phaseOrder: Phase[] = [
-      'InitPhase',
-      'InitRoundPhase',
-      'InitTurnPhase',
-      'CheckWinPhase',
-      'CheckLoosePhase',
-      'WaitForInputPhase',
-      'PlayPhase',
-      'TurnEndPhase',
-      'ShopPhase',
-      'LoosePhase'
-    ];
-
-    const currentIndex = phaseOrder.indexOf(this.currentPhase);
-    const nextIndex = (currentIndex + 1) % phaseOrder.length;
-    await this.setPhase(phaseOrder[nextIndex]);
-  }
-
-  // Reset to initial phase
-  async reset(): Promise<void> {
-    await this.setPhase('InitPhase');
-  }
 }
