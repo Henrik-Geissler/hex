@@ -1,4 +1,9 @@
 import { Tile } from './Tile';
 
-// Dictionary type for storing tiles by ID
-export type TileDictionary = { [key: number]: Tile };
+// Interface for Tile Dictionary with async methods
+export interface TileDictionary {
+  add(tile: Tile): Promise<void>;
+  remove(tile: Tile): Promise<boolean>;
+  getAllTiles(): Tile[];
+  getTileCount(): number;
+}

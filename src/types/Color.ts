@@ -14,3 +14,5 @@ export const Color = {
     White: 'White',
 } as const
 export type Color = keyof typeof Color;
+
+export const BaseColors = [Color.Red, Color.Yellow, Color.Green, Color.Blue];

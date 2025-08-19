@@ -32,4 +32,5 @@ export class Tile {
   isFree = () => this.color == Color.Free; 
   isOff = () => this.color == Color.Off;
   matchesColor = (color: Color) => this.color == color || this.color == Color.White;
+  
 }
