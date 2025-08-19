@@ -1,2 +1,8 @@
 // Union type for Locations
-export type Location = 'Deck' | 'Hand' | 'Board' | 'Discard';
+export const Location = {
+    Deck: 'Deck',
+    Hand: 'Hand',
+    Board: 'Board',
+    Discard: 'Discard',
+} as const
+export type Location = keyof typeof Location;

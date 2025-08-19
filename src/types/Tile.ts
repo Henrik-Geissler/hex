@@ -13,8 +13,8 @@ export class Tile {
     id: number,
     score: number,
     pos: number,
-    location: Location = 'Deck',
-    color: Color = 'Off'
+    location: Location =Location.Deck,
+    color: Color = Color.Off
   ) {
     this.id = id;
     this.score = score;
@@ -28,4 +28,8 @@ export class Tile {
   toString(): string {
     return `Tile ${this.id}: Score=${this.score}, Pos=${this.pos}, Location=${this.location}, Color=${this.color}`;
   }
+
+  isFree = () => this.color == Color.Free; 
+  isOff = () => this.color == Color.Off;
+  matchesColor = (color: Color) => this.color == color || this.color == Color.White;
 }
