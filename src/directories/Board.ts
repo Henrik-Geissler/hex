@@ -1,9 +1,13 @@
+import { Tile } from "../types/Tile";
+import { TileDictionary } from "../types/TileDictionary";
 import { indexToPixel } from "./utils/boardSpace";
 
-export class Board {
+export class Board implements TileDictionary {
   private static instance: Board;
   private hexWidth: number = 100;
   private hexHeight: number = 100;
+  private tiles: Tile[] = [];
+  private listeners: (() => void)[] = [];
 
   private constructor() {}
 
@@ -12,6 +16,49 @@ export class Board {
       Board.instance = new Board();
     }
     return Board.instance;
+  }
+
+  async add(tile: Tile): Promise<void> {
+    this.tiles.push(tile);
+    this.notifyListeners();
+  }
+
+  async remove(tile: Tile): Promise<boolean> {
+    const index = this.tiles.findIndex(t => t.id === tile.id);
+    if (index !== -1) {
+      this.tiles.splice(index, 1);
+      this.notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  async clear(): Promise<void> {
+    this.tiles = [];
+    this.notifyListeners();
+  }
+
+  getAllTiles(): Tile[] {
+    return [...this.tiles];
+  }
+
+  getTileCount(): number {
+    return this.tiles.length;
+  }
+
+  addListener(listener: () => void): void {
+    this.listeners.push(listener);
+  }
+
+  removeListener(listener: () => void): void {
+    const index = this.listeners.indexOf(listener);
+    if (index !== -1) {
+      this.listeners.splice(index, 1);
+    }
+  }
+
+  private notifyListeners(): void {
+    this.listeners.forEach(listener => listener());
   }
 
   /**

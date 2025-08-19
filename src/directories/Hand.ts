@@ -61,7 +61,7 @@ export class Hand implements TileDictionary {
     return this.tiles.length;
   }
 
-  clear(): void {
+  async clear(): Promise<void> {
     this.tiles = [];
     this.notifyListeners();
   }

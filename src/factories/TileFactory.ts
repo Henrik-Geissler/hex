@@ -4,6 +4,7 @@ import { Location } from '../types/Location';
 import { Deck } from '../directories/Deck';
 import { Hand } from '../directories/Hand';
 import { DiscardPile } from '../directories/DiscardPile';
+import { Board } from '../directories/Board';
 
 export class TileFactory {
   private static instance: TileFactory;
@@ -12,6 +13,7 @@ export class TileFactory {
   // Directory instances
   private deck = Deck.getInstance();
   private hand = Hand.getInstance();
+  private board = Board.getInstance();
   private discardPile = DiscardPile.getInstance();
 
   // Private constructor to prevent direct instantiation
@@ -43,6 +45,9 @@ export class TileFactory {
         case Location.DiscardPile:
           this.discardPile.add(tile);
           break;
+          case Location.Board:
+            this.board.add(tile);
+            break;
         default:
           break;
     }

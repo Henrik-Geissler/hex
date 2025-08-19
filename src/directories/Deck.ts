@@ -59,7 +59,7 @@ export class Deck implements TileDictionary {
     }
   }
 
-  clear(): void {
+  async clear(): Promise<void> {
     this.tiles = [];
     this.notifyListeners();
   }

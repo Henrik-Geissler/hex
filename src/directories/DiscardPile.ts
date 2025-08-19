@@ -42,7 +42,7 @@ export class DiscardPile implements TileDictionary {
     return this.tiles.length;
   }
   
-  clear(): void {
+  async clear(): Promise<void> {
     this.tiles = []; 
   }
 }

@@ -4,6 +4,7 @@ import { Tile } from './Tile';
 export interface TileDictionary {
   add(tile: Tile): Promise<void>;
   remove(tile: Tile): Promise<boolean>;
+  clear(): Promise<void>;
   getAllTiles(): Tile[];
   getTileCount(): number;
 }

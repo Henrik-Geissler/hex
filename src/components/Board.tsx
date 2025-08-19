@@ -9,18 +9,20 @@ const Board: React.FC = () => {
   const tileFactory = TileFactory.getInstance();
 
   useEffect(() => {
-    // Initialize the first 30 positions with OffTiles
-    const initialTiles: { [position: number]: any } = {};
-    
-    for (let position = 0; position < 38; position++) {
-      const offTile = tileFactory.createOffTile(position);
-      offTile.location = 'Board';
-      offTile.score = position;
-      initialTiles[position] = offTile;
-    }
-    
-    setBoardTiles(initialTiles);
-  }, [tileFactory]);
+
+    // Listen for changes to the board
+    const updateBoardTiles = () => {
+      const tiles = board.getAllTiles();
+      const tileMap: { [position: number]: any } = {};
+      tiles.forEach(tile => {
+        tileMap[tile.pos] = tile;
+      });
+      setBoardTiles(tileMap);
+    };
+
+    board.addListener(updateBoardTiles);
+    return () => board.removeListener(updateBoardTiles);
+  }, [board, tileFactory]);
 
   const renderBoardTile = (position: number) => {
     const tile = boardTiles[position];
