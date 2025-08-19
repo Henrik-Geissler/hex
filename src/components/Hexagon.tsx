@@ -6,9 +6,17 @@ interface HexagonProps {
   color: string;
   score: number;
   className?: string;
+  rotation?: number; // Rotation in degrees
 }
 
-const Hexagon: React.FC<HexagonProps> = ({ width, height, color, score, className = '' }) => {
+const Hexagon: React.FC<HexagonProps> = ({ 
+  width, 
+  height, 
+  color, 
+  score, 
+  className = '',
+  rotation = 0 
+}) => {
   // Calculate hexagon points for a proper hexagon
   const centerX = width / 2;
   const centerY = height / 2;
@@ -17,7 +25,7 @@ const Hexagon: React.FC<HexagonProps> = ({ width, height, color, score, classNam
   // Create hexagon points (6 points)
   const points = [];
   for (let i = 0; i < 6; i++) {
-    const angle = (i * Math.PI) / 3; // 60 degrees each
+    const angle = (i * Math.PI) / 3 + (rotation * Math.PI) / 180; // Add rotation
     const x = centerX + radius * Math.cos(angle);
     const y = centerY + radius * Math.sin(angle);
     points.push(`${x},${y}`);
