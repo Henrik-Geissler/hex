@@ -58,9 +58,7 @@ export class TileFactory {
     const scores = [1, 2, 3, 4, 5, 6, 7, 8, 9]; 
     
     for (let color = 0; color < BaseColors.length; color++) 
-    for (let i = 0; i < scores.length; i++) { 
-      const tile = this.createTile('Deck', i, BaseColors[color], scores[i]);
-      await this.deck.add(tile);
-    }
+    for (let i = 0; i < scores.length; i++) 
+       this.createTile(Location.DiscardPile, i, BaseColors[color], scores[i]);  
   }
 }

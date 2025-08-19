@@ -41,10 +41,8 @@ export class DiscardPile implements TileDictionary {
   getTileCount(): number {
     return this.tiles.length;
   }
-  // Clear the discard pile
-  async clearPile(): Promise<Tile[]> {
-    const removedTiles = [...this.tiles];
-    this.tiles = [];
-    return removedTiles;
+  
+  clear(): void {
+    this.tiles = []; 
   }
 }

@@ -13,7 +13,7 @@ import { LoosePhase } from '../phases/LoosePhase';
 
 export class StateMachine {
   private static instance: StateMachine;
-  private currentPhase: Phase = 'InitPhase';
+  private currentPhase: Phase = Phase.InitPhase;
   private listeners: Array<(phase: Phase) => void> = [];
 
   // Private constructor to prevent direct instantiation
