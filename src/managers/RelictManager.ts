@@ -7,6 +7,7 @@ export class RelictManager {
   private static instance: RelictManager;
   private relicts: Relict[] = [];
   private readonly MAX_RELICTS = 5;
+  private listeners: Array<() => void> = [];
 
   private constructor() {
     this.reset();
@@ -21,6 +22,7 @@ export class RelictManager {
 
   public reset(): void {
     this.relicts = Array(this.MAX_RELICTS).fill(null).map(() => new Empty());
+    this.notifyListeners();
   }
 
   public getRelicts(): Relict[] {
@@ -30,6 +32,7 @@ export class RelictManager {
   public setRelict(index: number, relict: Relict): void {
     if (index >= 0 && index < this.MAX_RELICTS) {
       this.relicts[index] = relict;
+      this.notifyListeners();
     }
   }
 
@@ -60,7 +63,23 @@ export class RelictManager {
       }
       
       this.relicts[toIndex] = relictToMove;
+      this.notifyListeners();
     }
+  }
+
+  // Add listener for relict changes
+  addListener(listener: () => void): void {
+    this.listeners.push(listener);
+  }
+
+  // Remove listener
+  removeListener(listener: () => void): void {
+    this.listeners = this.listeners.filter(l => l !== listener);
+  }
+
+  // Notify all listeners
+  private notifyListeners(): void {
+    this.listeners.forEach(listener => listener());
   }
 
   // Lifecycle methods that iterate through all relicts
@@ -99,6 +118,9 @@ export class RelictManager {
       // Replace with empty relict
       this.relicts[index] = new Empty();
       GameState.getInstance().addGold(relictToSell.sellValue);
+      
+      // Notify listeners of the change
+      this.notifyListeners();
       
       return true;
     }

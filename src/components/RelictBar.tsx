@@ -26,8 +26,13 @@ const RelictBar: React.FC = () => {
     // Update the display after setting the relicts
     updateRelicts();
     
-    // Note: RelictManager doesn't have listeners yet, so we'll need to add them later
-    // For now, this will work for initial display
+    // Add listener for relict changes
+    relictManager.addListener(updateRelicts);
+    
+    // Cleanup: remove listener when component unmounts
+    return () => {
+      relictManager.removeListener(updateRelicts);
+    };
   }, [relictManager]);
 
   const handleDragStart = (e: React.DragEvent, index: number) => {
@@ -48,8 +53,7 @@ const RelictBar: React.FC = () => {
       // Drop zone 0 = position 0, Drop zone 1 = position 1, etc.
       relictManager.insertRelict(draggedIndex, dropZoneIndex);
       
-      // Update the local state
-      setRelicts(relictManager.getRelicts());
+      // The listener will handle updating the state
     }
     
     setDraggedIndex(null);
