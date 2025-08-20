@@ -1,6 +1,7 @@
 import React from 'react';
 import { usePhase } from '../hooks/usePhase';
 import { useGameState } from '../hooks/useGameState';
+import AnimatedNumber from './AnimatedNumber';
 
 const Stats: React.FC = () => {
   const { currentPhase } = usePhase();
@@ -17,35 +18,59 @@ const Stats: React.FC = () => {
         <div className="stat-row">
           <div className="stat-item">
             <h4>Round:</h4>
-            <span className="stat-value round-value">{round}</span>
+            <AnimatedNumber 
+              value={round} 
+              className="stat-value round-value" 
+              duration={1400}
+            />
           </div>
           
           <div className="stat-item">
             <h4>Turn:</h4>
-            <span className="stat-value turn-value">{turn}</span>
+            <AnimatedNumber 
+              value={turn} 
+              className="stat-value turn-value" 
+              duration={1400}
+            />
           </div>
         </div>
 
         <div className="stat-row">
           <div className="stat-item">
             <h4>Discards:</h4>
-            <span className="stat-value discard-value">{discards}</span>
+            <AnimatedNumber 
+              value={discards} 
+              className="stat-value discard-value" 
+              duration={1400}
+            />
           </div>
           
           <div className="stat-item">
             <h4>Gold:</h4>
-            <span className="stat-value gold-value">{gold}</span>
+            <AnimatedNumber 
+              value={gold} 
+              className="stat-value gold-value" 
+              duration={1400}
+            />
           </div>
         </div>
 
         <div className="stat-item">
           <h4>Target Score:</h4>
-          <span className="stat-value target-score-value">{targetScore}</span>
+          <AnimatedNumber 
+            value={targetScore} 
+            className="stat-value target-score-value" 
+            duration={1400}
+          />
         </div>
         
         <div className="stat-item">
           <h4>Score:</h4>
-          <span className="stat-value score-value">{score}</span>
+          <AnimatedNumber 
+            value={score} 
+            className="stat-value score-value" 
+            duration={1400}
+          />
         </div>
       </div>
     </div>
