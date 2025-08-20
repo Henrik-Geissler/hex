@@ -322,6 +322,17 @@
   transition: all 0.3s ease;
 }
 
+/* Board Drop Zones */
+.board-drop-zone {
+  transition: all 0.2s ease;
+  pointer-events: auto;
+}
+
+.board-drop-zone:hover {
+  transform: translate(-50%, -50%) scale(1.1) !important;
+  z-index: 1000 !important;
+}
+
 /* Hand styling */
 .hand-container {
   position: relative;

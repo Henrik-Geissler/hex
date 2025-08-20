@@ -66,8 +66,7 @@ const Hand: React.FC = () => {
             <Hexagon
               width={60}
               height={70}
-              tile={tile}
-              className="tile-hexagon"
+              tile={tile} 
             />
           </div>
         ))}

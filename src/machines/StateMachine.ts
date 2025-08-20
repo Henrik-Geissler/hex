@@ -34,7 +34,7 @@ export class StateMachine {
   }
 
   // Set current phase and run the phase
-  async setPhase(phase: Phase): Promise<void> {
+  async setPhase(phase: Phase, params?: any): Promise<void> {
     this.currentPhase = phase;
     let phaseClass: PhaseInterface;
     
@@ -76,8 +76,8 @@ export class StateMachine {
     // Notify listeners of phase change
     this.notifyListeners(phase);
     
-    // Run the phase
-    await phaseClass.run();
+    // Run the phase with parameters
+    await phaseClass.run(params);
   }
 
   // Add listener for phase changes
