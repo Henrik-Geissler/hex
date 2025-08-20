@@ -1,6 +1,7 @@
 import { Relict, Triggering } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { Empty } from '../relicts/Empty';
+import { GameState } from '../machines/GameState';
 
 export class RelictManager {
   private static instance: RelictManager;
@@ -76,4 +77,31 @@ export class RelictManager {
   onAfterPlaceTile = async (tile: Tile) => Promise.all(this.relicts.filter(relict => relict.onAfterPlaceTile).map(relict => relict.onAfterPlaceTile!(tile)));
 
   onDiscard = async (tiles: Tile[]) => Promise.all(this.relicts.filter(relict => relict.onDiscard).map(relict => relict.onDiscard!(tiles)));
+  onSell = async (relict: Relict) => Promise.all(this.relicts.filter(r => r.onSell).map(r => r.onSell!()));
+  onSellOther = async (soldRelict: Relict) => Promise.all(this.relicts.filter(r => r.onSellOther).map(r => r.onSellOther!(soldRelict)));
+
+  public async sellRelict(index: number): Promise<boolean> {
+    if (index >= 0 && index < this.MAX_RELICTS) {
+      const relictToSell = this.relicts[index];
+      
+      if (relictToSell instanceof Empty) {
+        return false; // Can't sell empty relicts
+      }
+
+      // Trigger onSell on the relict being sold
+      if (relictToSell.onSell) {
+        await relictToSell.onSell();
+      }
+
+      // Trigger onSellOther on all other relicts
+      await this.onSellOther(relictToSell);
+
+      // Replace with empty relict
+      this.relicts[index] = new Empty();
+      GameState.getInstance().addGold(relictToSell.sellValue);
+      
+      return true;
+    }
+    return false;
+  }
 }

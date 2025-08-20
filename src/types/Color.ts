@@ -19,7 +19,7 @@ export const BaseColors = [Color.Red, Color.Yellow, Color.Green, Color.Blue];
 
 export const ColorMap: Record<keyof typeof Color, string>
 = {
-    'Off': '#666666',
+    'Off': '#66666600',
     'Free': '#cccccc',
     'Red': '#ff4444',
     'Orange': '#ff8844',

@@ -1,4 +1,5 @@
 import { Hand } from '../directories/Hand';
+import { StateMachine } from '../machines/StateMachine';
 import { PhaseInterface } from '../types/PhaseInterface';
 
 export class InitTurnPhase implements PhaseInterface {
@@ -7,6 +8,7 @@ export class InitTurnPhase implements PhaseInterface {
     // Initialize turn state, draw cards, etc.
     await new Promise(resolve => setTimeout(resolve, 100)); // Simulate async work
 
-    Hand.getInstance().drawFull();
+    await Hand.getInstance().drawFull();
+    StateMachine.getInstance().setPhase('CheckWinPhase');
   }
 }

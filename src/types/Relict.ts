@@ -19,4 +19,6 @@ export interface Relict {
   onScoreTile?(tile: Tile): Promise<Triggering>;
   onAfterPlaceTile?(tile: Tile): Promise<Triggering>;
   onDiscard?(tiles: Tile[]): Promise<Triggering>;
+  onSell?(): Promise<Triggering>;
+  onSellOther?(soldRelict: Relict): Promise<Triggering>;
 }
