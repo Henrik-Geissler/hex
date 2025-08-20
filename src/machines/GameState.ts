@@ -1,6 +1,7 @@
 export class GameState {
   private static instance: GameState;
   private round: number = 1;
+  private turn: number = 0;
   private discards: number = 0;
   private gold: number = 0;
   private targetScore: number = 100;
@@ -23,6 +24,10 @@ export class GameState {
     return this.round;
   }
 
+  getTurn(): number {
+    return this.turn;
+  }
+
   getDiscards(): number {
     return this.discards;
   }
@@ -42,6 +47,11 @@ export class GameState {
   // Set values
   setRound(round: number): void {
     this.round = round;
+    this.notifyListeners();
+  }
+
+  setTurn(turn: number): void {
+    this.turn = turn;
     this.notifyListeners();
   }
 
@@ -68,6 +78,11 @@ export class GameState {
   // Increment values
   incrementRound(): void {
     this.round++;
+    this.notifyListeners();
+  }
+
+  incrementTurn(): void {
+    this.turn++;
     this.notifyListeners();
   }
 
@@ -112,6 +127,7 @@ export class GameState {
 
   // Reset game state
   reset(): void {
+    this.turn = 0;
     this.notifyListeners();
   }
 }

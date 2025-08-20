@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Relict as RelictType } from '../types/Relict';
 import { Empty } from '../relicts/Empty';
 import { StateMachine } from '../machines/StateMachine';
@@ -21,6 +21,7 @@ const Relict: React.FC<RelictProps> = ({
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [isHighlighted, setIsHighlighted] = useState(false);
   const relictManager = RelictManager.getInstance();
   
   // Check if this is an Empty relict
@@ -30,6 +31,23 @@ const Relict: React.FC<RelictProps> = ({
   const stateMachine = StateMachine.getInstance();
   const currentPhase = stateMachine.getPhase();
   const canDrag = currentPhase === 'ShopPhase' || currentPhase === 'WaitForInputPhase';
+
+  // Listen for highlight events
+  useEffect(() => {
+    const handleHighlight = (highlightedIndex: number) => {
+      if (highlightedIndex === index) {
+        setIsHighlighted(true);
+        // Remove highlight after 1 second
+        setTimeout(() => setIsHighlighted(false), 1000);
+      }
+    };
+
+    relictManager.addHighlightListener(handleHighlight);
+    
+    return () => {
+      relictManager.removeHighlightListener(handleHighlight);
+    };
+  }, [relictManager, index]);
 
   const handleDragStart = (e: React.DragEvent) => {
     let canDrag = currentPhase === 'ShopPhase' || currentPhase === 'WaitForInputPhase';
@@ -55,7 +73,7 @@ const Relict: React.FC<RelictProps> = ({
     await relictManager.sellRelict(index);
   };
 
-  const slotClassName = `relict-slot ${isDragging ? 'dragging' : ''} ${isEmptyRelict ? 'empty' : ''} ${!canDrag && !isEmptyRelict ? 'locked' : ''}`;
+  const slotClassName = `relict-slot ${isDragging ? 'dragging' : ''} ${isEmptyRelict ? 'empty' : ''} ${!canDrag && !isEmptyRelict ? 'locked' : ''} ${isHighlighted ? 'highlighted' : ''}`;
 
   return (
     <div 

@@ -9,7 +9,10 @@ export class GoldMiner implements Relict {
   sellValue: number = 25; // Gold Miner can be sold for 25 gold
 
   // Only implement onRoundStart, others return default
-  async onRoundStart(): Promise<Triggering> {
+  async onRoundStart(highlight: () => Promise<void>): Promise<Triggering> {
+    // Call the highlight callback to make the relict light up
+    await highlight();
+    
     const gameState = GameState.getInstance();
     gameState.addGold(5);
     return { triggers: true };

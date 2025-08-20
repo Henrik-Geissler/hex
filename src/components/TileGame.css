@@ -170,6 +170,27 @@
   opacity: 0.8;
 }
 
+.relict-slot.highlighted {
+  animation: relict-highlight 1s ease-in-out;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  z-index: 1001;
+}
+
+@keyframes relict-highlight {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 1);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+}
+
 .relict-icon {
   font-size: 24px;
   color: white;
@@ -503,8 +524,13 @@
   color: #fff;
 }
 
+.turn-value {
+  background: rgba(0, 191, 255, 0.7); /* Cyan */
+  color: #fff;
+}
+
 .discard-value {
-  background: rgba(128, 0, 128, 0.7);
+  background: rgba(128, 0, 128, 0.7); /* Purple */
   color: #fff;
 }
 

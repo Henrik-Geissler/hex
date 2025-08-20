@@ -12,13 +12,15 @@ export interface Relict {
   sellValue: number; // Value when selling the relict
 
   // Optional methods - all return Triggering<T> and are async
-  onChoose?(): Promise<Triggering>;
-  onRoundStart?(): Promise<Triggering>;
-  onDrawTile?(tile: Tile): Promise<Triggering>;
-  onPlaceTile?(tile: Tile): Promise<Triggering>;
-  onScoreTile?(tile: Tile): Promise<Triggering>;
-  onAfterPlaceTile?(tile: Tile): Promise<Triggering>;
-  onDiscard?(tiles: Tile[]): Promise<Triggering>;
-  onSell?(): Promise<Triggering>;
-  onSellOther?(soldRelict: Relict): Promise<Triggering>;
+  // Each method receives a highlight callback as the first parameter that can be invoked to make the relict light up
+  // The highlight callback returns a Promise that resolves after 500ms
+  onChoose?(highlight: () => Promise<void>): Promise<Triggering>;
+  onRoundStart?(highlight: () => Promise<void>): Promise<Triggering>;
+  onDrawTile?(highlight: () => Promise<void>, tile: Tile): Promise<Triggering>;
+  onPlaceTile?(highlight: () => Promise<void>, tile: Tile): Promise<Triggering>;
+  onScoreTile?(highlight: () => Promise<void>, tile: Tile): Promise<Triggering>;
+  onAfterPlaceTile?(highlight: () => Promise<void>, tile: Tile): Promise<Triggering>;
+  onDiscard?(highlight: () => Promise<void>, tiles: Tile[]): Promise<Triggering>;
+  onSell?(highlight: () => Promise<void>): Promise<Triggering>;
+  onSellOther?(highlight: () => Promise<void>, soldRelict: Relict): Promise<Triggering>;
 }

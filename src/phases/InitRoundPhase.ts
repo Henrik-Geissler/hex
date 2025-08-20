@@ -13,6 +13,7 @@ export class InitRoundPhase implements PhaseInterface {
     // Increment round, set discards to 3, and multiply target score by 1.5
     const gameState = GameState.getInstance();
     gameState.incrementRound();
+    gameState.setTurn(0); // Reset turn counter to 0 at start of new round
     gameState.setDiscards(3);
     gameState.setTargetScore(Math.floor(gameState.getTargetScore() * 1.5));
     gameState.setScore(0); 

@@ -4,7 +4,7 @@ import { useGameState } from '../hooks/useGameState';
 
 const Stats: React.FC = () => {
   const { currentPhase } = usePhase();
-  const { round, discards, gold, targetScore, score } = useGameState();
+  const { round, turn, discards, gold, targetScore, score } = useGameState();
 
   return (
     <div className="stats-component">
@@ -20,6 +20,13 @@ const Stats: React.FC = () => {
             <span className="stat-value round-value">{round}</span>
           </div>
           
+          <div className="stat-item">
+            <h4>Turn:</h4>
+            <span className="stat-value turn-value">{turn}</span>
+          </div>
+        </div>
+
+        <div className="stat-row">
           <div className="stat-item">
             <h4>Discards:</h4>
             <span className="stat-value discard-value">{discards}</span>
