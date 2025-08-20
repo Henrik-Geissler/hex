@@ -109,60 +109,41 @@ export class RelictManager {
     };
   }
 
-  // Lifecycle methods that iterate through all relicts
-  onChoose = async () => Promise.all(
-    this.relicts
-      .filter(relict => relict.onChoose)
-      .map(async (relict, index) => relict.onChoose!(this.createHighlightFunction(index)))
-  );
+  // Generic helper method to execute lifecycle methods sequentially
+  private async executeLifecycleMethod<T>(
+    methodName: keyof Pick<Relict, 'onChoose' | 'onRoundStart' | 'onDrawTile' | 'onPlaceTile' | 'onScoreTile' | 'onAfterPlaceTile' | 'onDiscard' | 'onSell' | 'onSellOther'>,
+    ...args: any[]
+  ): Promise<Triggering[]> {
+    const results: Triggering[] = [];
+    for (let i = 0; i < this.relicts.length; i++) {
+      const relict = this.relicts[i];
+      const method = relict[methodName];
+      if (method && typeof method === 'function') {
+        const result = await (method as any).apply(relict, [this.createHighlightFunction(i), ...args]);
+        results.push(result);
+      }
+    }
+    return results;
+  }
+
+  // Lifecycle methods that iterate through all relicts sequentially
+  onChoose = async () => this.executeLifecycleMethod('onChoose');
   
-  onRoundStart = async () => Promise.all(
-    this.relicts
-      .filter(relict => relict.onRoundStart)
-      .map(async (relict, index) => relict.onRoundStart!(this.createHighlightFunction(index)))
-  );
+  onRoundStart = async () => this.executeLifecycleMethod('onRoundStart');
 
-  onDrawTile = async (tile: Tile) => Promise.all(
-    this.relicts
-      .filter(relict => relict.onDrawTile)
-      .map(async (relict, index) => relict.onDrawTile!(this.createHighlightFunction(index), tile))
-  );
+  onDrawTile = async (tile: Tile) => this.executeLifecycleMethod('onDrawTile', tile);
 
-  onPlaceTile = async (tile: Tile) => Promise.all(
-    this.relicts
-      .filter(relict => relict.onPlaceTile)
-      .map(async (relict, index) => relict.onPlaceTile!(this.createHighlightFunction(index), tile))
-  );
+  onPlaceTile = async (tile: Tile) => this.executeLifecycleMethod('onPlaceTile', tile);
 
-  onScoreTile = async (tile: Tile) => Promise.all(
-    this.relicts
-      .filter(relict => relict.onScoreTile)
-      .map(async (relict, index) => relict.onScoreTile!(this.createHighlightFunction(index), tile))
-  );
+  onScoreTile = async (tile: Tile) => this.executeLifecycleMethod('onScoreTile', tile);
 
-  onAfterPlaceTile = async (tile: Tile) => Promise.all(
-    this.relicts
-      .filter(relict => relict.onAfterPlaceTile)
-      .map(async (relict, index) => relict.onAfterPlaceTile!(this.createHighlightFunction(index), tile))
-  );
+  onAfterPlaceTile = async (tile: Tile) => this.executeLifecycleMethod('onAfterPlaceTile', tile);
 
-  onDiscard = async (tiles: Tile[]) => Promise.all(
-    this.relicts
-      .filter(relict => relict.onDiscard)
-      .map(async (relict, index) => relict.onDiscard!(this.createHighlightFunction(index), tiles))
-  );
+  onDiscard = async (tiles: Tile[]) => this.executeLifecycleMethod('onDiscard', tiles);
 
-  onSell = async (relict: Relict) => Promise.all(
-    this.relicts
-      .filter(r => r.onSell)
-      .map(async (r, index) => r.onSell!(this.createHighlightFunction(index)))
-  );
+  onSell = async (relict: Relict) => this.executeLifecycleMethod('onSell', relict);
 
-  onSellOther = async (soldRelict: Relict) => Promise.all(
-    this.relicts
-      .filter(r => r.onSellOther)
-      .map(async (r, index) => r.onSellOther!(this.createHighlightFunction(index), soldRelict))
-  );
+  onSellOther = async (soldRelict: Relict) => this.executeLifecycleMethod('onSellOther', soldRelict);
 
   public async sellRelict(index: number): Promise<boolean> {
     if (index >= 0 && index < this.MAX_RELICTS) {
