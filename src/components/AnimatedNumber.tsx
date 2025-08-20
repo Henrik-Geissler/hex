@@ -46,6 +46,8 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
           } else {
             setDisplayValue(endValue);
             setIsAnimating(false);
+            // Update prevValueRef only after animation completes
+            prevValueRef.current = value;
           }
         };
         
@@ -59,9 +61,6 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
         }
       };
     }
-    
-    // Update prevValueRef after animation logic
-    prevValueRef.current = value;
   }, [value, duration, delay]);
 
   // Cleanup animation on unmount
