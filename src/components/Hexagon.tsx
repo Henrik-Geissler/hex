@@ -134,10 +134,9 @@ const Hexagon: React.FC<HexagonProps> = ({
 
   // Determine transform scale based on drag state
   const getTransform = () => {
-    const baseTransform = `rotate(${30}deg)`;
-    if (isDragging) return `${baseTransform} scale(1.1)`;
-    if (isDragOver) return `${baseTransform} scale(1.1)`;
-    return baseTransform;
+    if (isDragging) return `scale(1.1)`;
+    if (isDragOver) return `scale(1.1)`;
+    return '';
   };
 
   return (
@@ -162,7 +161,8 @@ const Hexagon: React.FC<HexagonProps> = ({
         style={{ 
           filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))', 
           display: `${tile.color==Color.Off?'none':'block' }`,
-          pointerEvents: 'none'
+          pointerEvents: 'none',
+          transform: 'rotate(30deg)'
         }}
       >
       {/* Background hexagon with highlight */}
@@ -191,6 +191,7 @@ const Hexagon: React.FC<HexagonProps> = ({
         fill="white"
         fontSize={Math.max(26, radius * 0.6)}
         fontWeight="bold"
+        transform={`rotate(-30 ${centerX} ${centerY})`}
         style={{
           textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
           filter: 'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.7))'
