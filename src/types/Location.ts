@@ -4,5 +4,6 @@ export const Location = {
     Hand: 'Hand',
     Board: 'Board',
     DiscardPile: 'DiscardPile',
+    Air: 'Air',
 } as const
 export type Location = keyof typeof Location;

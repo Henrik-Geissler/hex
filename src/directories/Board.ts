@@ -1,6 +1,7 @@
 import { TileFactory } from "../factories/TileFactory";
 import { Tile } from "../types/Tile";
 import { TileDictionary } from "../types/TileDictionary"; 
+import { handleTilePlacement } from "./utils/handleTilePlacement";
 
 export class Board implements TileDictionary {
   private static instance: Board; 
@@ -17,8 +18,8 @@ export class Board implements TileDictionary {
   }
 
   async add(tile: Tile): Promise<void> {
-    while(tile.pos>this.tiles.length)
-      TileFactory.getInstance().createOffTile(this.tiles.length);
+    while(tile.pos>this.tiles.length) 
+    handleTilePlacement(TileFactory.getInstance().createOffTile(), this.tiles.length);
     if(tile.pos==this.tiles.length)
       this.tiles.push(tile);
     else
@@ -27,13 +28,8 @@ export class Board implements TileDictionary {
   }
 
   async remove(tile: Tile): Promise<boolean> {
-    const index = this.tiles.findIndex(t => t.id === tile.id);
-    if (index !== -1) {
-      this.tiles.splice(index, 1);
-      this.notifyListeners();
-      return true;
-    }
-    return false;
+    await handleTilePlacement(TileFactory.getInstance().createFreeTile(), tile)
+    return true;
   }
 
   async clear(): Promise<void> {

@@ -47,9 +47,6 @@ export class TileFactory {
         case Location.DiscardPile:
           this.discardPile.add(tile);
           break;
-          case Location.Board:
-            this.board.add(tile);
-            break;
         default:
           break;
     }
@@ -57,9 +54,9 @@ export class TileFactory {
     return tile;
   }
 
-  createFreeTile = (pos: number): Tile => this.createTile(Location.Board, pos, Color.Free, SpotType.Free);
+  createFreeTile = (): Tile => this.createTile(Location.Air, 0, Color.Free, SpotType.Free);
 
-  createOffTile = (pos: number): Tile => this.createTile(Location.Board, pos, Color.Off, OffType.Free);
+  createOffTile = (): Tile => this.createTile(Location.Air, 0, Color.Off, OffType.Free);
  
   async createStandardDeck(): Promise<void> {
     const scores = [1, 2, 3, 4, 5, 6, 7, 8, 9]; 

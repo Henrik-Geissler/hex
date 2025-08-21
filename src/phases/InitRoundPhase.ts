@@ -5,6 +5,8 @@ import { StateMachine } from '../machines/StateMachine';
 import { GameState } from '../machines/GameState';
 import { PhaseInterface } from '../types/PhaseInterface';
 import { Board } from '../directories/Board';
+import { PlacingQueue } from '../directories/utils/PlacingQueue';
+import { handleTilePlacement } from '../directories/utils/handleTilePlacement';
 
 export class InitRoundPhase implements PhaseInterface {
   async run(): Promise<void> {
@@ -21,17 +23,18 @@ export class InitRoundPhase implements PhaseInterface {
     
     await Board.getInstance().clear();
     for (let i = 0; i < 37+4*6+5*6+6*6+7*6; i++) {
-      await TileFactory.getInstance().createOffTile(i);
+      handleTilePlacement(TileFactory.getInstance().createOffTile(), i);
     }
     for (let i = 0; i < 37; i++) {
       if(Math.random()<.8)
-      await TileFactory.getInstance().createFreeTile(i); 
-    await new Promise(resolve => setTimeout(resolve, 25));
+    PlacingQueue.getInstance().add(TileFactory.getInstance().createFreeTile(), i);
+    
     }
     await DiscardPile.getInstance().getAllTiles().forEach(async tile  =>     {
       await DiscardPile.getInstance().remove(tile);
       await Deck.getInstance().add(tile);
     });
+    await PlacingQueue.getInstance().Play();
     await Deck.getInstance().shuffle();
     StateMachine.getInstance().setPhase('InitTurnPhase');
   }

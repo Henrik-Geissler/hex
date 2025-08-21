@@ -22,6 +22,8 @@ export async function RemoveATileFromCurrentLocation(tile: Tile): Promise<void> 
       const discardPile = DiscardPileDirectory.getInstance();
       await discardPile.remove(tile);
       break;
+    case 'Air':
+      break;
     default:
       throw new Error(`Unknown tile location: ${tile.location}`);
   }
