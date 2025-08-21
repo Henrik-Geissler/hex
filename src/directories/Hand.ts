@@ -1,7 +1,8 @@
+import { RelictManager } from '../managers/RelictManager';
 import { Location } from '../types/Location';
 import { Tile } from '../types/Tile';
 import { TileDictionary } from '../types/TileDictionary';
-import { Deck } from './Deck';
+import { Deck } from './Deck'; 
 
 export class Hand implements TileDictionary {
   private static instance: Hand;
@@ -26,6 +27,7 @@ export class Hand implements TileDictionary {
       const tile = await Deck.getInstance().drawTile();
       if (tile) {
         this.add(tile);
+        await RelictManager.getInstance().onDrawTile(tile);
       }
       else {
         break;
