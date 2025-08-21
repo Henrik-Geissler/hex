@@ -48,44 +48,44 @@ export function indexToCube(n: number): [number, number, number] {
   return [x, y, z];
 }
 
-// Cube → index
 export function cubeToIndex([x, y, z]: [number, number, number]): number {
   if (x === 0 && y === 0 && z === 0) return 0;
 
-  const k = Math.max(Math.abs(x), Math.abs(y), Math.abs(z));
-  const b = 3 * (k - 1) * k;            // last index of previous ring
+  const k = Math.max(Math.abs(x), Math.abs(y), Math.abs(z)); // ring
+  const b = 3 * (k - 1) * k; // last index of previous ring
 
-  // Find which side of the ring this cube is on
-  let side = 0;
-  if (x === k && y === -k) side = 0;      // NW
-  else if (x === -k && y === 0) side = 1; // W
-  else if (x === -k && y === k) side = 2; // SW
-  else if (x === 0 && y === k) side = 3;  // SE
-  else if (x === k && y === 0) side = 4;  // E
-  else if (x === k && y === -k) side = 5; // NE
+  // start at "NW corner" = DIRS[4] * k (same as indexToCube)
+  let cx = DIRS[4][0] * k;
+  let cy = DIRS[4][1] * k;
+  let cz = DIRS[4][2] * k;
 
-  const offset = Math.max(Math.abs(x), Math.abs(y), Math.abs(z)) - k;
-  const s = side * k + offset;
+  for (let side = 0; side < 6; side++) {
+    for (let offset = 0; offset < k; offset++) {
+      if (cx === x && cy === y && cz === z) {
+        return b + side * k + offset + 1;
+      }
+      // step one along this side
+      cx += DIRS[side][0];
+      cy += DIRS[side][1];
+      cz += DIRS[side][2];
+    }
+  }
 
-  return b + s + 1;
+  throw new Error(`cubeToIndex: invalid cube [${x},${y},${z}] at ring ${k}`);
 }
+
 
 // Cube → axial (q,r). We use q=x, r=z.
 function cubeToAxial([x, _y, z]: number[]) {
   return [x, z];
 }
 
-// Axial → pixel for pointy-topped hexes
-function axialToPixelPointy(q: number, r: number, R: number = 50) {
-  const px = SQRT3 * R * (q + r / 2);
-  const py = 1.5 * R * r;
-  return { x: px, y: py };
-}
-
 // Main: n → pixel center
 export function indexToPixel(n: number, R: number = 50) {
   const cube = indexToCube(n);
   const [q, r] = cubeToAxial(cube);
-  return axialToPixelPointy(q, r, R);
+  const px = SQRT3 * R * (q + r / 2);
+  const py = 1.5 * R * r;
+  return { x: px, y: py };
 }
 

@@ -21,28 +21,19 @@ export function getNeighbours(tile: Tile):  [Tile,Tile,Tile,Tile,Tile,Tile] {
   
   return neighbours as [Tile,Tile,Tile,Tile,Tile,Tile];
 }
-
-/**
- * Get all 6 adjacent position numbers for a given position
- * @param position - The position number
- * @returns Array of 6 adjacent position numbers
- */
-function getAdjacentPositions(position: number): number[] {
-    if (position === 0) {
-      // Center tile has 6 adjacent tiles
-      return [1, 2, 3, 4, 5, 6];
+// Return 6 neighboring indices of hex n
+function getAdjacentPositions(n: number): [number,number,number,number,number,number] {
+    const cube = indexToCube(n);
+    const results: [number,number,number,number,number,number] = [-1,-1,-1,-1,-1,-1];
+    let i = 0;
+    for (const [dx, dy, dz] of DIRS) {
+      const neighbor: [number, number, number] = [
+        cube[0] + dx,
+        cube[1] + dy,
+        cube[2] + dz,
+      ];
+      results[i++] = cubeToIndex(neighbor);
     }
   
-    // Convert position to cube coordinates
-    const [x, y, z] = indexToCube(position);
-    
-    // Get adjacent cube coordinates (6 directions)
-    const adjacentCubes: [number, number, number][] = DIRS.map(([dx, dy, dz]) => [
-      x + dx,
-      y + dy,
-      z + dz
-    ]);
-    
-    // Convert back to position numbers
-    return adjacentCubes.map(cube => cubeToIndex(cube));
+    return results;
   }
