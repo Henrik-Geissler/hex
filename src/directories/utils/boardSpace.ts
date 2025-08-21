@@ -1,7 +1,7 @@
 const SQRT3 = Math.sqrt(3);
 
 // Cube direction vectors, clockwise from NE
-const DIRS = [
+export const DIRS = [
   [ 0, -1,  1],  // NW
   [-1,  0,  1], // W
   [-1,  1,  0], // SW
@@ -11,13 +11,13 @@ const DIRS = [
 ];
 
 // Find ring k for index n (max index on ring k is 3k(k+1))
-function ringOf(n: number) {
+export function ringOf(n: number) {
   if (n <= 0) return 0;
   return Math.ceil((-3 + Math.sqrt(9 + 12 * n)) / 6);
 }
 
 // n → cube coordinates (x,y,z) with x+y+z=0
-function indexToCube(n: number) {
+export function indexToCube(n: number): [number, number, number] {
   if (n === 0) return [0, 0, 0];
 
   const k = ringOf(n);                  // ring number
@@ -48,6 +48,28 @@ function indexToCube(n: number) {
   return [x, y, z];
 }
 
+// Cube → index
+export function cubeToIndex([x, y, z]: [number, number, number]): number {
+  if (x === 0 && y === 0 && z === 0) return 0;
+
+  const k = Math.max(Math.abs(x), Math.abs(y), Math.abs(z));
+  const b = 3 * (k - 1) * k;            // last index of previous ring
+
+  // Find which side of the ring this cube is on
+  let side = 0;
+  if (x === k && y === -k) side = 0;      // NW
+  else if (x === -k && y === 0) side = 1; // W
+  else if (x === -k && y === k) side = 2; // SW
+  else if (x === 0 && y === k) side = 3;  // SE
+  else if (x === k && y === 0) side = 4;  // E
+  else if (x === k && y === -k) side = 5; // NE
+
+  const offset = Math.max(Math.abs(x), Math.abs(y), Math.abs(z)) - k;
+  const s = side * k + offset;
+
+  return b + s + 1;
+}
+
 // Cube → axial (q,r). We use q=x, r=z.
 function cubeToAxial([x, _y, z]: number[]) {
   return [x, z];
@@ -66,3 +88,4 @@ export function indexToPixel(n: number, R: number = 50) {
   const [q, r] = cubeToAxial(cube);
   return axialToPixelPointy(q, r, R);
 }
+
