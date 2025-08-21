@@ -4,6 +4,8 @@ import { Color, ColorMap } from '../types/Color';
 import { StateMachine } from '../machines/StateMachine';
 import { Hand as HandDirectory } from '../directories/Hand';
 import { Board as BoardDirectory } from '../directories/Board';
+import { DragEventManager } from '../managers/DragEventManager';
+import { isValidDropTarget } from '../utils/dropZoneValidation';
 
 interface HexagonProps {
   width: number;
@@ -38,9 +40,12 @@ const Hexagon: React.FC<HexagonProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const [canDragDrop, setCanDragDrop] = useState(false);
+  const [isValidDropTargetState, setIsValidDropTargetState] = useState(false);
+  const [isHighlighted, setIsHighlighted] = useState(false);
   const stateMachine = StateMachine.getInstance();
   const hand = HandDirectory.getInstance();
   const board = BoardDirectory.getInstance();
+  const dragEventManager = DragEventManager.getInstance();
 
   // Listen for phase changes to update drag/drop state
   useEffect(() => {
@@ -60,9 +65,32 @@ const Hexagon: React.FC<HexagonProps> = ({
     };
   }, [stateMachine]);
 
+  // Listen for drag events and evaluate drop zone validity
+  useEffect(() => {
+    const handleDragEvent = (draggedTile: Tile | null) => {
+      if (tile.location === 'Board' && draggedTile) {
+        // Check if this tile is a valid drop target
+        const isValid = isValidDropTarget(draggedTile, tile);
+        setIsValidDropTargetState(isValid);
+        setIsHighlighted(isValid);
+      } else {
+        setIsValidDropTargetState(false);
+        setIsHighlighted(false);
+      }
+    };
+
+    // Add listener for drag events
+    dragEventManager.addListener(handleDragEvent);
+
+    // Cleanup: remove listener when component unmounts
+    return () => {
+      dragEventManager.removeListener(handleDragEvent);
+    };
+  }, [dragEventManager, tile]);
+
   // Automatically determine if this hexagon should be draggable or a drop zone
   const isDraggable = canDragDrop && tile.location === 'Hand';
-  const isDropZone = canDragDrop && tile.location === 'Board';
+  const isDropZone = canDragDrop && tile.location === 'Board' && isValidDropTargetState;
 
   // Handle drag start
   const handleDragStart = (e: React.DragEvent) => {
@@ -71,6 +99,7 @@ const Hexagon: React.FC<HexagonProps> = ({
       return;
     }
     setIsDragging(true);
+    dragEventManager.notifyDragStart(tile);
     e.dataTransfer.setData('text/plain', tile.id.toString());
     e.dataTransfer.effectAllowed = 'move';
   };
@@ -78,6 +107,7 @@ const Hexagon: React.FC<HexagonProps> = ({
   // Handle drag end
   const handleDragEnd = () => {
     setIsDragging(false);
+    dragEventManager.notifyDragEnd();
   };
 
   // Handle drag over
@@ -164,23 +194,16 @@ const Hexagon: React.FC<HexagonProps> = ({
           pointerEvents: 'none',
           transform: 'rotate(30deg)'
         }}
-      >
-      {/* Background hexagon with highlight */}
-      <polygon
-        points={points.join(' ')}
-        fill={color}
-        stroke="rgba(255, 255, 255, 0.3)"
-        strokeWidth="2"
-      />
+      > 
+       
+       {/* Background hexagon with highlight */}
+       <polygon
+         points={points.join(' ')}
+         fill={isHighlighted ? (color+"cc") : color}
+         stroke={isHighlighted ? "rgba(0, 255, 0, 0.4)" : "rgba(255, 255, 255, 0.3)"}
+         strokeWidth={isHighlighted ? "2" : "2"}
+       />
       
-      {/* Inner highlight */}
-      <polygon
-        points={points.join(' ')}
-        fill="none"
-        stroke="rgba(255, 255, 255, 0.2)"
-        strokeWidth="1"
-        transform={`translate(2, 2)`}
-      />
       
       {/* Score text - larger and better centered */}
       <text
