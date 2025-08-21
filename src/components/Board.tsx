@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Board as BoardDirectory } from '../directories/Board';
 import { TileFactory } from '../factories/TileFactory';
 import Hexagon from './Hexagon';
+import { indexToPixel } from '../directories/utils/boardSpace';
 
 const Board: React.FC = () => {
   const [boardTiles, setBoardTiles] = useState<{ [position: number]: any }>({});
@@ -28,7 +29,7 @@ const Board: React.FC = () => {
     const tile = boardTiles[position];
     if (!tile) return null;
 
-    const [x, y] = board.positionToCoordinates(position);
+    const {x, y} = indexToPixel(position);
     
     return (
       <div
