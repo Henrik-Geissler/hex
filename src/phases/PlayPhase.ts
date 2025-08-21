@@ -1,10 +1,6 @@
 import { PhaseInterface } from '../types/PhaseInterface';
 import { Tile } from '../types/Tile'; 
-import { Board   } from '../directories/Board';
-import { RemoveATileFromCurrentLocation } from '../utils/RemoveATileFromCurrentLocation';
 import { StateMachine } from '../machines/StateMachine';
-import { getNeighbours } from '../directories/utils/getNeighbours';
-import { TileFactory } from '../factories/TileFactory';
 import { PlacingQueue } from '../directories/utils/PlacingQueue';
 
 interface PlayPhaseParams {
