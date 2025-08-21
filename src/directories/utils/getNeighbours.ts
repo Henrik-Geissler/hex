@@ -25,8 +25,9 @@ export function getNeighbours(tile: Tile):  [Tile,Tile,Tile,Tile,Tile,Tile] {
 function getAdjacentPositions(n: number): [number,number,number,number,number,number] {
     const cube = indexToCube(n);
     const results: [number,number,number,number,number,number] = [-1,-1,-1,-1,-1,-1];
+    const shiftedDirs = [DIRS[4],DIRS[5],DIRS[0],DIRS[1],DIRS[2],DIRS[3]];
     let i = 0;
-    for (const [dx, dy, dz] of DIRS) {
+    for (const [dx, dy, dz] of shiftedDirs) {
       const neighbor: [number, number, number] = [
         cube[0] + dx,
         cube[1] + dy,
