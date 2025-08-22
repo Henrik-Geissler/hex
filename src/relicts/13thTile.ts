@@ -1,0 +1,31 @@
+import { Relict } from '../types/Relict';
+import { Tile } from '../types/Tile';
+import { Board } from '../directories/Board';
+import { handlePlaceOnFreeNeighbors } from '../utils/mutations/handlePlaceOnFreeNeighbors';
+import { getNeighbours } from '../directories/utils/getNeighbours';
+import { PlacingQueue } from '../directories/utils/PlacingQueue';
+
+export class The13thTile implements Relict {
+  name: string = 'The 13th Tile';
+  description: string = 'The 13th Tile, thats placed on the board also place copies on every free neighbor';
+  icon: string = '🎲';
+  sellValue: number = 1;
+
+  async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
+    
+    const boardTiles = Board.getInstance().getAllPlayedTiles();
+    
+    if (boardTiles.length !== 13) return;
+    
+    const freeNeighbors = getNeighbours(tile).filter(n => n.isFree());
+
+    if(freeNeighbors.length === 0) return;
+    
+    await highlight();
+    
+    for (const freeNeighbor of freeNeighbors) {
+      const clonedTile = tile.Clone();
+      PlacingQueue.getInstance().add(clonedTile, freeNeighbor.pos);
+    }
+  }
+}

@@ -14,6 +14,7 @@ import { ColorConsumer } from '../relicts/ColorConsumer';
 import { DiscardRewarder } from '../relicts/DiscardRewarder';
 import { GreenGrowth } from '../relicts/GreenGrowth';
 import { OddDisappearance } from '../relicts/OddDisappearance';
+import { The13thTile } from '../relicts/13thTile';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -48,6 +49,7 @@ export class RelictDeck {
        this.relicts.push(new DiscardRewarder());
        this.relicts.push(new GreenGrowth());
        this.relicts.push(new OddDisappearance());
+       this.relicts.push(new The13thTile());
     
     this.shuffle();
   }
