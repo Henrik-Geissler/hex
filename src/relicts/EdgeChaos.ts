@@ -13,7 +13,7 @@ export class EdgeChaos implements Relict {
     // Check if the placed tile is on the edge of the board
     // A tile is on the edge if any of its neighbors are off tiles
     const neighbors = getNeighbours(tile);
-    if (neighbors.some(n => n && n.isOff())) {
+    if (neighbors.some(n => n.isOff())) {
       await highlight();
       await handleRandomColorChange(tile);
     }

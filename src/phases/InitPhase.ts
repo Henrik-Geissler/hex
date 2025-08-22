@@ -7,13 +7,12 @@ import { GameState } from '../machines/GameState';
 import { PhaseInterface } from '../types/PhaseInterface';
 import { Board } from '../directories/Board';
 import { RelictDeck } from '../directories/RelictDeck';
+import { RelictManager } from '../managers/RelictManager';
 
 export class InitPhase implements PhaseInterface {
-  async run(): Promise<void> {
-    console.log('Running InitPhase');
-    // Initialize game state, load resources, etc.
-    await new Promise(resolve => setTimeout(resolve, 100)); // Simulate async work
-    GameState.getInstance().setRound(0);
+  async run(): Promise<void> { 
+    RelictManager.getInstance().reset();
+     GameState.getInstance().setRound(0);
     GameState.getInstance().setGold(0);
     GameState.getInstance().setTargetScore(20); 
     
@@ -22,10 +21,8 @@ export class InitPhase implements PhaseInterface {
     Deck.getInstance().clear();  
     DiscardPile.getInstance().clear();
     TileFactory.getInstance().createStandardDeck();
-    
-    // Reset the relict deck
+
     RelictDeck.getInstance().reset();
-    
     StateMachine.getInstance().setPhase('InitRoundPhase');
   }
 }
