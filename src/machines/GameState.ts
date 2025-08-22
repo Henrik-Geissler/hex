@@ -1,3 +1,6 @@
+import { Board } from '../directories/Board';
+import { Tile } from '../types/Tile';
+
 export class GameState {
   private static instance: GameState;
   private round: number = 1;
@@ -6,6 +9,7 @@ export class GameState {
   private gold: number = 0;
   private targetScore: number = 100;
   private score: number = 0;
+  private isBoardEmpty: boolean = false;
   private listeners: Array<() => void> = [];
 
   // Private constructor to prevent direct instantiation
@@ -44,6 +48,10 @@ export class GameState {
     return this.score;
   }
 
+  getIsBoardEmpty(): boolean {
+    return this.isBoardEmpty;
+  }
+
   // Set values
   setRound(round: number): void {
     this.round = round;
@@ -72,6 +80,11 @@ export class GameState {
 
   setScore(score: number): void {
     this.score = score;
+    this.notifyListeners();
+  }
+
+  setIsBoardEmpty(isBoardEmpty: boolean): void {
+    this.isBoardEmpty = isBoardEmpty;
     this.notifyListeners();
   }
 
@@ -110,6 +123,19 @@ export class GameState {
     this.notifyListeners();
   }
 
+  // Check if board is empty by examining all tiles
+  checkBoardEmptiness(): void {
+    const board = Board.getInstance();
+    const allTiles = board.getAllTiles();
+    
+    // Board is empty if no tiles exist or all tiles are free or off
+    const hasNonEmptyTiles = allTiles.some((tile: Tile) => 
+      !tile.isFree() && !tile.isOff()
+    );
+    
+    this.setIsBoardEmpty(!hasNonEmptyTiles);
+  }
+
   // Add listener for state changes
   addListener(listener: () => void): void {
     this.listeners.push(listener);
@@ -125,9 +151,5 @@ export class GameState {
     this.listeners.forEach(listener => listener());
   }
 
-  // Reset game state
-  reset(): void {
-    this.turn = 0;
-    this.notifyListeners();
-  }
+
 }

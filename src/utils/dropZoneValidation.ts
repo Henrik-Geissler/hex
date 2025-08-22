@@ -14,12 +14,12 @@ function isTileOnBoard(targetTile: Tile): boolean {
   return targetTile.location === 'Board';
 }
 
-// Step 3: Check if there are valid neighbors or it's Turn 1
-function hasValidNeighborsOrTurn1(neighbors: Tile[]): boolean { 
-  const turn = GameState.getInstance().getTurn();
+// Step 3: Check if there are valid neighbors or board is empty
+function hasValidNeighborsOrBoardEmpty(neighbors: Tile[]): boolean { 
+  const gameState = GameState.getInstance();
   
-  // If it's Turn 1, always allow
-  if (turn === 1) return true;
+  // If the board is empty, always allow
+  if (gameState.getIsBoardEmpty()) return true;
   
   // Otherwise, need at least one neighbor that is neither free nor off
   return neighbors.some(neighbor => 
@@ -48,8 +48,8 @@ export function isValidDropTarget(draggedTile: Tile, targetTile: Tile): boolean 
   
   const neighbors = getNeighbours(targetTile);
 
-  // Step 3: Check if there is at least one neighbor that is neither free nor off OR it is Turn 1
-  if (!hasValidNeighborsOrTurn1(neighbors)) return false;
+  // Step 3: Check if there is at least one neighbor that is neither free nor off OR the board is empty
+  if (!hasValidNeighborsOrBoardEmpty(neighbors)) return false;
   
   // Step 4: Check each neighbor: if it is neither free nor off and neither the same color nor shares a digit with the draggedTile, return false
   if (!allNeighborsAccept(neighbors, draggedTile)) return false;

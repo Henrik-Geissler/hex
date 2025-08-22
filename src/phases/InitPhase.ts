@@ -15,7 +15,6 @@ export class InitPhase implements PhaseInterface {
     GameState.getInstance().setRound(0);
     GameState.getInstance().setGold(0);
     GameState.getInstance().setTargetScore(200); 
-    GameState.getInstance().reset();
     
      Board.getInstance().clear();
     Hand.getInstance().clear();

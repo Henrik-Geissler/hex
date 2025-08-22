@@ -8,6 +8,7 @@ export const useGameState = () => {
   const [gold, setGold] = useState<number>(0);
   const [targetScore, setTargetScore] = useState<number>(100);
   const [score, setScore] = useState<number>(0);
+  const [isBoardEmpty, setIsBoardEmpty] = useState<boolean>(false);
   const gameState = GameState.getInstance();
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export const useGameState = () => {
     setGold(gameState.getGold());
     setTargetScore(gameState.getTargetScore());
     setScore(gameState.getScore());
+    setIsBoardEmpty(gameState.getIsBoardEmpty());
 
     // Create listener for state changes
     const listener = () => {
@@ -27,6 +29,7 @@ export const useGameState = () => {
       setGold(gameState.getGold());
       setTargetScore(gameState.getTargetScore());
       setScore(gameState.getScore());
+      setIsBoardEmpty(gameState.getIsBoardEmpty());
     };
 
     // Add listener to game state
@@ -45,6 +48,7 @@ export const useGameState = () => {
     gold,
     targetScore,
     score,
+    isBoardEmpty,
     gameState
   };
 };
