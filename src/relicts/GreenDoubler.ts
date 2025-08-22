@@ -12,7 +12,7 @@ export class GreenDoubler implements Relict {
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
     // Check if the tile is green
-    if (tile.color !== Color.Green) return;
+    if (!tile.matchesColor(Color.Green)) return;
     
     await highlight();
     
