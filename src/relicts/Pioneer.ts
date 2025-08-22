@@ -11,7 +11,6 @@ export class Pioneer implements Relict {
 
   // Implement onPlaceTile to check if this is the first tile on an empty board
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
-    if(tile.isFree() || tile.isOff()) return;
     const gameState = GameState.getInstance();
     if (!gameState.getIsBoardEmpty()) return;
       await highlight();

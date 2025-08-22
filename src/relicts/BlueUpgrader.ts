@@ -12,7 +12,6 @@ export class BlueUpgrader implements Relict {
   sellValue: number = 2;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> { 
-    if(tile.isFree() || tile.isOff()) return;
     const blueNeighborCount = getNeighbours(tile).filter(t => t.matchesColor(Color.Blue)).length;
     if(blueNeighborCount === 0) return; 
     await highlight();  

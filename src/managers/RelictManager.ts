@@ -118,7 +118,7 @@ export class RelictManager {
 
   // Generic helper method to execute lifecycle methods sequentially
   private async executeLifecycleMethod<T>(
-    methodName: keyof Pick<Relict, 'onChoose' | 'onRoundStart' | 'onDrawTile' | 'onPlaceTile' | 'onScoreTile' | 'onDiscard' | 'onSell' | 'onSellOther'>,
+    methodName: keyof Pick<Relict, 'onChoose' | 'onRoundStart' | 'onDrawTile' | 'onPlaceTile' | 'onPlaceFreeOrOffTile' | 'onScoreTile' | 'onDiscard' | 'onSell' | 'onSellOther'>,
     ...args: any[]
   ): Promise<void> {
     for (let i = 0; i < this.relicts.length; i++) {
@@ -137,7 +137,13 @@ export class RelictManager {
 
   onDrawTile = async (tile: Tile) => this.executeLifecycleMethod('onDrawTile', tile);
 
-  onPlaceTile = async (tile: Tile) => this.executeLifecycleMethod('onPlaceTile', tile);
+  onPlaceTile = async (tile: Tile) => {
+    if (tile.isFree() || tile.isOff()) {
+      await this.executeLifecycleMethod('onPlaceFreeOrOffTile', tile);
+    } else {
+      await this.executeLifecycleMethod('onPlaceTile', tile);
+    }
+  };
 
   onScoreTile = async (tile: Tile) => this.executeLifecycleMethod('onScoreTile', tile);
  
