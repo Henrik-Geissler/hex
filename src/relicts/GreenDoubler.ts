@@ -8,7 +8,7 @@ export class GreenDoubler implements Relict {
   name: string = 'Green Doubler';
   description: string = 'When you place a green Tile, Double it and change its color';
   icon: string = '🌿'; // Leaf emoji
-  sellValue: number = 2;
+  sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
     // Check if the tile is green

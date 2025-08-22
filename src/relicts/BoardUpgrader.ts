@@ -6,7 +6,7 @@ export class BoardUpgrader implements Relict {
   name: string = 'Board Upgrader';
   description: string = 'On Round End Upgrade all Tiles on the Board';
   icon: string = '⬆️';
-  sellValue: number = 5;
+  sellValue: number = 1;
 
   async onRoundEnd(highlight: () => Promise<void>): Promise<void> {
     const boardTiles = Board.getInstance().getAllPlayedTiles();

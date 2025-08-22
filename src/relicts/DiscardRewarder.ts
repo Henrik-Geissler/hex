@@ -5,7 +5,7 @@ export class DiscardRewarder implements Relict {
   name: string = 'Discard Rewarder';
   description: string = 'Round End: Get 1 Gold for each remaining Discard';
   icon: string = '💰';
-  sellValue: number = 3;
+  sellValue: number = 1;
 
   async onRoundEnd(highlight: () => Promise<void>): Promise<void> {
     const gameState = GameState.getInstance();

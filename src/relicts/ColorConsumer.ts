@@ -8,7 +8,7 @@ export class ColorConsumer implements Relict {
   name: string = 'Color Consumer';
   description: string = 'The first Tile of each Color consumes the lowest Tile in your hand';
   icon: string = '🍽️';
-  sellValue: number = 2;
+  sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
     

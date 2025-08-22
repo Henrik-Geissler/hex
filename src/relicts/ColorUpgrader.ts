@@ -6,7 +6,7 @@ export class ColorUpgrader implements Relict {
   name: string = 'Color Upgrader';
   description: string = 'When a Relict changes its color, upgrade it';
   icon: string = '🎨'; // Paint palette emoji
-  sellValue: number = 2;
+  sellValue: number = 1;
 
   async onColorChange(highlight: () => Promise<void>, tileAfterColorChange: Tile): Promise<void> {
     await highlight();

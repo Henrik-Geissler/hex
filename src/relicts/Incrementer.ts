@@ -8,7 +8,7 @@ export class Incrementer implements Relict {
   name: string = 'Incrementer';
   description: string = 'Whenever a tile is placed, increment all board and hand tiles';
   icon: string = '📈';
-  sellValue: number = 3;
+  sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
     await highlight();

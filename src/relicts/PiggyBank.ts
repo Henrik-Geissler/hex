@@ -5,7 +5,7 @@ export class PiggyBank implements Relict {
   name: string = 'Piggy Bank';
   description: string = 'Round Start: Sell value increases by 1';
   icon: string = '🐷'; // Pig emoji
-  sellValue: number = 2; // Starting sell value
+  sellValue: number = 1; // Starting sell value
 
   // Only implement onRoundStart, others return default
   async onRoundStart(highlight: () => Promise<void>): Promise<void> {

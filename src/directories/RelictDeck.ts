@@ -12,6 +12,7 @@ import { BoardUpgrader } from '../relicts/BoardUpgrader';
 import { EdgeChaos } from '../relicts/EdgeChaos';
 import { ColorConsumer } from '../relicts/ColorConsumer';
 import { DiscardRewarder } from '../relicts/DiscardRewarder';
+import { GreenGrowth } from '../relicts/GreenGrowth';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -44,6 +45,7 @@ export class RelictDeck {
       //this.relicts.push(new EdgeChaos());
       this.relicts.push(new ColorConsumer());
       this.relicts.push(new DiscardRewarder());
+      this.relicts.push(new GreenGrowth());
     
     this.shuffle();
   }
