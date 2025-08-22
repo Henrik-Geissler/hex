@@ -9,6 +9,22 @@ const Shop: React.FC = () => {
 
   return (
     <div className="shop-component">
+      <div className="shop-top-area">
+        {/* Top area content */}
+      </div>
+      
+      <div className="shop-middle-area">
+        <div className="shop-middle-content">
+          {/* Middle area content */}
+        </div>
+        <button className="leave-shop-button" onClick={handleEndShopping}>
+          Leave Shop
+        </button>
+      </div>
+      
+      <div className="shop-bottom-area">
+        {/* Bottom area content */}
+      </div>
     </div>
   );
 };
