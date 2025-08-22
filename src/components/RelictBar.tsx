@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { RelictManager } from '../managers/RelictManager';
-import { GoldMiner } from '../relicts/GoldMiner';
-import { PiggyBank } from '../relicts/PiggyBank';
 import Relict from './Relict';
 
 const RelictBar: React.FC = () => {
@@ -15,15 +13,6 @@ const RelictBar: React.FC = () => {
       setRelicts(relictManager.getRelicts());
     };
 
-    updateRelicts();
-    
-    // Add GoldMiner to the first slot
-    relictManager.setRelict(0, new GoldMiner());
-    
-    // Add PiggyBank to the second slot
-    relictManager.setRelict(1, new PiggyBank());
-    
-    // Update the display after setting the relicts
     updateRelicts();
     
     // Add listener for relict changes

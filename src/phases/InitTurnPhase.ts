@@ -5,8 +5,7 @@ import { RelictManager } from '../managers/RelictManager';
 import { GameState } from '../machines/GameState';
 
 export class InitTurnPhase implements PhaseInterface {
-  async run(): Promise<void> {
-    console.log('Running InitTurnPhase');
+  async run(): Promise<void> { 
     // Initialize turn state, draw cards, etc.
     await new Promise(resolve => setTimeout(resolve, 100)); // Simulate async work
 
@@ -21,6 +20,6 @@ export class InitTurnPhase implements PhaseInterface {
       await RelictManager.getInstance().onRoundStart();
     }
     
-    StateMachine.getInstance().setPhase('CheckWinPhase');
+    StateMachine.getInstance().setPhase('CheckLoosePhase');
   }
 }

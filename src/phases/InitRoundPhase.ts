@@ -36,6 +36,6 @@ export class InitRoundPhase implements PhaseInterface {
     });
     await PlacingQueue.getInstance().Play();
     await Deck.getInstance().shuffle();
-    StateMachine.getInstance().setPhase('InitTurnPhase');
+    StateMachine.getInstance().setPhase('CheckWinPhase');
   }
 }

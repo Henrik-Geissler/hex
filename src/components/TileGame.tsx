@@ -4,9 +4,22 @@ import RelictBar from './RelictBar';
 import Deck from './Deck';
 import Board from './Board';
 import Hand from './Hand';
+import Shop from './Shop';
+import { usePhase } from '../hooks/usePhase';
 import './TileGame.css';
 
 const TileGame: React.FC = () => {
+  const { currentPhase } = usePhase();
+  
+  // Determine which component to show in the main area
+  const renderMainArea = () => {
+    if (currentPhase === 'ShopPhase') {
+      return <Shop />;
+    } else {
+      return <Board />;
+    }
+  };
+
   return (
     <div className="tile-game-layout">
       <div className="left-panel">
@@ -15,7 +28,7 @@ const TileGame: React.FC = () => {
         <Deck />
       </div>
       <div className="right-panel">
-        <Board />
+        {renderMainArea()}
         <Hand />
       </div>
     </div>
