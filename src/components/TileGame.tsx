@@ -5,6 +5,7 @@ import Deck from './Deck';
 import Board from './Board';
 import Hand from './Hand';
 import Shop from './Shop';
+import FloatingText from './FloatingText';
 import { usePhase } from '../hooks/usePhase';
 import './TileGame.css';
 
@@ -31,6 +32,7 @@ const TileGame: React.FC = () => {
         {renderMainArea()}
         <Hand />
       </div>
+      <FloatingText />
     </div>
   );
 };
