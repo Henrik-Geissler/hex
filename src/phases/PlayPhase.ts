@@ -14,7 +14,7 @@ export class PlayPhase implements PhaseInterface {
     
     if (!params?.draggedTile || !params?.droppedOnTile) return;
     PlacingQueue.getInstance().add(params.draggedTile, params.droppedOnTile.pos);
-    PlacingQueue.getInstance().Play();
+    await PlacingQueue.getInstance().Play();
     StateMachine.getInstance().setPhase('CheckWinPhase');
     
   }
