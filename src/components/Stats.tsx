@@ -2,6 +2,7 @@ import React from 'react';
 import { usePhase } from '../hooks/usePhase';
 import { useGameState } from '../hooks/useGameState';
 import AnimatedNumber from './AnimatedNumber';
+import { GameState } from '../machines/GameState';
 
 const Stats: React.FC = () => {
   const { currentPhase } = usePhase();
@@ -45,7 +46,20 @@ const Stats: React.FC = () => {
             />
           </div>
           
-          <div className="stat-item">
+          <div 
+            className="stat-item"
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              const gameState = GameState.getInstance();
+              gameState.addGold(10);
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#ffd700';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '';
+            }}
+          >
             <h4>Gold:</h4>
             <AnimatedNumber 
               value={gold} 
@@ -64,7 +78,20 @@ const Stats: React.FC = () => {
           />
         </div>
         
-        <div className="stat-item">
+        <div 
+          className="stat-item"
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            const gameState = GameState.getInstance();
+            gameState.addScore(10);
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = '#ffd700';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = '';
+          }}
+        >
           <h4>Score:</h4>
           <AnimatedNumber 
             value={score} 

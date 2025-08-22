@@ -2,6 +2,7 @@ import { PhaseInterface } from '../types/PhaseInterface';
 import { Tile } from '../types/Tile'; 
 import { StateMachine } from '../machines/StateMachine';
 import { PlacingQueue } from '../directories/utils/PlacingQueue';
+import { Phase } from '../types/Phase';
 
 interface PlayPhaseParams {
   draggedTile?: Tile;
@@ -16,7 +17,7 @@ export class PlayPhase implements PhaseInterface {
     PlacingQueue.getInstance().add(params.draggedTile, params.droppedOnTile.pos);
     await PlacingQueue.getInstance().Play();
     await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate async work
-    StateMachine.getInstance().setPhase('CheckWinPhase');
+    StateMachine.getInstance().setPhase('CheckWinPhase', { nextPhaseOnNoWin: Phase.InitTurnPhase });
     
   }
 }

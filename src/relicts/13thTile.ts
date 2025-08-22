@@ -1,7 +1,6 @@
 import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
-import { Board } from '../directories/Board';
-import { handlePlaceOnFreeNeighbors } from '../utils/mutations/handlePlaceOnFreeNeighbors';
+import { Board } from '../directories/Board'; 
 import { getNeighbours } from '../directories/utils/getNeighbours';
 import { PlacingQueue } from '../directories/utils/PlacingQueue';
 

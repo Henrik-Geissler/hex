@@ -50,7 +50,7 @@ export class StateMachine {
         phaseClass = new InitTurnPhase();
         break;
       case 'CheckWinPhase':
-        phaseClass = new CheckWinPhase();
+        phaseClass = new CheckWinPhase(params?.nextPhaseOnNoWin);
         break;
       case 'CheckLoosePhase':
         phaseClass = new CheckLoosePhase();

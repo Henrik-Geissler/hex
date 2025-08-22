@@ -3,6 +3,7 @@ import { StateMachine } from '../machines/StateMachine';
 import { PhaseInterface } from '../types/PhaseInterface';
 import { RelictManager } from '../managers/RelictManager';
 import { GameState } from '../machines/GameState';
+import { Phase } from '../types/Phase';
 
 export class InitTurnPhase implements PhaseInterface {
   async run(): Promise<void> { 
@@ -20,6 +21,6 @@ export class InitTurnPhase implements PhaseInterface {
       await RelictManager.getInstance().onRoundStart();
     }
     
-    StateMachine.getInstance().setPhase('CheckLoosePhase');
+    StateMachine.getInstance().setPhase('CheckWinPhase', { nextPhaseOnNoWin: Phase.CheckLoosePhase });
   }
 }

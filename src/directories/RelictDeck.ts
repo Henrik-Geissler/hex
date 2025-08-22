@@ -15,6 +15,7 @@ import { DiscardRewarder } from '../relicts/DiscardRewarder';
 import { GreenGrowth } from '../relicts/GreenGrowth';
 import { OddDisappearance } from '../relicts/OddDisappearance';
 import { The13thTile } from '../relicts/13thTile';
+import { SingleNeighborClone } from '../relicts/SingleNeighborClone';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -38,18 +39,19 @@ export class RelictDeck {
     //  this.relicts.push(new PiggyBank());
      // this.relicts.push(new Pioneer());
       // this.relicts.push(new GreenDoubler());
-      this.relicts.push(new BlueUpgrader());
+     // this.relicts.push(new BlueUpgrader());
       this.relicts.push(new BlueMirror());
       // this.relicts.push(new ColorUpgrader());
-      this.relicts.push(new Incrementer());
+    //  this.relicts.push(new Incrementer());
       this.relicts.push(new NeighborMirror());
-      this.relicts.push(new BoardUpgrader());
+    //  this.relicts.push(new BoardUpgrader());
       //this.relicts.push(new EdgeChaos());
              this.relicts.push(new ColorConsumer());
-       this.relicts.push(new DiscardRewarder());
+   //    this.relicts.push(new DiscardRewarder());
        this.relicts.push(new GreenGrowth());
        this.relicts.push(new OddDisappearance());
        this.relicts.push(new The13thTile());
+       this.relicts.push(new SingleNeighborClone());
     
     this.shuffle();
   }
