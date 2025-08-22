@@ -260,6 +260,24 @@ export class RelictManager {
     return true;
   }
 
+  public returnUnsoldRelictsToDeck(): void {
+    if (this.shopRelicts.length > 0) {
+      const relictDeck = RelictDeck.getInstance();
+      const relictsToReturn = [...this.shopRelicts];
+      
+      // Add all unsold shop relicts back to the deck
+      relictDeck.addBack(relictsToReturn);
+      
+      // Clear the shop relicts
+      this.shopRelicts = [];
+      
+      // Notify shop listeners
+      this.notifyShopListeners();
+      
+      console.log(`Returned ${relictsToReturn.length} unsold relicts to the deck`);
+    }
+  }
+
   // Add shop listener
   addShopListener(listener: () => void): void {
     this.shopListeners.push(listener);

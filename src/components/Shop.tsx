@@ -30,6 +30,10 @@ const Shop: React.FC = () => {
   }, [relictManager]);
 
   const handleEndShopping = () => {
+    // Return unsold relicts to the deck before leaving
+    relictManager.returnUnsoldRelictsToDeck();
+    
+    // Transition to the next phase
     StateMachine.getInstance().setPhase('InitRoundPhase');
   };
 

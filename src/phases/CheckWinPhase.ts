@@ -37,7 +37,12 @@ export class CheckWinPhase implements PhaseInterface {
     // Add each winning tile to the deck
     for (const tile of winningTiles) {
       await boardTileIntoDeck(tile);
-    } 
+    }
+    
+    // Give the player 5 gold for winning
+    const gameState = GameState.getInstance();
+    gameState.addGold(5);
+    
   }
 
   private async returnHandCardsToDeck(): Promise<void> {
