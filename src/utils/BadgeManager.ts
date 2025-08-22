@@ -1,6 +1,6 @@
 import { Tile } from '../types/Tile';
 
-export type BadgeType = 'increment' | 'double' | 'upgrade' | 'color' | 'mirror' | 'consume';
+export type BadgeType = 'increment' | 'double' | 'upgrade' | 'color' | 'mirror' | 'consume' | 'disappear';
 
 interface BadgeRequest {
   tileId: number;

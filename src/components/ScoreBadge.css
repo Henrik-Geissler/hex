@@ -46,6 +46,10 @@
   color: #E91E63;
 }
 
+.score-badge-disappear {
+  color: #9C27B0;
+}
+
 /* Visible state */
 .score-badge.visible {
   opacity: 1;
