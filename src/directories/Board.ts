@@ -47,6 +47,9 @@ export class Board implements TileDictionary {
   getTileCount(): number {
     return this.tiles.length;
   }
+  getTileAtPos(pos: number): Tile {
+    return this.tiles[pos];
+  }
 
   addListener(listener: () => void): void {
     this.listeners.push(listener);

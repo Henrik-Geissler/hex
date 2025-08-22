@@ -10,12 +10,11 @@ import { handleScore } from '../../utils/handleScore';
  */
 export async function handleTilePlacement(tile: Tile, tileOrPosition: Tile | number): Promise<void> {
     // Get the tile that was at this position before (if any)
-    const board = Board.getInstance();
-    const boardTiles = board.getAllTiles();
+    const board = Board.getInstance(); 
     const position = typeof tileOrPosition === "number" ? tileOrPosition : tileOrPosition.pos;
     
     // Find the tile that was at this position before
-    const beforeTile = boardTiles.find(existingTile => existingTile.pos === position)!;
+    const beforeTile = board.getTileAtPos(position);
     
     await RemoveATileFromCurrentLocation(tile);
     tile.pos = position;

@@ -7,6 +7,7 @@ import { BlueUpgrader } from '../relicts/BlueUpgrader';
 import { BlueMirror } from '../relicts/BlueMirror';
 import { ColorUpgrader } from '../relicts/ColorUpgrader';
 import { Incrementer } from '../relicts/Incrementer';
+import { NeighborMirror } from '../relicts/NeighborMirror';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -34,6 +35,7 @@ export class RelictDeck {
       this.relicts.push(new BlueMirror());
       // this.relicts.push(new ColorUpgrader());
       this.relicts.push(new Incrementer());
+      this.relicts.push(new NeighborMirror());
     
     this.shuffle();
   }

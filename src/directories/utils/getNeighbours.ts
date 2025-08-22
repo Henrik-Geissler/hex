@@ -2,21 +2,23 @@ import { Tile } from '../../types/Tile';
 import { Board } from '../Board'; 
 import { cubeToIndex, DIRS, indexToCube } from './boardSpace';
 
+export function getPlayedNeighbours(tile: Tile): Tile[] { 
+  return getNeighbours(tile).filter(t => !t.isFree() && !t.isOff());
+}
 /**
  * Get all 6 neighboring tiles for a given tile
  * @param tile - The tile to find neighbors for
  * @returns Array of 6 neighboring tiles (may include undefined if position is empty)
  */
 export function getNeighbours(tile: Tile):  [Tile,Tile,Tile,Tile,Tile,Tile] {
-  const board = Board.getInstance();
-  const allTiles = board.getAllTiles();
+  const board = Board.getInstance(); 
   
   // Get the 6 adjacent position numbers for this tile
   const adjacentPositions = getAdjacentPositions(tile.pos);
   
   // Find tiles at those positions
   const neighbours = adjacentPositions.map((pos: number) => {
-    return allTiles.find(t => t.pos === pos);
+    return board.getTileAtPos(pos);
   });
   
   return neighbours as [Tile,Tile,Tile,Tile,Tile,Tile];
