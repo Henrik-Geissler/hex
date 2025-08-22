@@ -1,0 +1,17 @@
+ 
+import { Tile } from '../types/Tile';
+import { Deck } from '../directories/Deck';
+import { Hand } from '../directories/Hand';
+
+/**
+ * Handle discarding a single tile from hand to discard pile
+ * @param tile - The tile to discard
+ */
+export async function handTileIntoDeck(tile: Tile): Promise<void> {  
+  const deck = Deck.getInstance();
+  const hand = Hand.getInstance();
+  await hand.remove(tile);
+  tile.location = 'Deck';
+  await deck.add(tile);
+  await new Promise(resolve => setTimeout(resolve, 100)); 
+}

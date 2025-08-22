@@ -6,6 +6,9 @@ export class ShopPhase implements PhaseInterface {
   async run(): Promise<void> {
     console.log('Running ShopPhase');
     
+    // Reset reroll cost to 1 when entering shop
+    RelictManager.getInstance().resetRerollCost();
+    
     // Draw 3 relicts from the deck for the shop
     const relictDeck = RelictDeck.getInstance();
     const shopRelicts = relictDeck.draw(3);

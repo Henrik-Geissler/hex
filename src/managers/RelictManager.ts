@@ -192,6 +192,10 @@ export class RelictManager {
     return this.rerollCost;
   }
 
+  public resetRerollCost(): void {
+    this.rerollCost = 1;
+  }
+
   public rerollShop(): boolean {
     const gameState = GameState.getInstance();
     
