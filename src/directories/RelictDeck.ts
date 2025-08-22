@@ -8,6 +8,10 @@ import { BlueMirror } from '../relicts/BlueMirror';
 import { ColorUpgrader } from '../relicts/ColorUpgrader';
 import { Incrementer } from '../relicts/Incrementer';
 import { NeighborMirror } from '../relicts/NeighborMirror';
+import { BoardUpgrader } from '../relicts/BoardUpgrader';
+import { EdgeChaos } from '../relicts/EdgeChaos';
+import { ColorConsumer } from '../relicts/ColorConsumer';
+import { DiscardRewarder } from '../relicts/DiscardRewarder';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -36,6 +40,10 @@ export class RelictDeck {
       // this.relicts.push(new ColorUpgrader());
       this.relicts.push(new Incrementer());
       this.relicts.push(new NeighborMirror());
+      this.relicts.push(new BoardUpgrader());
+      //this.relicts.push(new EdgeChaos());
+      this.relicts.push(new ColorConsumer());
+      this.relicts.push(new DiscardRewarder());
     
     this.shuffle();
   }

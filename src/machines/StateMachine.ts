@@ -10,6 +10,7 @@ import { PlayPhase } from '../phases/PlayPhase';
 import { ShopPhase } from '../phases/ShopPhase';
 import { DiscardPhase } from '../phases/DiscardPhase';
 import { LoosePhase } from '../phases/LoosePhase';
+import { RoundEndPhase } from '../phases/RoundEndPhase';
 
 export class StateMachine {
   private static instance: StateMachine;
@@ -68,6 +69,9 @@ export class StateMachine {
         break;
       case 'LoosePhase':
         phaseClass = new LoosePhase();
+        break;
+      case 'RoundEndPhase':
+        phaseClass = new RoundEndPhase();
         break;
       default:
         throw new Error(`Unknown phase: ${phase}`);

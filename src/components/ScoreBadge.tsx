@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ScoreBadge.css';
 
-export type BadgeType = 'increment' | 'double' | 'upgrade' | 'color' | 'mirror';
+export type BadgeType = 'increment' | 'double' | 'upgrade' | 'color' | 'mirror' | 'consume';
 
 interface ScoreBadgeProps {
   type: BadgeType;
@@ -36,15 +36,17 @@ const ScoreBadge: React.FC<ScoreBadgeProps> = ({
   const getBadgeContent = () => {
     switch (type) {
       case 'increment':
-        return '+1';
+        return '➕';
       case 'double':
-        return '×2';
+        return '⚡';
       case 'upgrade':
         return '⬆️';
       case 'color':
         return '🎨';
       case 'mirror':
         return '🪞';
+      case 'consume':
+        return '🍽️';
       default:
         return '';
     }

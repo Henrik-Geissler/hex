@@ -13,6 +13,7 @@ export interface Relict {
   // The highlight callback returns a Promise that resolves after 500ms
   onChoose?(highlight: () => Promise<void>,relict: Relict): Promise<void>;
   onRoundStart?(highlight: () => Promise<void>): Promise<void>;
+  onRoundEnd?(highlight: () => Promise<void>): Promise<void>;
   onDrawTile?(highlight: () => Promise<void>, tile: Tile): Promise<void>;
   onPlaceTile?(highlight: () => Promise<void>, tile: Tile): Promise<void>;
   onPlaceFreeOrOffTile?(highlight: () => Promise<void>, tile: Tile): Promise<void>;

@@ -10,5 +10,6 @@ export const Phase = {
     ShopPhase: 'ShopPhase',
     DiscardPhase: 'DiscardPhase',
     LoosePhase: 'LoosePhase',
+    RoundEndPhase: 'RoundEndPhase',
 } as const;
 export type Phase = keyof typeof Phase;

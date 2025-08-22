@@ -41,6 +41,11 @@
   color: #00BCD4;
 }
 
+/* Consume badge styles */
+.score-badge-consume {
+  color: #E91E63;
+}
+
 /* Visible state */
 .score-badge.visible {
   opacity: 1;

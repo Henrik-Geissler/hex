@@ -4,7 +4,7 @@ import { GameState } from '../machines/GameState';
 import { handleDouble } from '../utils/mutations/handleDouble';
 
 export class Pioneer implements Relict {
-  name: string = 'Pioneer';
+  name: string = 'Pioneer'; // TODO: change to 'First Strike'
   description: string = 'The first Tile on A Board Doubles';
   icon: string = '🚀'; // Rocket emoji
   sellValue: number = 2;
