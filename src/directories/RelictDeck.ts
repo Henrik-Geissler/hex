@@ -3,6 +3,7 @@ import { GoldMiner } from '../relicts/GoldMiner';
 import { PiggyBank } from '../relicts/PiggyBank';
 import { Empty } from '../relicts/Empty';
 import { Pioneer } from '../relicts/Pioneer';
+import { GreenDoubler } from '../relicts/GreenDoubler';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -25,6 +26,7 @@ export class RelictDeck {
       this.relicts.push(new GoldMiner());
       this.relicts.push(new PiggyBank());
       this.relicts.push(new Pioneer());
+      this.relicts.push(new GreenDoubler());
     
     this.shuffle();
   }
