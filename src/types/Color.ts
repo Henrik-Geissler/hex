@@ -32,3 +32,24 @@ export const ColorMap: Record<keyof typeof Color, string>
     'Brown': "#884444",
     'White': "#ffffff"
 };
+
+/**
+ * Returns a random color different from the input color
+ * @param currentColor - The current color to avoid
+ * @returns A random color that is different from the current color
+ */
+export function randomNextColorFunction(currentColor: Color): Color {
+    const availableColors = Object.values(Color).filter(color => 
+        color !== currentColor && 
+        color !== Color.Off && 
+        color !== Color.Free && 
+        color !== Color.White
+    );
+    
+    if (availableColors.length === 0) {
+        return currentColor; // Fallback to current color if no alternatives
+    }
+    
+    const randomIndex = Math.floor(Math.random() * availableColors.length);
+    return availableColors[randomIndex];
+}

@@ -1,8 +1,8 @@
-import { Tile } from '../types/Tile';
-import { handleScore } from './handleScore';
-import { Board } from '../directories/Board';
-import { Hand } from '../directories/Hand';
-import { BadgeManager } from './BadgeManager';
+import { Tile } from '../../types/Tile';
+import { handleScore } from '../handleScore';
+import { Board } from '../../directories/Board';
+import { Hand } from '../../directories/Hand';
+import { BadgeManager, BadgeType } from '../BadgeManager';
 
 // Type for functions that mutate a tile and return a Promise<Tile>
 export type TileMutationFunction = (tile: Tile) => Promise<Tile>;
@@ -17,7 +17,7 @@ export type TileMutationFunction = (tile: Tile) => Promise<Tile>;
 export async function mutateTile(
   tile: Tile, 
   mutationFn: TileMutationFunction, 
-  animationType?: 'increment' | 'double' | 'upgrade'
+  animationType?: BadgeType
 ): Promise<void> {
   // Create a copy of the tile
   const tileCopy = { ...tile };
@@ -39,7 +39,6 @@ export async function mutateTile(
     const hand = Hand.getInstance();
     hand.triggerUpdate();
   }
-  
-  // Call handleScore with the copy and mutated tile
-  await handleScore(tileCopy, mutatedTile);
+   
+    await handleScore(tileCopy, mutatedTile); 
 }

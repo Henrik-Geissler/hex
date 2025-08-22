@@ -1,7 +1,7 @@
 import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { GameState } from '../machines/GameState';
-import { handleDouble } from '../utils/handleDouble';
+import { handleDouble } from '../utils/mutations/handleDouble';
 
 export class Pioneer implements Relict {
   name: string = 'Pioneer';

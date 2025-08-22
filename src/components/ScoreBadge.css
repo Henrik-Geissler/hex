@@ -31,6 +31,11 @@
   color: #9C27B0;
 }
 
+/* Color badge styles */
+.score-badge-color {
+  color: #FF5722;
+}
+
 /* Visible state */
 .score-badge.visible {
   opacity: 1;

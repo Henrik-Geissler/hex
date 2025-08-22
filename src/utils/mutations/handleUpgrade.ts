@@ -1,4 +1,4 @@
-import { Tile } from '../types/Tile';
+import { Tile } from '../../types/Tile';
 import { mutateTile } from './mutateTile';
 
 export async function handleUpgrade(tile: Tile): Promise<void> {
