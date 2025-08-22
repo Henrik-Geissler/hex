@@ -7,7 +7,7 @@ export class GameState {
   private turn: number = 0;
   private discards: number = 0;
   private gold: number = 0;
-  private targetScore: number = 100;
+  private targetScore: number = 0;
   private score: number = 0;
   private isBoardEmpty: boolean = false;
   private listeners: Array<() => void> = [];

@@ -1,0 +1,80 @@
+import { Relict } from '../types/Relict';
+import { GoldMiner } from '../relicts/GoldMiner';
+import { PiggyBank } from '../relicts/PiggyBank';
+import { Empty } from '../relicts/Empty';
+
+export class RelictDeck {
+  private static instance: RelictDeck;
+  private relicts: Relict[] = [];
+
+  private constructor() {}
+
+  public static getInstance(): RelictDeck {
+    if (!RelictDeck.instance) {
+      RelictDeck.instance = new RelictDeck();
+    }
+    return RelictDeck.instance;
+  }
+
+  /**
+   * Initialize the relict deck with all available relicts
+   */
+  public reset(): void {
+    this.relicts = [];
+      this.relicts.push(new GoldMiner());
+      this.relicts.push(new PiggyBank());
+    
+    this.shuffle();
+  }
+
+  /**
+   * Shuffle the relict deck
+   */
+  public shuffle(): void {
+    for (let i = this.relicts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.relicts[i], this.relicts[j]] = [this.relicts[j], this.relicts[i]];
+    }
+  }
+
+  /**
+   * Draw a specified number of relicts from the deck
+   * @param count - Number of relicts to draw
+   * @returns Array of drawn relicts
+   */
+  public draw(count: number): Relict[] {
+    const drawn: Relict[] = [];
+    const actualCount = Math.min(count, this.relicts.length);
+    
+    for (let i = 0; i < actualCount; i++) {
+      const relict = this.relicts.pop();
+      if (relict) {
+        drawn.push(relict);
+      }
+    }
+    
+    return drawn;
+  }
+
+  /**
+   * Add relicts back to the deck
+   * @param relicts - Array of relicts to add back
+   */
+  public addBack(relicts: Relict[]): void {
+    this.relicts.push(...relicts);
+  }
+
+  /**
+   * Get the current number of relicts in the deck
+   */
+  public getCount(): number {
+    return this.relicts.length;
+  }
+
+  /**
+   * Get all relicts in the deck (for debugging)
+   */
+  public getAllRelicts(): Relict[] {
+    return [...this.relicts];
+  }
+}

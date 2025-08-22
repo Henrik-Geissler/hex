@@ -2,12 +2,16 @@ import { Relict, Triggering } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { Empty } from '../relicts/Empty';
 import { GameState } from '../machines/GameState';
+import { RelictDeck } from '../directories/RelictDeck';
 
 export class RelictManager {
   private static instance: RelictManager;
   private relicts: Relict[] = [];
+  private shopRelicts: Relict[] = [];
+  private rerollCost: number = 1;
   private readonly MAX_RELICTS = 5;
   private listeners: Array<() => void> = [];
+  private shopListeners: Array<() => void> = [];
   private highlightListeners: Array<(index: number) => void> = [];
 
   private constructor() {
@@ -23,7 +27,10 @@ export class RelictManager {
 
   public reset(): void {
     this.relicts = Array(this.MAX_RELICTS).fill(null).map(() => new Empty());
+    this.shopRelicts = [];
+    this.rerollCost = 1;
     this.notifyListeners();
+    this.notifyShopListeners();
   }
 
   public getRelicts(): Relict[] {
@@ -169,5 +176,61 @@ export class RelictManager {
       return true;
     }
     return false;
+  }
+
+  // Shop-related methods
+  public setShopRelicts(relicts: Relict[]): void {
+    this.shopRelicts = relicts;
+    this.notifyShopListeners();
+  }
+
+  public getShopRelicts(): Relict[] {
+    return [...this.shopRelicts];
+  }
+
+  public getRerollCost(): number {
+    return this.rerollCost;
+  }
+
+  public rerollShop(): boolean {
+    const gameState = GameState.getInstance();
+    
+    if (gameState.getGold() >= this.rerollCost) {
+      // Deduct gold
+      gameState.addGold(-this.rerollCost);
+      
+      const relictDeck = RelictDeck.getInstance();
+      
+      // Add current shop relicts back to the deck
+      relictDeck.addBack(this.shopRelicts);
+      
+      // Draw new relicts
+      this.shopRelicts = relictDeck.draw(3);
+      
+      // Increment reroll cost for next time
+      this.rerollCost++;
+      
+      // Notify listeners
+      this.notifyShopListeners();
+      
+      return true;
+    }
+    
+    return false;
+  }
+
+  // Add shop listener
+  addShopListener(listener: () => void): void {
+    this.shopListeners.push(listener);
+  }
+
+  // Remove shop listener
+  removeShopListener(listener: () => void): void {
+    this.shopListeners = this.shopListeners.filter(l => l !== listener);
+  }
+
+  // Notify shop listeners
+  private notifyShopListeners(): void {
+    this.shopListeners.forEach(listener => listener());
   }
 }

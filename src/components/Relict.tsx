@@ -3,6 +3,7 @@ import { Relict as RelictType } from '../types/Relict';
 import { Empty } from '../relicts/Empty';
 import { StateMachine } from '../machines/StateMachine';
 import { RelictManager } from '../managers/RelictManager';
+import RelictDisplay from './RelictDisplay';
 
 interface RelictProps {
   relict: RelictType;
@@ -90,21 +91,16 @@ const Relict: React.FC<RelictProps> = ({
       
       {showTooltip && !isEmptyRelict && (
         <div className="relict-tooltip">
-          <div className="tooltip-header">
-            <span className="tooltip-icon">{relict.icon}</span>
-            <span className="tooltip-name">{relict.name}</span>
-          </div>
-          <div className="tooltip-description">
-            {relict.description}
-          </div>
+          <RelictDisplay 
+            relict={relict} 
+            showSellValue={true}
+            compact={true}
+          />
           {relict.counter !== undefined && (
             <div className="tooltip-counter">
               Counter: {relict.counter}
             </div>
           )}
-          <div className="tooltip-sell-value">
-            Sell Value: {relict.sellValue} Gold
-          </div>
           <button 
             className="sell-button"
             onClick={handleSell}
