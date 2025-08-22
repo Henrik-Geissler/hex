@@ -16,6 +16,7 @@ export interface Relict {
   onDrawTile?(highlight: () => Promise<void>, tile: Tile): Promise<void>;
   onPlaceTile?(highlight: () => Promise<void>, tile: Tile): Promise<void>;
   onPlaceFreeOrOffTile?(highlight: () => Promise<void>, tile: Tile): Promise<void>;
+  onColorChange?(highlight: () => Promise<void>, tileAfterColorChange: Tile): Promise<void>;
   onScoreTile?(highlight: () => Promise<void>, tile: Tile): Promise<void>;
   onDiscard?(highlight: () => Promise<void>, tiles: Tile[]): Promise<void>;
   onSell?(highlight: () => Promise<void>): Promise<void>;
