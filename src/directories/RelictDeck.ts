@@ -4,6 +4,7 @@ import { PiggyBank } from '../relicts/PiggyBank';
 import { Pioneer } from '../relicts/Pioneer';
 import { GreenDoubler } from '../relicts/GreenDoubler';
 import { BlueUpgrader } from '../relicts/BlueUpgrader';
+import { BlueMirror } from '../relicts/BlueMirror';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -23,11 +24,12 @@ export class RelictDeck {
    */
   public reset(): void {
     this.relicts = [];
-      this.relicts.push(new GoldMiner());
-      this.relicts.push(new PiggyBank());
-      this.relicts.push(new Pioneer());
-      this.relicts.push(new GreenDoubler());
+     // this.relicts.push(new GoldMiner());
+    //  this.relicts.push(new PiggyBank());
+     // this.relicts.push(new Pioneer());
+     // this.relicts.push(new GreenDoubler());
       this.relicts.push(new BlueUpgrader());
+      this.relicts.push(new BlueMirror());
     
     this.shuffle();
   }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ScoreBadge.css';
 
-export type BadgeType = 'increment' | 'double' | 'upgrade' | 'color';
+export type BadgeType = 'increment' | 'double' | 'upgrade' | 'color' | 'mirror';
 
 interface ScoreBadgeProps {
   type: BadgeType;
@@ -40,9 +40,11 @@ const ScoreBadge: React.FC<ScoreBadgeProps> = ({
       case 'double':
         return '×2';
       case 'upgrade':
-        return '↑';
+        return '⬆️';
       case 'color':
         return '🎨';
+      case 'mirror':
+        return '🪞';
       default:
         return '';
     }

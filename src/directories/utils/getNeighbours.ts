@@ -37,4 +37,37 @@ function getAdjacentPositions(n: number): [number,number,number,number,number,nu
     }
   
     return results;
-  }
+}
+
+/**
+ * Calculate the mirrored position of a tile across another tile
+ * @param tileToMirror - The tile whose position we want to mirror
+ * @param mirror - The tile that serves as the mirror point
+ * @returns The position number of the mirrored tile
+ */
+export function mirrorPosition(tileToMirror: Tile, mirror: Tile): number {
+  return mirrorPositionByNumbers(tileToMirror.pos, mirror.pos);
+}
+
+/**
+ * Calculate the mirrored position of a position number across another position number
+ * @param positionToMirror - The position number to mirror
+ * @param mirrorPosition - The position number that serves as the mirror point
+ * @returns The position number of the mirrored position
+ */
+export function mirrorPositionByNumbers(positionToMirror: number, mirrorPosition: number): number {
+  // Convert both positions to cube coordinates
+  const cubeToMirror = indexToCube(positionToMirror);
+  const cubeMirror = indexToCube(mirrorPosition);
+  
+  // Calculate the mirrored cube coordinates
+  // Mirroring across a point: mirrored = 2 * mirror - original
+  const mirroredCube: [number, number, number] = [
+    2 * cubeMirror[0] - cubeToMirror[0],
+    2 * cubeMirror[1] - cubeToMirror[1],
+    2 * cubeMirror[2] - cubeToMirror[2]
+  ];
+  
+  // Convert back to index
+  return cubeToIndex(mirroredCube);
+}

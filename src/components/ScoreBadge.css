@@ -36,6 +36,11 @@
   color: #FF5722;
 }
 
+/* Mirror badge styles */
+.score-badge-mirror {
+  color: #00BCD4;
+}
+
 /* Visible state */
 .score-badge.visible {
   opacity: 1;
