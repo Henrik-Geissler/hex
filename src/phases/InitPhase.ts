@@ -14,7 +14,7 @@ export class InitPhase implements PhaseInterface {
     // Initialize game state, load resources, etc.
     await new Promise(resolve => setTimeout(resolve, 100)); // Simulate async work
     GameState.getInstance().setRound(0);
-    GameState.getInstance().setGold(0);
+    GameState.getInstance().setGold(10);
     GameState.getInstance().setTargetScore(2); 
     
     Board.getInstance().clear();

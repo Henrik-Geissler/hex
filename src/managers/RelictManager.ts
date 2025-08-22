@@ -219,6 +219,43 @@ export class RelictManager {
     return false;
   }
 
+  public buyRelict(shopIndex: number): boolean {
+    // Check if the shop index is valid
+    if (shopIndex < 0 || shopIndex >= this.shopRelicts.length) {
+      return false;
+    }
+
+    const relictToBuy = this.shopRelicts[shopIndex];
+    const cost = relictToBuy.sellValue * 2;
+    const gameState = GameState.getInstance();
+
+    // Check if player has enough gold
+    if (gameState.getGold() < cost) {
+      return false;
+    }
+
+    // Check if there's an empty slot in the relict bar
+    const emptySlotIndex = this.relicts.findIndex(relict => relict instanceof Empty);
+    if (emptySlotIndex === -1) {
+      return false; // No empty slots available
+    }
+
+    // Deduct gold
+    gameState.addGold(-cost);
+
+    // Add relict to player's relict bar
+    this.relicts[emptySlotIndex] = relictToBuy;
+
+    // Remove relict from shop
+    this.shopRelicts.splice(shopIndex, 1);
+
+    // Notify listeners
+    this.notifyListeners();
+    this.notifyShopListeners();
+
+    return true;
+  }
+
   // Add shop listener
   addShopListener(listener: () => void): void {
     this.shopListeners.push(listener);

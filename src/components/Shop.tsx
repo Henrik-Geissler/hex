@@ -4,6 +4,7 @@ import { RelictManager } from '../managers/RelictManager';
 import { Relict } from '../types/Relict';
 import { useGameState } from '../hooks/useGameState';
 import RelictDisplay from './RelictDisplay';
+import { Empty } from '../relicts/Empty';
 
 const Shop: React.FC = () => {
   const [shopRelicts, setShopRelicts] = useState<Relict[]>([]);
@@ -15,7 +16,6 @@ const Shop: React.FC = () => {
     // Listen for changes in shop relicts
     const updateShopRelicts = () => {
       const relicts = relictManager.getShopRelicts();
-      console.log('Shop: Received shop relicts update:', relicts);
       setShopRelicts(relicts);
     };
 
@@ -33,21 +33,39 @@ const Shop: React.FC = () => {
     StateMachine.getInstance().setPhase('InitRoundPhase');
   };
 
-  const handleReroll = () => {
-    relictManager.rerollShop()
+    const handleReroll = () => {
+     relictManager.rerollShop()
+  };
+
+  const handleBuyRelict = (shopIndex: number) => {
+    relictManager.buyRelict(shopIndex);
+  };
+
+  const hasEmptySlot = () => {
+    return relictManager.getRelicts().some(relict => relict instanceof Empty);
   };
 
   return (
     <div className="shop-component">
       <div className="shop-top-area">
         <div className="shop-relicts">
-          {shopRelicts.map((relict, index) => (
-            <RelictDisplay 
-              key={index} 
-              relict={relict} 
-              showCost={true}
-            />
-          ))}
+          {shopRelicts.map((relict, index) => {
+            const cost = relict.sellValue * 2;
+            const canAfford = gold >= cost;
+            const hasSlot = hasEmptySlot();
+            
+            return (
+              <RelictDisplay 
+                key={index} 
+                relict={relict} 
+                showCost={true}
+                showBuyButton={true}
+                onBuy={() => handleBuyRelict(index)}
+                canAfford={canAfford}
+                hasEmptySlot={hasSlot}
+              />
+            );
+          })}
         </div>
         <button 
           className="reroll-button" 
