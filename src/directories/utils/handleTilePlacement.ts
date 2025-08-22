@@ -22,7 +22,7 @@ export async function handleTilePlacement(tile: Tile, tileOrPosition: Tile | num
     tile.location = 'Board';
     await Board.getInstance().add(tile);
     
+    await handleScore(beforeTile, tile);
     // Notify relicts that a tile was placed
     await RelictManager.getInstance().onPlaceTile(tile);
-    await handleScore(beforeTile, tile);
 } 

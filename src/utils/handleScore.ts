@@ -19,6 +19,7 @@ export async function handleScore(beforeTile: Tile, afterTile: Tile): Promise<vo
   if (afterTile.color === 'Free' || afterTile.color === 'Off') {
     return; // Don't score initialization or cleanup
   }
+  await new Promise(resolve => setTimeout(resolve, 100)); 
   
   // Calculate score difference
   const beforeScore = beforeTile.score || 0;

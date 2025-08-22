@@ -1,4 +1,4 @@
-import { Relict, Triggering } from '../types/Relict';
+import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { Empty } from '../relicts/Empty';
 import { GameState } from '../machines/GameState';
@@ -120,17 +120,14 @@ export class RelictManager {
   private async executeLifecycleMethod<T>(
     methodName: keyof Pick<Relict, 'onChoose' | 'onRoundStart' | 'onDrawTile' | 'onPlaceTile' | 'onScoreTile' | 'onDiscard' | 'onSell' | 'onSellOther'>,
     ...args: any[]
-  ): Promise<Triggering[]> {
-    const results: Triggering[] = [];
+  ): Promise<void> {
     for (let i = 0; i < this.relicts.length; i++) {
       const relict = this.relicts[i];
       const method = relict[methodName];
       if (method && typeof method === 'function') {
-        const result = await (method as any).apply(relict, [this.createHighlightFunction(i), ...args]);
-        results.push(result);
+        await (method as any).apply(relict, [this.createHighlightFunction(i), ...args]);
       }
     }
-    return results;
   }
 
   // Lifecycle methods that iterate through all relicts sequentially

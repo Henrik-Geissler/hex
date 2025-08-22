@@ -1,4 +1,4 @@
-import { Relict, Triggering } from '../types/Relict';
+import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 
 export class Empty implements Relict {

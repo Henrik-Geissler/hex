@@ -1,4 +1,4 @@
-import { Relict, Triggering } from '../types/Relict';
+import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { GameState } from '../machines/GameState';
 
@@ -9,12 +9,11 @@ export class GoldMiner implements Relict {
   sellValue: number = 2; // Gold Miner can be sold for 2 gold
 
   // Only implement onRoundStart, others return default
-  async onRoundStart(highlight: () => Promise<void>): Promise<Triggering> {
+  async onRoundStart(highlight: () => Promise<void>): Promise<void> {
     // Call the highlight callback to make the relict light up
     await highlight();
     
     const gameState = GameState.getInstance();
     gameState.addGold(5);
-    return { triggers: true };
   }
 }
