@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Hand as HandDirectory } from '../directories/Hand';
 import { Tile } from '../types/Tile';
+import { usePhase } from '../hooks/usePhase';
+import { useGameState } from '../hooks/useGameState';
+import { StateMachine } from '../machines/StateMachine';
 import Hexagon from './Hexagon';
 
 const Hand: React.FC = () => {
   const [tiles, setTiles] = useState<Tile[]>([]);
+  const [selectedTiles, setSelectedTiles] = useState<Set<number>>(new Set());
+  const { currentPhase } = usePhase();
+  const { discards } = useGameState();
   const hand = HandDirectory.getInstance();
 
   useEffect(() => {
@@ -27,6 +33,31 @@ const Hand: React.FC = () => {
 
   const updateHandTiles = () => {
     setTiles(hand.getAllTiles());
+  };
+
+  const handleTileClick = (tileId: number) => {
+    if (currentPhase !== 'WaitForInputPhase') return;
+    
+    setSelectedTiles(prev => {
+      const newSelected = new Set(prev);
+      if (newSelected.has(tileId)) {
+        newSelected.delete(tileId);
+      } else {
+        newSelected.add(tileId);
+      }
+      return newSelected;
+    });
+  };
+
+  const handleDiscard = () => {
+    if (currentPhase !== 'WaitForInputPhase' || discards <= 0) return;
+    
+    // Transition to DiscardPhase with selected cards
+    const selectedCardIds = Array.from(selectedTiles);
+    StateMachine.getInstance().setPhase('DiscardPhase', { selectedCardIds });
+    
+    // Clear selection after triggering discard
+    setSelectedTiles(new Set());
   };
 
   const getTileStyle = (tile: Tile, index: number, totalTiles: number): React.CSSProperties => {
@@ -54,14 +85,18 @@ const Hand: React.FC = () => {
     };
   };
 
+  const isDiscardButtonEnabled = currentPhase === 'WaitForInputPhase' && discards > 0;
+  const hasSelectedTiles = selectedTiles.size > 0;
+
   return (
     <div className="hand-component">
       <div className="hand-container">
         {tiles.map((tile, index) => (
           <div
             key={tile.id}
-            className="hand-tile"
+            className={`hand-tile ${selectedTiles.has(tile.id) ? 'selected' : ''}`}
             style={getTileStyle(tile, index, tiles.length)}
+            onClick={() => handleTileClick(tile.id)}
           >
             <Hexagon
               width={60}
@@ -70,6 +105,21 @@ const Hand: React.FC = () => {
             />
           </div>
         ))}
+      </div>
+      
+      {/* Discard Button */}
+      <div className="discard-button-container">
+        <button
+          className={`discard-button ${isDiscardButtonEnabled ? 'enabled' : 'disabled'}`}
+          onClick={handleDiscard}
+          disabled={!isDiscardButtonEnabled}
+        >
+          {hasSelectedTiles 
+            ? `Discard ${selectedTiles.size} Card${selectedTiles.size !== 1 ? 's' : ''}`
+            : 'Discard All Cards'
+          }
+          <span className="discard-count">({discards} left)</span>
+        </button>
       </div>
     </div>
   );

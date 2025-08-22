@@ -344,6 +344,71 @@
   padding: 0 0 40px 40px;
 }
 
+/* Discard Button */
+.discard-button-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.discard-button {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.discard-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.discard-button.enabled {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  cursor: pointer;
+}
+
+.discard-button.disabled {
+  background: rgba(128, 128, 128, 0.5);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.discard-button.disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.discard-count {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Selected Hand Tiles */
+.hand-tile.selected {
+  transform: translateX(-50%) scale(1.1) !important;
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.8);
+  z-index: 1001 !important;
+}
+
+.hand-tile.selected .tile-hexagon {
+  border: 3px solid #ff6b6b;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.6);
+}
+
 .hand-tile {
   position: absolute;
   cursor: pointer;

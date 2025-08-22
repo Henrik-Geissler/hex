@@ -8,6 +8,7 @@ import { CheckLoosePhase } from '../phases/CheckLoosePhase';
 import { WaitForInputPhase } from '../phases/WaitForInputPhase';
 import { PlayPhase } from '../phases/PlayPhase';
 import { ShopPhase } from '../phases/ShopPhase';
+import { DiscardPhase } from '../phases/DiscardPhase';
 import { LoosePhase } from '../phases/LoosePhase';
 
 export class StateMachine {
@@ -61,6 +62,9 @@ export class StateMachine {
         break;
       case 'ShopPhase':
         phaseClass = new ShopPhase();
+        break;
+      case 'DiscardPhase':
+        phaseClass = new DiscardPhase();
         break;
       case 'LoosePhase':
         phaseClass = new LoosePhase();

@@ -8,6 +8,7 @@ export const Phase = {
     WaitForInputPhase: 'WaitForInputPhase',
     PlayPhase: 'PlayPhase',
     ShopPhase: 'ShopPhase',
+    DiscardPhase: 'DiscardPhase',
     LoosePhase: 'LoosePhase',
 } as const;
 export type Phase = keyof typeof Phase;
