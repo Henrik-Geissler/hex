@@ -14,7 +14,7 @@ export interface Relict {
   // Optional methods - all return Triggering<T> and are async
   // Each method receives a highlight callback as the first parameter that can be invoked to make the relict light up
   // The highlight callback returns a Promise that resolves after 500ms
-  onChoose?(highlight: () => Promise<void>): Promise<Triggering>;
+  onChoose?(highlight: () => Promise<void>,relict: Relict): Promise<Triggering>;
   onRoundStart?(highlight: () => Promise<void>): Promise<Triggering>;
   onDrawTile?(highlight: () => Promise<void>, tile: Tile): Promise<Triggering>;
   onPlaceTile?(highlight: () => Promise<void>, tile: Tile): Promise<Triggering>;

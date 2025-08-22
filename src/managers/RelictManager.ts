@@ -134,7 +134,7 @@ export class RelictManager {
   }
 
   // Lifecycle methods that iterate through all relicts sequentially
-  onChoose = async () => this.executeLifecycleMethod('onChoose');
+  onChoose = async (relict: Relict) => this.executeLifecycleMethod('onChoose');
   
   onRoundStart = async () => this.executeLifecycleMethod('onRoundStart');
 
@@ -253,6 +253,9 @@ export class RelictManager {
     // Remove relict from shop
     this.shopRelicts.splice(shopIndex, 1);
 
+    // Trigger onChoose for the newly purchased relict
+    this.onChoose(relictToBuy);
+
     // Notify listeners
     this.notifyListeners();
     this.notifyShopListeners();
@@ -272,9 +275,7 @@ export class RelictManager {
       this.shopRelicts = [];
       
       // Notify shop listeners
-      this.notifyShopListeners();
-      
-      console.log(`Returned ${relictsToReturn.length} unsold relicts to the deck`);
+      this.notifyShopListeners(); 
     }
   }
 
