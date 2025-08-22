@@ -1,3 +1,4 @@
+import { TileFactory } from '../factories/TileFactory';
 import { Color } from './Color';
 import { Location } from './Location';
 
@@ -33,4 +34,8 @@ export class Tile {
   isOff = () => this.color == Color.Off;
   matchesColor = (color: Color) => this.color == color || this.color == Color.White;
   
+  // Clone method that returns a new Tile with the same properties but a new ID
+  Clone(): Tile {
+    return TileFactory.getInstance().cloneTile(this);
+  }
 }

@@ -20,7 +20,7 @@ export async function mutateTile(
   animationType?: BadgeType
 ): Promise<void> {
   // Create a copy of the tile
-  const tileCopy = { ...tile };
+  const tileCopy = tile.Clone();
   
   // Trigger the score badge before applying the mutation
   if(animationType){

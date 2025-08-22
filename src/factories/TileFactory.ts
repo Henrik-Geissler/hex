@@ -36,7 +36,7 @@ export class TileFactory {
     color: Color = 'Off',
     score: number = 0,
   ): Tile {
-    const tile = new Tile(this.nextId, score, pos, location, color);
+    const tile = new Tile(this.nextId++, score, pos, location, color);
       switch (location) {
         case Location.Deck:
           this.deck.add(tile);
@@ -50,13 +50,17 @@ export class TileFactory {
         default:
           break;
     }
-    this.nextId++;
     return tile;
   }
 
   createFreeTile = (): Tile => this.createTile(Location.Air, 0, Color.Free, SpotType.Free);
 
   createOffTile = (): Tile => this.createTile(Location.Air, 0, Color.Off, OffType.Free);
+ 
+  // Clone a tile with a new ID while keeping all other properties
+  cloneTile(tile: Tile): Tile {
+    return this.createTile(Location.Air, tile.pos, tile.color, tile.score);  
+  }
  
   async createStandardDeck(): Promise<void> {
     const scores = [1, 2, 3, 4, 5, 6, 7, 8, 9]; 

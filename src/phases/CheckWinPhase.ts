@@ -27,15 +27,10 @@ export class CheckWinPhase implements PhaseInterface {
     
     // Then collect board tiles
     const board = Board.getInstance();
-    const boardTiles = board.getAllTiles();
-    
-    // Filter tiles that are neither 'Free' nor 'Off' and add them to the deck
-    const winningTiles = boardTiles.filter(tile => 
-      tile.color !== 'Free' && tile.color !== 'Off'
-    );
+    const boardTiles = board.getAllPlayedTiles();
     
     // Add each winning tile to the deck
-    for (const tile of winningTiles) {
+    for (const tile of boardTiles) {
       await boardTileIntoDeck(tile);
     }
     

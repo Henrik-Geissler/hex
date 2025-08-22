@@ -19,7 +19,7 @@ export class BlueMirror implements Relict {
     
     // Find blue neighbors
     const blueNeighbors = neighbors.filter(neighbor => 
-      neighbor && neighbor.matchesColor(Color.Blue)
+       neighbor.matchesColor(Color.Blue)
     );
     
     if (blueNeighbors.length === 0) return;
@@ -53,7 +53,7 @@ export class BlueMirror implements Relict {
         await handleMirror(blueNeighbor);
         
         // Create a copy of the current tile for the mirrored position
-        const mirroredTile = { ...tile, location:Location.Air }; 
+        const mirroredTile = tile.Clone();
         
         // Place the mirrored tile
         PlacingQueue.getInstance().add(mirroredTile, mirroredPos);

@@ -6,6 +6,7 @@ import { GreenDoubler } from '../relicts/GreenDoubler';
 import { BlueUpgrader } from '../relicts/BlueUpgrader';
 import { BlueMirror } from '../relicts/BlueMirror';
 import { ColorUpgrader } from '../relicts/ColorUpgrader';
+import { Incrementer } from '../relicts/Incrementer';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -28,10 +29,11 @@ export class RelictDeck {
      // this.relicts.push(new GoldMiner());
     //  this.relicts.push(new PiggyBank());
      // this.relicts.push(new Pioneer());
-      this.relicts.push(new GreenDoubler());
+      // this.relicts.push(new GreenDoubler());
       this.relicts.push(new BlueUpgrader());
       this.relicts.push(new BlueMirror());
-      this.relicts.push(new ColorUpgrader());
+      // this.relicts.push(new ColorUpgrader());
+      this.relicts.push(new Incrementer());
     
     this.shuffle();
   }

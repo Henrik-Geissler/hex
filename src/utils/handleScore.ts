@@ -16,7 +16,7 @@ export async function handleScore(beforeTile: Tile, afterTile: Tile): Promise<vo
   
   // Only score if this is an actual gameplay tile placement
   // Skip scoring for initialization (off tiles, free tiles) and cleanup
-  if (afterTile.color === 'Free' || afterTile.color === 'Off') {
+  if (afterTile.isFree() || afterTile.isOff()) {
     return; // Don't score initialization or cleanup
   }
   await new Promise(resolve => setTimeout(resolve, 500)); 

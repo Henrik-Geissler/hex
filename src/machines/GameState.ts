@@ -126,14 +126,9 @@ export class GameState {
   // Check if board is empty by examining all tiles
   checkBoardEmptiness(): void {
     const board = Board.getInstance();
-    const allTiles = board.getAllTiles();
+    const allTiles = board.getAllPlayedTiles()
     
-    // Board is empty if no tiles exist or all tiles are free or off
-    const hasNonEmptyTiles = allTiles.some((tile: Tile) => 
-      !tile.isFree() && !tile.isOff()
-    );
-    
-    this.setIsBoardEmpty(!hasNonEmptyTiles);
+    this.setIsBoardEmpty(!(allTiles.length));
   }
 
   // Add listener for state changes
