@@ -5,5 +5,5 @@ export async function handleIncrement(tile: Tile): Promise<void> {
   await mutateTile(tile, async (tile) => {
     tile.score = (tile.score || 0) + 1;
     return tile;
-  });
+  }, 'increment');
 }

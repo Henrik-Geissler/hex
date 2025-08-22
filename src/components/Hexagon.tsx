@@ -6,6 +6,8 @@ import { Hand as HandDirectory } from '../directories/Hand';
 import { Board as BoardDirectory } from '../directories/Board';
 import { DragEventManager } from '../managers/DragEventManager';
 import { isValidDropTarget } from '../utils/dropZoneValidation';
+import { BadgeManager, BadgeType } from '../utils/BadgeManager';
+import ScoreBadge from './ScoreBadge';
 
 interface HexagonProps {
   width: number;
@@ -43,10 +45,16 @@ const Hexagon: React.FC<HexagonProps> = ({
   const [isValidDropTargetState, setIsValidDropTargetState] = useState(false);
   const [isHighlighted, setIsHighlighted] = useState(false);
   const [isPlaceable, setIsPlaceable] = useState(true);
+  
+  // Score badge state
+  const [currentBadge, setCurrentBadge] = useState<BadgeType | null>(null);
+  const [showBadge, setShowBadge] = useState(false);
+  
   const stateMachine = StateMachine.getInstance();
   const hand = HandDirectory.getInstance();
   const board = BoardDirectory.getInstance();
   const dragEventManager = DragEventManager.getInstance();
+  const badgeManager = BadgeManager.getInstance();
 
   // Listen for phase changes to update drag/drop state
   useEffect(() => {
@@ -114,6 +122,24 @@ const Hexagon: React.FC<HexagonProps> = ({
       };
     }
   }, [tile, canDragDrop, board, dragEventManager]);
+
+  // Listen for score badge requests
+  useEffect(() => {
+    const handleBadgeRequest = (tileId: number, type: BadgeType) => {
+      if (tileId === tile.id) {
+        setCurrentBadge(type);
+        setShowBadge(true);
+      }
+    };
+
+    // Add listener for score badges
+    badgeManager.addListener(handleBadgeRequest);
+
+    // Cleanup: remove listener when component unmounts
+    return () => {
+      badgeManager.removeListener(handleBadgeRequest);
+    };
+  }, [tile.id, badgeManager]);
 
   // Automatically determine if this hexagon should be draggable or a drop zone
   const isDraggable = canDragDrop && tile.location === 'Hand' && isPlaceable;
@@ -254,6 +280,20 @@ const Hexagon: React.FC<HexagonProps> = ({
         {score}
       </text>
       </svg>
+      
+      {/* Score badge overlay */}
+      {currentBadge && (
+        <ScoreBadge
+          key={`${tile.id}-${currentBadge}`}
+          type={currentBadge}
+          isVisible={showBadge}
+          onComplete={() => {
+            setShowBadge(false);
+            setCurrentBadge(null);
+            badgeManager.markBadgeComplete(tile.id);
+          }}
+        />
+      )}
     </div>
   );
 };

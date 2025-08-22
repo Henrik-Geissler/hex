@@ -18,5 +18,5 @@ export async function handleUpgrade(tile: Tile): Promise<void> {
     }
     
     return tile;
-  });
+  }, 'upgrade');
 }
