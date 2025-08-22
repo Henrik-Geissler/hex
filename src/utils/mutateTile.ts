@@ -1,5 +1,7 @@
 import { Tile } from '../types/Tile';
 import { handleScore } from './handleScore';
+import { Board } from '../directories/Board';
+import { Hand } from '../directories/Hand';
 
 // Type for functions that mutate a tile and return a Promise<Tile>
 export type TileMutationFunction = (tile: Tile) => Promise<Tile>;
@@ -16,6 +18,15 @@ export async function mutateTile(tile: Tile, mutationFn: TileMutationFunction): 
   
   // Apply the mutation function
   const mutatedTile = await mutationFn(tile);
+  
+  // Trigger UI update to show score change immediately
+  if (tile.location === 'Board') {
+    const board = Board.getInstance();
+    board.triggerUpdate();
+  } else if (tile.location === 'Hand') {
+    const hand = Hand.getInstance();
+    hand.triggerUpdate();
+  }
   
   // Call handleScore with the copy and mutated tile
   await handleScore(tileCopy, mutatedTile);

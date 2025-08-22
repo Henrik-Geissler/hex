@@ -59,5 +59,10 @@ export class Board implements TileDictionary {
   private notifyListeners(): void {
     this.listeners.forEach(listener => listener());
   }
+
+  // Public method to trigger UI updates when tiles are modified externally
+  public triggerUpdate(): void {
+    this.notifyListeners();
+  }
  
 }
