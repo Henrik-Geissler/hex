@@ -1,8 +1,8 @@
 import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { Board } from '../directories/Board'; 
-import { getNeighbours } from '../directories/utils/getNeighbours';
-import { PlacingQueue } from '../directories/utils/PlacingQueue';
+import { getNeighbours } from '../directories/utils/getNeighbours'; 
+import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
 
 export class The13thTile implements Relict {
   name: string = 'The 13th Tile';
@@ -24,7 +24,7 @@ export class The13thTile implements Relict {
     
     for (const freeNeighbor of freeNeighbors) {
       const clonedTile = tile.Clone();
-      PlacingQueue.getInstance().add(clonedTile, freeNeighbor.pos);
+      handleStartPlacement(clonedTile, freeNeighbor.pos);
     }
   }
 }

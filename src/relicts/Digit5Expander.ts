@@ -1,8 +1,8 @@
 import { getNeighbours } from '../directories/utils/getNeighbours';
-import { PlacingQueue } from '../directories/utils/PlacingQueue';
 import { TileFactory } from '../factories/TileFactory';
 import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
+import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
 
 export class Digit5Expander implements Relict {
   name: string = 'Digit 5 Expander';
@@ -24,7 +24,7 @@ export class Digit5Expander implements Relict {
     for (let neighbor of offNeighbors) {
         if(fives--<1) break;
         await highlight();
-        PlacingQueue.getInstance().add(TileFactory.getInstance().createFreeTile(), neighbor.pos);
+        await handleStartPlacement(TileFactory.getInstance().createFreeTile(), neighbor.pos);
     }
   }
 }

@@ -1,13 +1,6 @@
-import { Tile } from '../../types/Tile';
-import { handleTilePlacement } from './handleTilePlacement';
+import { Tile } from '../../types/Tile'; 
+import { handleProcessPlacement } from '../../utils/mutations/handleProcessPlacement';
 
-/**
- * Represents a tile with its target position for placement
- */
-export interface TilePlacement {
-  tile: Tile;
-  position: number;
-}
 
 /**
  * FIFO Queue for managing tiles that need to be placed on the board
@@ -15,7 +8,7 @@ export interface TilePlacement {
  */
 export class PlacingQueue {
   private static instance: PlacingQueue;
-  private queue: TilePlacement[] = [];
+  private queue: Tile[] = [];
 
   private constructor() {}
 
@@ -35,15 +28,15 @@ export class PlacingQueue {
    * @param tile - The tile to add to the queue
    * @param position - The position where the tile should be placed
    */
-  public add(tile: Tile, position: number): void {
-    this.queue.push({ tile, position });
+  public add(tile: Tile): void {
+    this.queue.push(tile);
   }
 
   /**
    * Get the next tile placement from the front of the queue (FIFO)
    * @returns The next tile placement or undefined if queue is empty
    */
-    getNext(): TilePlacement | undefined {
+    getNext(): Tile | undefined {
     return this.queue.shift();
   }
 
@@ -51,8 +44,7 @@ export class PlacingQueue {
     while(true) {
       const next = this.getNext();
       if (!next) return;
-      await new Promise(resolve => setTimeout(resolve, 25));
-      await handleTilePlacement(next.tile, next.position);
+      await handleProcessPlacement(next);
     }
       
   }

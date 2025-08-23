@@ -217,9 +217,10 @@ const Hexagon: React.FC<HexagonProps> = ({
     return 1;
   };
 
-  // Determine transform scale based on drag state
+  // Determine transform scale based on drag state and placement
   const getTransform = () => {
-    if (isDragging) return `scale(1.1)`;
+    if (tile.isBeeingPlaced) return `translateY(-10px) translateZ(100px) scale(1)`;
+    if (isDragging) return `scale(1)`;
     if (isDragOver) return `scale(1.1)`;
     return '';
   };
@@ -246,6 +247,8 @@ const Hexagon: React.FC<HexagonProps> = ({
         style={{ 
           filter: tile.location === 'Hand' && !isPlaceable 
             ? 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3)) grayscale(0.7)' 
+            : tile.isBeeingPlaced
+            ? 'drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5))'
             : 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))', 
           display: `${tile.color==Color.Off?'none':'block' }`,
           pointerEvents: 'none',

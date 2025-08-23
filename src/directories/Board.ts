@@ -1,7 +1,8 @@
 import { TileFactory } from "../factories/TileFactory";
 import { Tile } from "../types/Tile";
-import { TileDictionary } from "../types/TileDictionary"; 
-import { handleTilePlacement } from "./utils/handleTilePlacement";
+import { TileDictionary } from "../types/TileDictionary";  
+import { handleStartPlacement } from "../utils/mutations/handleStartPlacement";
+import { Location } from "../types/Location";
 
 export class Board implements TileDictionary {
   private static instance: Board; 
@@ -18,17 +19,22 @@ export class Board implements TileDictionary {
   }
 
   async add(tile: Tile): Promise<void> {
-    while(tile.pos>this.tiles.length) 
-    handleTilePlacement(TileFactory.getInstance().createOffTile(), this.tiles.length);
-    if(tile.pos==this.tiles.length)
-      this.tiles.push(tile);
-    else
+    this.fillUntil(tile.pos);
     this.tiles[tile.pos] = tile;
     this.notifyListeners();
   }
 
+  fillUntil(pos: number): void {
+    while(pos>=this.tiles.length) {
+      const emptyTile = TileFactory.getInstance().createOffTile();
+      emptyTile.pos = this.tiles.length;
+      emptyTile.location = Location.Board;
+      this.tiles.push(emptyTile);
+    }
+  }
+
   async remove(tile: Tile): Promise<boolean> {
-    await handleTilePlacement(TileFactory.getInstance().createFreeTile(), tile)
+    await handleStartPlacement(TileFactory.getInstance().createFreeTile(), tile)
     return true;
   }
 
@@ -48,6 +54,7 @@ export class Board implements TileDictionary {
     return this.tiles.length;
   }
   getTileAtPos(pos: number): Tile {
+    this.fillUntil(pos);
     return this.tiles[pos];
   }
 

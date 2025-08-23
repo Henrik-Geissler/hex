@@ -1,7 +1,7 @@
 import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
-import { getNeighbours } from '../directories/utils/getNeighbours';
-import { PlacingQueue } from '../directories/utils/PlacingQueue';
+import { getNeighbours } from '../directories/utils/getNeighbours'; 
+import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
 
 export class SingleNeighborClone implements Relict {
   name: string = 'Single Neighbor Clone';
@@ -20,6 +20,6 @@ export class SingleNeighborClone implements Relict {
     
     const freeNeighbor = freeNeighbors[0];
     const clonedTile = tile.Clone();
-    PlacingQueue.getInstance().add(clonedTile, freeNeighbor.pos);
+    handleStartPlacement(clonedTile, freeNeighbor.pos);
   }
 }

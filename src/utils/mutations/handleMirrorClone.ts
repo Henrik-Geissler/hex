@@ -2,7 +2,7 @@ import { Tile } from '../../types/Tile';
 import { Board } from '../../directories/Board';
 import { mirrorPosition } from '../../directories/utils/getNeighbours';
 import { mutateTile } from './mutateTile';
-import { PlacingQueue } from '../../directories/utils/PlacingQueue';
+import { handleStartPlacement } from './handleStartPlacement';
 
 export async function handleMirrorClone(tileToMirror: Tile, mirrorTile: Tile): Promise<boolean> {
   // Calculate the mirrored position
@@ -19,6 +19,6 @@ export async function handleMirrorClone(tileToMirror: Tile, mirrorTile: Tile): P
     }, 'mirror');
     
     const clonedTile = tileToMirror.Clone();
-    PlacingQueue.getInstance().add(clonedTile,mirroredPos);
+    handleStartPlacement(clonedTile,mirroredPos);
     return true;
 }

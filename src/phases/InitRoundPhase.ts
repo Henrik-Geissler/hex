@@ -6,7 +6,7 @@ import { GameState } from '../machines/GameState';
 import { PhaseInterface } from '../types/PhaseInterface';
 import { Board } from '../directories/Board';
 import { PlacingQueue } from '../directories/utils/PlacingQueue';
-import { handleTilePlacement } from '../directories/utils/handleTilePlacement';
+import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
 
 export class InitRoundPhase implements PhaseInterface {
   async run(): Promise<void> {
@@ -23,18 +23,19 @@ export class InitRoundPhase implements PhaseInterface {
     
     await Board.getInstance().clear();
     for (let i = 0; i < 37+4*6+5*6+6*6+7*6; i++) {
-      handleTilePlacement(TileFactory.getInstance().createOffTile(), i);
+     await handleStartPlacement(TileFactory.getInstance().createOffTile(), i);
     }
     for (let i = 0; i < 37; i++) {
       if(Math.random()<.8)
-    PlacingQueue.getInstance().add(TileFactory.getInstance().createFreeTile(), i);
-    
+       await handleStartPlacement(TileFactory.getInstance().createFreeTile(), i);
     }
     await DiscardPile.getInstance().getAllTiles().forEach(async tile  =>     {
       await DiscardPile.getInstance().remove(tile);
       await Deck.getInstance().add(tile);
     });
+    console.log('Playing queue');
     await PlacingQueue.getInstance().Play();
+    console.log('Playing queue done');
     await Deck.getInstance().shuffle();
     StateMachine.getInstance().setPhase('CheckWinPhase');
   }
