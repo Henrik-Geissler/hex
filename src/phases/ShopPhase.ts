@@ -1,6 +1,7 @@
 import { PhaseInterface } from '../types/PhaseInterface';
 import { RelictDeck } from '../directories/RelictDeck';
 import { RelictManager } from '../managers/RelictManager';
+import { TimeManager } from '../managers/TimeManager';
 
 export class ShopPhase implements PhaseInterface {
   async run(): Promise<void> {
@@ -17,6 +18,6 @@ export class ShopPhase implements PhaseInterface {
     RelictManager.getInstance().setShopRelicts(shopRelicts);
     
     // Wait for player to make decisions
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await TimeManager.Wait(100);
   }
 }

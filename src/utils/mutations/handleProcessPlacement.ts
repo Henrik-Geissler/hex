@@ -2,6 +2,7 @@ import { Tile } from '../../types/Tile';
 import { RelictManager } from '../../managers/RelictManager';
 import { handleScore } from '../handleScore';
 import { Board } from '../../directories/Board';
+import { TimeManager } from '../../managers/TimeManager';
 
 export async function handleProcessPlacement(tile: Tile): Promise<void> {
     if (tile.isBeeingPlaced == undefined) {
@@ -16,10 +17,10 @@ export async function handleProcessPlacement(tile: Tile): Promise<void> {
     await RelictManager.getInstance().onPlaceTile(tile);
 
     if(tile.isFree() &&!tile.isBeeingPlaced.isFree()) {
-        await new Promise(resolve => setTimeout(resolve, 25));
+        await TimeManager.Wait(25);
     }
     if(tile.isOff() &&!tile.isBeeingPlaced.isOff()) {
-        await new Promise(resolve => setTimeout(resolve, 25));
+        await TimeManager.Wait(25);
     }
     tile.isBeeingPlaced = undefined;
     Board.getInstance().triggerUpdate();

@@ -1,9 +1,10 @@
-import { PhaseInterface } from '../types/PhaseInterface'; 
+import { PhaseInterface } from '../types/PhaseInterface';
+import { TimeManager } from '../managers/TimeManager'; 
 
 export class WaitForInputPhase implements PhaseInterface {
   async run(): Promise<void> { 
     
     // Wait for player input
-    await new Promise(resolve => setTimeout(resolve, 100)); // Simulate async work
+    await TimeManager.Wait(100); // Simulate async work
   }
 }

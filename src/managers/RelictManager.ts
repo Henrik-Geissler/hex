@@ -3,6 +3,7 @@ import { Tile } from '../types/Tile';
 import { Empty } from '../relicts/Empty';
 import { GameState } from '../machines/GameState';
 import { RelictDeck } from '../directories/RelictDeck';
+import { TimeManager } from './TimeManager';
 
 export class RelictManager {
   private static instance: RelictManager;
@@ -112,7 +113,7 @@ export class RelictManager {
       this.notifyHighlightListeners(index);
       
       // Return after 500ms (half a second) as specified
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await TimeManager.Wait(500);
     };
   }
 

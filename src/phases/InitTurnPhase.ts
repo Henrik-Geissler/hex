@@ -4,11 +4,12 @@ import { PhaseInterface } from '../types/PhaseInterface';
 import { RelictManager } from '../managers/RelictManager';
 import { GameState } from '../machines/GameState';
 import { Phase } from '../types/Phase';
+import { TimeManager } from '../managers/TimeManager';
 
 export class InitTurnPhase implements PhaseInterface {
   async run(): Promise<void> { 
     // Initialize turn state, draw cards, etc.
-    await new Promise(resolve => setTimeout(resolve, 100)); // Simulate async work
+    await TimeManager.Wait(100); // Simulate async work
 
     await Hand.getInstance().drawFull();
     

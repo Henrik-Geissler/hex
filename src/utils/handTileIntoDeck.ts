@@ -2,6 +2,7 @@
 import { Tile } from '../types/Tile';
 import { Deck } from '../directories/Deck';
 import { Hand } from '../directories/Hand';
+import { TimeManager } from '../managers/TimeManager';
 
 /**
  * Handle discarding a single tile from hand to discard pile
@@ -13,5 +14,5 @@ export async function handTileIntoDeck(tile: Tile): Promise<void> {
   await hand.remove(tile);
   tile.location = 'Deck';
   await deck.add(tile);
-  await new Promise(resolve => setTimeout(resolve, 100)); 
+  await TimeManager.Wait(100); 
 }

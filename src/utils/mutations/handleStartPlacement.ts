@@ -2,6 +2,7 @@ import { Tile } from '../../types/Tile';
 import { RemoveATileFromCurrentLocation } from '../RemoveATileFromCurrentLocation';
 import { Board } from '../../directories/Board';
 import { PlacingQueue } from '../../directories/utils/PlacingQueue';
+import { TimeManager } from '../../managers/TimeManager';
 
 /**
  * Handle the placement of a tile on the board
@@ -22,9 +23,9 @@ export async function handleStartPlacement(tile: Tile, tileOrPosition: Tile | nu
     await Board.getInstance().add(tile);
     PlacingQueue.getInstance().add(tile);
     if(tile.isFree() &&!tile.isBeeingPlaced.isFree()) {
-        await new Promise(resolve => setTimeout(resolve, 25));
+        await TimeManager.Wait(25);
     }
     if(tile.isOff() &&!tile.isBeeingPlaced.isOff()) {
-        await new Promise(resolve => setTimeout(resolve, 25));
+        await TimeManager.Wait(25);
     }
 } 

@@ -2,6 +2,7 @@ import { Tile } from '../types/Tile';
 import { GameState } from '../machines/GameState';
 import { TextEmitter } from './TextEmitter';
 import { indexToPixel } from '../directories/utils/boardSpace';
+import { TimeManager } from '../managers/TimeManager';
 
 /**
  * Handle scoring when a tile is placed
@@ -19,7 +20,7 @@ export async function handleScore(beforeTile: Tile, afterTile: Tile): Promise<vo
   if (afterTile.isFree() || afterTile.isOff()) {
     return; // Don't score initialization or cleanup
   }
-  await new Promise(resolve => setTimeout(resolve, 500)); 
+  await TimeManager.Wait(500); 
   
   // Calculate score difference
   const beforeScore = beforeTile.score || 0;

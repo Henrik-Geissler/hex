@@ -6,6 +6,7 @@ import { handTileIntoDeck } from '../utils/handTileIntoDeck';
 import { Hand } from '../directories/Hand';
 import { StateMachine } from '../machines/StateMachine';
 import { GameState } from '../machines/GameState';
+import { TimeManager } from '../managers/TimeManager';
 
 export class RoundEndPhase implements PhaseInterface {
   async run(): Promise<void> { 
@@ -19,7 +20,7 @@ export class RoundEndPhase implements PhaseInterface {
 
     GameState.getInstance().addGold(5);
 
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate async work
+    await TimeManager.Wait(1000); // Simulate async work
     StateMachine.getInstance().setPhase('ShopPhase');
   } 
 }
