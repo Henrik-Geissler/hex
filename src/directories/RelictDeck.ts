@@ -17,6 +17,7 @@ import { OddDisappearance } from '../relicts/OddDisappearance';
 import { The13thTile } from '../relicts/13thTile';
 import { SingleNeighborClone } from '../relicts/SingleNeighborClone';
 import { Digit5Expander } from '../relicts/Digit5Expander';
+import { NeighborDevourer } from '../relicts/NeighborDevourer';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -54,6 +55,7 @@ export class RelictDeck {
        this.relicts.push(new The13thTile());
        this.relicts.push(new SingleNeighborClone());
        this.relicts.push(new Digit5Expander());
+       this.relicts.push(new NeighborDevourer());
     
     this.shuffle();
   }

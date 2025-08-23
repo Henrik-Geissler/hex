@@ -1,21 +1,13 @@
 import { Tile } from '../types/Tile';
 import { BaseColors, Color } from '../types/Color';
 import { Location } from '../types/Location';
-import { Deck } from '../directories/Deck';
-import { Hand } from '../directories/Hand';
-import { DiscardPile } from '../directories/DiscardPile';
-import { Board } from '../directories/Board';
+import { DiscardPile } from '../directories/DiscardPile'; 
 import { SpotType } from '../types/SpotType';
 import { OffType } from '../types/OffType';
 
 export class TileFactory {
   private static instance: TileFactory;
   private nextId: number = 1;
-
-  // Directory instances
-  private deck = Deck.getInstance();
-  private hand = Hand.getInstance();
-  private board = Board.getInstance();
   private discardPile = DiscardPile.getInstance();
 
   // Private constructor to prevent direct instantiation
@@ -31,42 +23,31 @@ export class TileFactory {
 
   // Create a single tile with specified properties
   createTile(
-    location: Location = 'Deck',
     pos: number = 0,
     color: Color = 'Off',
     score: number = 0,
   ): Tile {
-    const tile = new Tile(this.nextId++, score, pos, location, color);
-      switch (location) {
-        case Location.Deck:
-          this.deck.add(tile);
-          break;
-        case Location.Hand:
-          this.hand.add(tile);
-          break;
-        case Location.DiscardPile:
-          this.discardPile.add(tile);
-          break;
-        default:
-          break;
-    }
+    const tile = new Tile(this.nextId++, score, pos, Location.Air, color);
     return tile;
   }
 
-  createFreeTile = (): Tile => this.createTile(Location.Air, 0, Color.Free, SpotType.Free);
+  createFreeTile = (): Tile => this.createTile(0, Color.Free, SpotType.Free);
 
-  createOffTile = (): Tile => this.createTile(Location.Air, 0, Color.Off, OffType.Free);
+  createOffTile = (): Tile => this.createTile(0, Color.Off, OffType.Free);
  
   // Clone a tile with a new ID while keeping all other properties
   cloneTile(tile: Tile): Tile {
-    return this.createTile(Location.Air, tile.pos, tile.color, tile.score);  
+    return this.createTile(tile.pos, tile.color, tile.score);  
   }
  
   async createStandardDeck(): Promise<void> {
     const scores = [1, 2, 3, 4, 5, 6, 7, 8, 9]; 
     
     for (let color = 0; color < BaseColors.length; color++) 
-    for (let i = 0; i < scores.length; i++) 
-       this.createTile(Location.DiscardPile, i, BaseColors[color], scores[i]);  
+    for (let i = 0; i < scores.length; i++) {
+       const tile = this.createTile(i, BaseColors[color], scores[i]);
+       tile.location = Location.DiscardPile;
+       this.discardPile.add(tile);
+      }
   }
 }

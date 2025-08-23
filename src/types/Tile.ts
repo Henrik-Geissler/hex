@@ -9,6 +9,7 @@ export class Tile {
   public pos: number;
   public location: Location;
   public color: Color;
+  public isBeeingPlaced?: Tile = undefined;
 
   constructor(
     id: number,
