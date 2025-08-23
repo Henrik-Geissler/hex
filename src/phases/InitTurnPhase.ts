@@ -8,6 +8,7 @@ import { TimeManager } from '../managers/TimeManager';
 
 export class InitTurnPhase implements PhaseInterface {
   async run(): Promise<void> { 
+    TimeManager.resetCounter();
     // Initialize turn state, draw cards, etc.
     await TimeManager.Wait(100); // Simulate async work
 
@@ -16,11 +17,13 @@ export class InitTurnPhase implements PhaseInterface {
     // Increment turn counter
     const gameState = GameState.getInstance();
     gameState.incrementTurn();
+    TimeManager.resetCounter();
     
     // Only trigger onRoundStart for relicts on the first turn of the round
     if (gameState.getTurn() === 1) {
       await RelictManager.getInstance().onRoundStart();
     }
+    TimeManager.resetCounter();
     
     StateMachine.getInstance().setPhase('CheckWinPhase', { nextPhaseOnNoWin: Phase.CheckLoosePhase });
   }
