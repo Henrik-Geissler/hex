@@ -219,10 +219,16 @@ const Hexagon: React.FC<HexagonProps> = ({
 
   // Determine transform scale based on drag state and placement
   const getTransform = () => {
-    if (tile.isBeeingPlaced) return `translateY(-10px) translateZ(100px) scale(1)`;
+    if (tile.isBeeingPlaced) return `translateY(-10px) scale(1)`;
     if (isDragging) return `scale(1)`;
     if (isDragOver) return `scale(1.1)`;
     return '';
+  };
+
+  // Determine transition timing based on placement state
+  const getTransition = () => {
+    if (tile.isBeeingPlaced) return 'none'; // No transition when entering placement state
+    return 'all 0.3s ease'; // Smooth transition when leaving placement state
   };
 
   return (
@@ -231,7 +237,7 @@ const Hexagon: React.FC<HexagonProps> = ({
         cursor: getCursorStyle(),
         opacity: getOpacity(),
         transform: getTransform(),
-        transition: 'all 0.3s ease',
+        transition: getTransition(),
         display: 'inline-block'
       }}
       draggable={isDraggable}

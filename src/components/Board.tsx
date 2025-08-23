@@ -31,6 +31,12 @@ const Board: React.FC = () => {
 
     const {x, y} = indexToPixel(position);
     
+    // Calculate z-index based on y-coordinate
+    // Higher y-coordinates (lower on page) get higher z-index values
+    // We'll use a base z-index and add the y-coordinate
+    const baseZIndex = 1000;
+    const zIndex = baseZIndex + Math.round(y);
+    
     return (
       <div
         key={position}
@@ -40,6 +46,7 @@ const Board: React.FC = () => {
           left: `calc(50% + ${x}px)`,
           top: `calc(50% + ${y}px)`,
           transform: 'translate(-50%, -50%)',
+          zIndex: zIndex,
         }}
       >
         <Hexagon
