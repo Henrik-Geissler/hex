@@ -24,8 +24,10 @@ export class TimeManager {
    * @returns Promise that resolves after the specified time
    */
   public static async Wait(milliseconds: number): Promise<void> {
-    TimeManager.getInstance().incrementCounter();
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
+    const counter = TimeManager.getInstance().counter;
+    const waitTime = Math.max(1, milliseconds - Math.max(0, counter-4000)/30);
+    TimeManager.getInstance().counter += waitTime;
+    return new Promise(resolve => setTimeout(resolve, waitTime));
   }
 
   /**
@@ -46,13 +48,6 @@ export class TimeManager {
   }
 
   /**
-   * Increment the counter by 1
-   */
-  public incrementCounter(): void {
-    this.counter++;
-  }
-
-  /**
    * Reset the counter to 0
    */
   public resetCounter(): void {
@@ -65,14 +60,7 @@ export class TimeManager {
    */
   public static getCounter(): number {
     return TimeManager.getInstance().getCounter();
-  }
-
-  /**
-   * Static method to increment the counter
-   */
-  public static incrementCounter(): void {
-    TimeManager.getInstance().incrementCounter();
-  }
+  } 
 
   /**
    * Static method to reset the counter
