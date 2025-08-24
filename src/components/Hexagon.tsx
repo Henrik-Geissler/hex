@@ -13,12 +13,14 @@ interface HexagonProps {
   width: number;
   height: number;
   tile: Tile; 
+  isPlayableAtHoveredLocation?: boolean;
 }
 
 const Hexagon: React.FC<HexagonProps> = ({ 
   width, 
   height, 
-  tile
+  tile,
+  isPlayableAtHoveredLocation
 }) => {
   // Calculate hexagon points for a proper hexagon
   const centerX = width / 2;
@@ -101,27 +103,22 @@ const Hexagon: React.FC<HexagonProps> = ({
   useEffect(() => {
     if (tile.location === 'Hand' && canDragDrop) {
       const checkPlaceability = () => {
-        const allBoardTiles = board.getAllTiles();
-        const hasValidDropZone = allBoardTiles.some(boardTile => 
-          isValidDropTarget(tile, boardTile)
-        );
-        setIsPlaceable(hasValidDropZone);
+        // If we have a specific hover location, use that
+        if (isPlayableAtHoveredLocation !== undefined) {
+          setIsPlaceable(isPlayableAtHoveredLocation);
+        } else {
+          // Otherwise check if it's placeable anywhere
+          const allBoardTiles = board.getAllTiles();
+          const hasValidDropZone = allBoardTiles.some(boardTile => 
+            isValidDropTarget(tile, boardTile)
+          );
+          setIsPlaceable(hasValidDropZone);
+        }
       };
       
       checkPlaceability();
-      
-      // Re-check when drag events happen (board state changes)
-      const handleDragEvent = () => {
-        checkPlaceability();
-      };
-      
-      dragEventManager.addListener(handleDragEvent);
-      
-      return () => {
-        dragEventManager.removeListener(handleDragEvent);
-      };
     }
-  }, [tile, canDragDrop, board, dragEventManager]);
+  }, [tile, canDragDrop, board, isPlayableAtHoveredLocation]);
 
   // Listen for score badge requests
   useEffect(() => {

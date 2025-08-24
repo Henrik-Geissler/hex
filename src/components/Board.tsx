@@ -3,6 +3,7 @@ import { Board as BoardDirectory } from '../directories/Board';
 import { TileFactory } from '../factories/TileFactory';
 import Hexagon from './Hexagon';
 import { indexToPixel } from '../directories/utils/boardSpace';
+import { BoardHoverManager } from '../managers/BoardHoverManager';
 
 const Board: React.FC = () => {
   const [boardTiles, setBoardTiles] = useState<{ [position: number]: any }>({});
@@ -10,6 +11,7 @@ const Board: React.FC = () => {
   const [boardOffset, setBoardOffset] = useState({ x: 0, y: 0 });
   const board = BoardDirectory.getInstance();
   const tileFactory = TileFactory.getInstance();
+  const boardHoverManager = BoardHoverManager.getInstance();
 
   // Calculate optimal board scaling and positioning
   const calculateBoardViewport = (tiles: any[]) => {
@@ -103,6 +105,8 @@ const Board: React.FC = () => {
           transform: 'translate(-50%, -50%)',
           zIndex: zIndex,
         }}
+        onMouseEnter={() => boardHoverManager.setHoveredTile(tile)}
+        onMouseLeave={() => boardHoverManager.setHoveredTile(null)}
       >
         <Hexagon
           width={100}
@@ -125,6 +129,7 @@ const Board: React.FC = () => {
           width: '100%',
           height: '100%'
         }}
+        onMouseLeave={() => boardHoverManager.setHoveredTile(null)}
       >
         {Object.keys(boardTiles).map(position => 
           renderBoardTile(parseInt(position))

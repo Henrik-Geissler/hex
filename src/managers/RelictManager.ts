@@ -119,7 +119,7 @@ export class RelictManager {
 
   // Generic helper method to execute lifecycle methods sequentially
   private async executeLifecycleMethod<T>(
-    methodName: keyof Pick<Relict, 'onChoose' | 'onRoundStart' | 'onRoundEnd' | 'onDrawTile' | 'onPlaceTile' | 'onPlaceFreeOrOffTile' | 'onColorChange' | 'onScoreTile' | 'onDiscard' | 'onSell' | 'onSellOther'>,
+    methodName: keyof Pick<Relict, 'onChoose' | 'onRoundStart' | 'onRoundEnd' | 'onDrawTile' | 'onPlaceTile' | 'onPlaceFreeOrOffTile' | 'onColorChange' | 'onScoreTile' | 'onDiscard' | 'onSell' | 'onSellOther'>, 
     ...args: any[]
   ): Promise<void> {
     for (let i = 0; i < this.relicts.length; i++) {
@@ -294,7 +294,7 @@ export class RelictManager {
 
   // Remove shop listener
   removeShopListener(listener: () => void): void {
-    this.shopListeners = this.shopListeners.filter(l => l !== listener);
+    this.shopListeners = this.listeners.filter(l => l !== listener);
   }
 
   // Notify shop listeners

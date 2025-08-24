@@ -5,6 +5,7 @@ import { usePhase } from '../hooks/usePhase';
 import { useGameState } from '../hooks/useGameState';
 import { StateMachine } from '../machines/StateMachine';
 import Hexagon from './Hexagon';
+import { BoardHoverManager } from '../managers/BoardHoverManager';
 
 const Hand: React.FC = () => {
   const [tiles, setTiles] = useState<Tile[]>([]);
@@ -12,6 +13,7 @@ const Hand: React.FC = () => {
   const { currentPhase } = usePhase();
   const { discards } = useGameState();
   const hand = HandDirectory.getInstance();
+  const boardHoverManager = BoardHoverManager.getInstance();
 
   useEffect(() => {
     // Update initial tiles
@@ -25,11 +27,18 @@ const Hand: React.FC = () => {
     // Add listener to hand
     hand.addListener(listener);
 
-    // Cleanup: remove listener when component unmounts
+    // Add listener for board hover changes
+    const hoverListener = () => {
+      updateHandTiles();
+    };
+    boardHoverManager.addListener(hoverListener);
+
+    // Cleanup: remove listeners when component unmounts
     return () => {
       hand.removeListener(listener);
+      boardHoverManager.removeListener(hoverListener);
     };
-  }, [hand]);
+  }, [hand, boardHoverManager]);
 
   const updateHandTiles = () => {
     setTiles(hand.getAllTiles());
@@ -102,6 +111,7 @@ const Hand: React.FC = () => {
               width={60}
               height={70}
               tile={tile} 
+              isPlayableAtHoveredLocation={boardHoverManager.isHandTilePlayableAtHoveredLocation(tile)}
             />
           </div>
         ))}

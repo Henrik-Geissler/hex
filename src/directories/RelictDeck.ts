@@ -39,13 +39,13 @@ export class RelictDeck {
     this.relicts = [];
      // this.relicts.push(new GoldMiner());
     //  this.relicts.push(new PiggyBank());
-     this.relicts.push(new Pioneer());
+     //this.relicts.push(new Pioneer()); //boring
        this.relicts.push(new GreenDoubler());
      this.relicts.push(new BlueUpgrader());
       this.relicts.push(new BlueMirror());
       this.relicts.push(new ColorUpgrader());
       this.relicts.push(new Incrementer());
-      this.relicts.push(new NeighborMirror());
+      //this.relicts.push(new NeighborMirror()); //to complicated
      this.relicts.push(new BoardUpgrader());
       this.relicts.push(new EdgeChaos());
              this.relicts.push(new ColorConsumer());
