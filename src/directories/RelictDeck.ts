@@ -21,6 +21,7 @@ import { NeighborDevourer } from '../relicts/NeighborDevourer';
 import { WaterMirror } from '../relicts/WaterMirror';
 import { UpgradePlacer } from '../relicts/UpgradePlacer';
 import { WaterToucher } from '../relicts/WaterToucher';
+import { CoinField } from '../relicts/CoinField';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -62,6 +63,7 @@ export class RelictDeck {
        this.relicts.push(new WaterMirror());
        this.relicts.push(new UpgradePlacer());
        this.relicts.push(new WaterToucher());
+       this.relicts.push(new CoinField());
     
     this.shuffle();
   }
