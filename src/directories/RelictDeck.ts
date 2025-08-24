@@ -19,6 +19,7 @@ import { SingleNeighborClone } from '../relicts/SingleNeighborClone';
 import { Digit5Expander } from '../relicts/Digit5Expander';
 import { NeighborDevourer } from '../relicts/NeighborDevourer';
 import { WaterMirror } from '../relicts/WaterMirror';
+import { UpgradePlacer } from '../relicts/UpgradePlacer';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -46,7 +47,7 @@ export class RelictDeck {
       this.relicts.push(new BlueMirror());
       this.relicts.push(new ColorUpgrader());
       this.relicts.push(new Incrementer());
-      //this.relicts.push(new NeighborMirror()); //to complicated
+      this.relicts.push(new NeighborMirror());
      this.relicts.push(new BoardUpgrader());
       this.relicts.push(new EdgeChaos());
              this.relicts.push(new ColorConsumer());
@@ -58,6 +59,7 @@ export class RelictDeck {
        //this.relicts.push(new Digit5Expander());
        this.relicts.push(new NeighborDevourer());
        this.relicts.push(new WaterMirror());
+       this.relicts.push(new UpgradePlacer());
     
     this.shuffle();
   }

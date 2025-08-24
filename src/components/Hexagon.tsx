@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Tile } from '../types/Tile';
 import { Color, ColorMap } from '../types/Color';
+import { SpotType } from '../types/SpotType';
 import { StateMachine } from '../machines/StateMachine';
 import { Hand as HandDirectory } from '../directories/Hand';
 import { Board as BoardDirectory } from '../directories/Board';
 import { DragEventManager } from '../managers/DragEventManager';
 import { BoardHoverManager } from '../managers/BoardHoverManager';
 import { isValidDropTarget } from '../utils/dropZoneValidation';
-import { BadgeManager, BadgeType } from '../utils/BadgeManager';
+import { BadgeManager } from '../utils/BadgeManager';
+import { BadgeType } from '../types/BadgeType';
 import ScoreBadge from './ScoreBadge';
 
 interface HexagonProps {
@@ -39,7 +41,28 @@ const Hexagon: React.FC<HexagonProps> = ({
 
   // Get color and score from tile
   const color = ColorMap[tile.color];
-  const score = (tile.color == Color.Free  ||tile.color == Color.Off )? "" : tile.score;
+  
+  // Determine what to display in the center
+  let displayText = "";
+  if (tile.isFree()) {
+    // Show emojis for special SpotTypes
+    switch (tile.score) {
+      case SpotType.Upgrade:
+        displayText = "⬆️";
+        break;
+      case SpotType.Double:
+        displayText = "⚡";
+        break;
+      case SpotType.Coin:
+        displayText = "🪙";
+        break;
+      default:
+        displayText = ""; // Regular Free tiles show nothing
+    }
+  } else if (tile.color !== Color.Off) {
+    // Show score for non-Free, non-Off tiles
+    displayText = tile.score.toString();
+  }
 
   // Drag and drop state
   const [isDragging, setIsDragging] = useState(false);
@@ -311,9 +334,9 @@ const Hexagon: React.FC<HexagonProps> = ({
           filter: 'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.7))'
         }}
               >
-        {score}
+        {displayText}
       </text>
-      </svg>
+       </svg>
       
       {/* Score badge overlay */}
       {currentBadge && (

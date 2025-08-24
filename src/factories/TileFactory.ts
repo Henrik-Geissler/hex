@@ -32,6 +32,9 @@ export class TileFactory {
   }
 
   createFreeTile = (): Tile => this.createTile(0, Color.Free, SpotType.Free);
+  createDoubleTile = (): Tile => this.createTile(0, Color.Free, SpotType.Double);
+  createCoinTile = (): Tile => this.createTile(0, Color.Free, SpotType.Coin);
+  createUpgradeTile = (): Tile => this.createTile(0, Color.Free, SpotType.Upgrade);
 
   createOffTile = (): Tile => this.createTile(0, Color.Off, OffType.Free);
  

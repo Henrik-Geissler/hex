@@ -2,7 +2,8 @@ import { Tile } from '../../types/Tile';
 import { handleScore } from '../handleScore';
 import { Board } from '../../directories/Board';
 import { Hand } from '../../directories/Hand';
-import { BadgeManager, BadgeType } from '../BadgeManager';
+import { BadgeManager } from '../BadgeManager';
+import { BadgeType } from '../../types/BadgeType';
 
 // Type for functions that mutate a tile and return a Promise<Tile>
 export type TileMutationFunction = (tile: Tile) => Promise<Tile>;

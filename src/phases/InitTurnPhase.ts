@@ -5,6 +5,7 @@ import { RelictManager } from '../managers/RelictManager';
 import { GameState } from '../machines/GameState';
 import { Phase } from '../types/Phase';
 import { TimeManager } from '../managers/TimeManager';
+import { PlacingQueue } from '../directories/utils/PlacingQueue';
 
 export class InitTurnPhase implements PhaseInterface {
   async run(): Promise<void> { 
@@ -17,11 +18,12 @@ export class InitTurnPhase implements PhaseInterface {
     // Increment turn counter
     const gameState = GameState.getInstance();
     gameState.incrementTurn();
-    TimeManager.resetCounter();
     
     // Only trigger onRoundStart for relicts on the first turn of the round
     if (gameState.getTurn() === 1) {
+      TimeManager.resetCounter();
       await RelictManager.getInstance().onRoundStart();
+      await PlacingQueue.getInstance().Play(); 
     }
     TimeManager.resetCounter();
     
