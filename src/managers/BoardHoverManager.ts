@@ -7,8 +7,10 @@ export class BoardHoverManager {
   private static instance: BoardHoverManager;
   private hoveredTile: Tile | null = null;
   private draggedTile: Tile | null = null;
+  private hoveredHandTile: Tile | null = null;
   private listeners: Array<() => void> = [];
   private dragListeners: Array<() => void> = [];
+  private handHoverListeners: Array<() => void> = [];
 
   private constructor() {}
 
@@ -54,6 +56,23 @@ export class BoardHoverManager {
   }
 
   /**
+   * Set the currently hovered hand tile
+   * @param tile - The hand tile being hovered, or null if not hovering any hand tile
+   */
+  public setHoveredHandTile(tile: Tile | null): void {
+    this.hoveredHandTile = tile;
+    this.notifyHandHoverListeners();
+  }
+
+  /**
+   * Get the currently hovered hand tile
+   * @returns The hand tile being hovered, or null if not hovering any hand tile
+   */
+  public getHoveredHandTile(): Tile | null {
+    return this.hoveredHandTile;
+  }
+
+  /**
    * Check if a hand tile is playable at the currently hovered board location
    * @param handTile - The hand tile to check
    * @returns true if the hand tile can be played at the hovered location, false otherwise
@@ -91,7 +110,12 @@ export class BoardHoverManager {
     if (this.hoveredTile === boardTile) {
       const hand = HandDirectory.getInstance();
       const handTiles = hand.getAllTiles();
-      return handTiles.some(handTile => isValidDropTarget(handTile, boardTile));
+      const hasPlayableTiles = handTiles.some(handTile => isValidDropTarget(handTile, boardTile));
+      
+      // Only highlight if there are actually playable hand tiles
+      if (!hasPlayableTiles) {
+        return false;
+      }
     }
     
     // Check if this board tile is a valid drop zone for the dragged tile
@@ -99,7 +123,13 @@ export class BoardHoverManager {
       return isValidDropTarget(this.draggedTile, boardTile);
     }
     
-    return false;
+    // Check if this board tile is a valid drop zone for the hovered hand tile
+    if (this.hoveredHandTile) {
+      return isValidDropTarget(this.hoveredHandTile, boardTile);
+    }
+    
+    // Only highlight if we're hovering over this specific tile and it has playable hand tiles
+    return this.hoveredTile === boardTile;
   }
 
   /**
@@ -149,6 +179,22 @@ export class BoardHoverManager {
   }
 
   /**
+   * Add a listener for hand hover state changes
+   * @param listener - Function to call when hand hover state changes
+   */
+  public addHandHoverListener(listener: () => void): void {
+    this.handHoverListeners.push(listener);
+  }
+
+  /**
+   * Remove a hand hover listener
+   * @param listener - Function to remove from hand hover listeners
+   */
+  public removeHandHoverListener(listener: () => void): void {
+    this.handHoverListeners = this.listeners.filter(l => l !== listener);
+  }
+
+  /**
    * Notify all listeners of state changes
    */
   private notifyListeners(): void {
@@ -160,5 +206,12 @@ export class BoardHoverManager {
    */
   private notifyDragListeners(): void {
     this.dragListeners.forEach(listener => listener());
+  }
+
+  /**
+   * Notify all hand hover listeners of state changes
+   */
+  private notifyHandHoverListeners(): void {
+    this.handHoverListeners.forEach(listener => listener());
   }
 }

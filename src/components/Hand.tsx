@@ -106,6 +106,8 @@ const Hand: React.FC = () => {
             className={`hand-tile ${selectedTiles.has(tile.id) ? 'selected' : ''}`}
             style={getTileStyle(tile, index, tiles.length)}
             onClick={() => handleTileClick(tile.id)}
+            onMouseEnter={() => boardHoverManager.setHoveredHandTile(tile)}
+            onMouseLeave={() => boardHoverManager.setHoveredHandTile(null)}
           >
             <Hexagon
               width={60}

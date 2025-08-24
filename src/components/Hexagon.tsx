@@ -115,11 +115,13 @@ const Hexagon: React.FC<HexagonProps> = ({
     // Add listeners for hover and drag state changes
     boardHoverManager.addListener(updateHighlightState);
     boardHoverManager.addDragListener(updateHighlightState);
+    boardHoverManager.addHandHoverListener(updateHighlightState);
 
     // Cleanup: remove listeners when component unmounts
     return () => {
       boardHoverManager.removeListener(updateHighlightState);
       boardHoverManager.removeDragListener(updateHighlightState);
+      boardHoverManager.removeHandHoverListener(updateHighlightState);
     };
   }, [tile, boardHoverManager]);
 
