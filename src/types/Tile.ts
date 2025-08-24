@@ -1,6 +1,7 @@
 import { TileFactory } from '../factories/TileFactory';
 import { Color } from './Color';
 import { Location } from './Location';
+import { SpotType } from './SpotType';
 
 // Tile class with all required properties
 export class Tile {
@@ -44,6 +45,7 @@ export class Tile {
   }
 
   isFree = () => this.color == Color.Free; 
+  isFreeAndFreeSpot = () => this.isFree() && this.score == SpotType.Free; 
   isOff = () => this.color == Color.Off;
   matchesColor = (color: Color) => this.color == color || this.color == Color.White;
   

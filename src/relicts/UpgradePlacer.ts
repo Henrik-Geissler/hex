@@ -1,8 +1,7 @@
 import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { Board } from '../directories/Board';
-import { TileFactory } from '../factories/TileFactory';
-import { SpotType } from '../types/SpotType';
+import { TileFactory } from '../factories/TileFactory'; 
 import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
 
 export class UpgradePlacer implements Relict {
@@ -19,7 +18,7 @@ export class UpgradePlacer implements Relict {
     const board = Board.getInstance();
     const tileFactory = TileFactory.getInstance();
     const allTiles = board.getAllTiles();
-    const freeTiles = allTiles.filter(tile => tile.isFree());
+    const freeTiles = allTiles.filter(tile => tile.isFreeAndFreeSpot());
     
     // Randomly select 6 tiles to upgrade (or all if less than 6)
     const tilesToUpgrade = this.getRandomTiles(freeTiles, Math.min(6, freeTiles.length));

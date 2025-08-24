@@ -1,11 +1,9 @@
 import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { Board } from '../directories/Board';
-import { TileFactory } from '../factories/TileFactory';
-import { SpotType } from '../types/SpotType';
-import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
-import { Color } from '../types/Color';
-import { getNeighbours } from '../directories/utils/getNeighbours';
+import { TileFactory } from '../factories/TileFactory'; 
+import { handleStartPlacement } from '../utils/mutations/handleStartPlacement'; 
+import { getNeighbours } from '../directories/utils/getNeighbours'; 
 
 export class WaterToucher implements Relict {
   name: string = 'Water Toucher';
@@ -31,7 +29,7 @@ export class WaterToucher implements Relict {
     
     // Get all free spots on the board
     const allTiles = board.getAllTiles();
-    const freeTiles = allTiles.filter(tile => tile.isFree());
+    const freeTiles = allTiles.filter(tile => tile.isFreeAndFreeSpot);
     
     if (freeTiles.length < 2) return; 
     const shuffled = [...freeTiles].sort(() => 0.5 - Math.random());
