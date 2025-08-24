@@ -20,7 +20,7 @@ export class RoundEndPhase implements PhaseInterface {
 
     GameState.getInstance().addGold(5);
 
-    await TimeManager.Wait(1000); // Simulate async work
+    await TimeManager.Wait(500); // Simulate async work
     StateMachine.getInstance().setPhase('ShopPhase');
   } 
 }

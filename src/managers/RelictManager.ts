@@ -113,7 +113,7 @@ export class RelictManager {
       this.notifyHighlightListeners(index);
       
       // Return after 500ms (half a second) as specified
-      await TimeManager.Wait(500);
+      await TimeManager.Wait(200);
     };
   }
 

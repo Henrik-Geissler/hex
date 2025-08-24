@@ -171,7 +171,7 @@
 }
 
 .relict-slot.highlighted {
-  animation: relict-highlight 1s ease-in-out;
+  animation: relict-highlight 200ms ease-in-out;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
   z-index: 1001;
 }

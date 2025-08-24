@@ -5,7 +5,6 @@ import { TimeManager } from '../managers/TimeManager';
 
 export class ShopPhase implements PhaseInterface {
   async run(): Promise<void> {
-    console.log('Running ShopPhase');
     
     // Reset reroll cost to 1 when entering shop
     RelictManager.getInstance().resetRerollCost();

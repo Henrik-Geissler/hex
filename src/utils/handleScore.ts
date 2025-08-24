@@ -20,7 +20,7 @@ export async function handleScore(beforeTile: Tile, afterTile: Tile): Promise<vo
   if (afterTile.isFree() || afterTile.isOff()) {
     return; // Don't score initialization or cleanup
   }
-  await TimeManager.Wait(500); 
+  await TimeManager.Wait(200); 
   
   // Calculate score difference
   const beforeScore = beforeTile.score || 0;
