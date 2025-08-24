@@ -7,7 +7,7 @@ import { Color } from '../types/Color';
 export class NeighborMirror implements Relict {
   name: string = 'Red Mirror';
   description: string = 'When you place a Red Tile with exactly 2 Neighbours, Mirror them';
-  icon: string = '🪞';
+  icon: string = '✨'; // Sparkles emoji for mirror effect
   sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {

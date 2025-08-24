@@ -8,7 +8,7 @@ import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
 export class UpgradePlacer implements Relict {
   name: string = 'Upgrade Placer';
   description: string = 'Places Upgrade Tiles on 6 random tiles after free tiles are placed';
-  icon: string = '⬆️'; // Up arrow emoji
+  icon: string = '📍'; // Pin emoji for placing/positioning
   sellValue: number = 1;
 
   /**
