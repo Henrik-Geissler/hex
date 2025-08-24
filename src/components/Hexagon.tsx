@@ -5,6 +5,7 @@ import { StateMachine } from '../machines/StateMachine';
 import { Hand as HandDirectory } from '../directories/Hand';
 import { Board as BoardDirectory } from '../directories/Board';
 import { DragEventManager } from '../managers/DragEventManager';
+import { BoardHoverManager } from '../managers/BoardHoverManager';
 import { isValidDropTarget } from '../utils/dropZoneValidation';
 import { BadgeManager, BadgeType } from '../utils/BadgeManager';
 import ScoreBadge from './ScoreBadge';
@@ -57,6 +58,7 @@ const Hexagon: React.FC<HexagonProps> = ({
   const board = BoardDirectory.getInstance();
   const dragEventManager = DragEventManager.getInstance();
   const badgeManager = BadgeManager.getInstance();
+  const boardHoverManager = BoardHoverManager.getInstance();
 
   // Listen for phase changes to update drag/drop state
   useEffect(() => {
@@ -98,6 +100,28 @@ const Hexagon: React.FC<HexagonProps> = ({
       dragEventManager.removeListener(handleDragEvent);
     };
   }, [dragEventManager, tile]);
+
+  // Listen for board hover and drag state changes
+  useEffect(() => {
+    const updateHighlightState = () => {
+      if (tile.location === 'Board') {
+        setIsHighlighted(boardHoverManager.shouldHighlightBoardTile(tile));
+      }
+    };
+
+    // Set initial state
+    updateHighlightState();
+
+    // Add listeners for hover and drag state changes
+    boardHoverManager.addListener(updateHighlightState);
+    boardHoverManager.addDragListener(updateHighlightState);
+
+    // Cleanup: remove listeners when component unmounts
+    return () => {
+      boardHoverManager.removeListener(updateHighlightState);
+      boardHoverManager.removeDragListener(updateHighlightState);
+    };
+  }, [tile, boardHoverManager]);
 
   // Check if hand tile is placeable anywhere on the board
   useEffect(() => {
@@ -150,6 +174,7 @@ const Hexagon: React.FC<HexagonProps> = ({
     }
     setIsDragging(true);
     dragEventManager.notifyDragStart(tile);
+    boardHoverManager.setDraggedTile(tile);
     e.dataTransfer.setData('text/plain', tile.id.toString());
     e.dataTransfer.effectAllowed = 'move';
   };
@@ -158,6 +183,7 @@ const Hexagon: React.FC<HexagonProps> = ({
   const handleDragEnd = () => {
     setIsDragging(false);
     dragEventManager.notifyDragEnd();
+    boardHoverManager.setDraggedTile(null);
   };
 
   // Handle drag over
@@ -262,7 +288,7 @@ const Hexagon: React.FC<HexagonProps> = ({
        {/* Background hexagon with highlight */}
        <polygon
          points={points.join(' ')}
-         fill={isHighlighted ? (color+"cc") : color}
+         fill={isHighlighted ?  color:(color+"cc") }
          stroke={isHighlighted ? "rgba(0, 255, 0, 0.4)" : "rgba(255, 255, 255, 0.3)"}
          strokeWidth={isHighlighted ? "2" : "2"}
        />
