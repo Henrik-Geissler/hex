@@ -28,4 +28,5 @@ export async function handleStartPlacement(tile: Tile, tileOrPosition: Tile | nu
     if(tile.isOff() &&!tile.isBeeingPlaced.isOff()) {
         await TimeManager.Wait(25);
     }
+    if(!tile.isFreeAndFreeSpot() && !tile.isOff()  )  {await TimeManager.Wait(150)};
 } 

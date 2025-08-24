@@ -35,12 +35,14 @@ export async function handleProcessPlacement(tile: Tile): Promise<void> {
     
     await RelictManager.getInstance().onPlaceTile(tile);
 
+
     if(tile.isFree() &&!tile.isBeeingPlaced.isFree()) {
         await TimeManager.Wait(25);
     }
     if(tile.isOff() &&!tile.isBeeingPlaced.isOff()) {
         await TimeManager.Wait(25);
     }
+    if(!tile.isFreeAndFreeSpot() && !tile.isOff()  )  {await TimeManager.Wait(150)};
     tile.isBeeingPlaced = undefined;
     Board.getInstance().triggerUpdate();
 } 

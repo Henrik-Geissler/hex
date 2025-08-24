@@ -3,6 +3,7 @@ import { Board } from '../../directories/Board';
 import { mirrorPosition } from '../../directories/utils/getNeighbours';
 import { mutateTile } from './mutateTile';
 import { handleStartPlacement } from './handleStartPlacement';
+import { TimeManager } from '../../managers/TimeManager';
 
 export async function handleMirrorClone(tileToMirror: Tile, mirrorTile: Tile): Promise<boolean> {
   // Calculate the mirrored position
@@ -15,10 +16,11 @@ export async function handleMirrorClone(tileToMirror: Tile, mirrorTile: Tile): P
   if (!tileAtMirroredPos.isFree())  return false;
     // Trigger the mirror effect on the original tile
     await mutateTile(mirrorTile, async (tile) => {
+      await TimeManager.Wait(200);
       return tile;
     }, 'mirror');
     
     const clonedTile = tileToMirror.Clone();
-    handleStartPlacement(clonedTile,mirroredPos);
+    await handleStartPlacement(clonedTile,mirroredPos);
     return true;
 }

@@ -29,7 +29,7 @@ export class WaterToucher implements Relict {
     
     // Get all free spots on the board
     const allTiles = board.getAllTiles();
-    const freeTiles = allTiles.filter(tile => tile.isFreeAndFreeSpot);
+    const freeTiles = allTiles.filter(tile => tile.isFreeAndFreeSpot());
     
     if (freeTiles.length < 2) return; 
     const shuffled = [...freeTiles].sort(() => 0.5 - Math.random());

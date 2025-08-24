@@ -36,6 +36,7 @@ export class WaterMirror implements Relict {
    * Call handleMirroring for all neighbors
    */
   async onPlaceFreeOrOffTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
+    if(!tile.isOff()) return;
     const neighbors = getPlayedNeighbours(tile);
     
     // Mirror all neighbors across this Free/Off tile
