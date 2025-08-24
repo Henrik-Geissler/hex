@@ -10,8 +10,8 @@ export class CheckLoosePhase implements PhaseInterface {
     // Check lose conditions using the isLooseFunction
     const hasLost = isLooseFunction();
     
-    if (hasLost) {
-      StateMachine.getInstance().setPhase('InitPhase');
+    if (hasLost) { 
+      StateMachine.getInstance().setPhase('LoosePhase');
     } else {
       StateMachine.getInstance().setPhase('WaitForInputPhase');
     }

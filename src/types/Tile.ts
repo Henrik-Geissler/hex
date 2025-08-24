@@ -4,7 +4,7 @@ import { Location } from './Location';
 
 // Tile class with all required properties
 export class Tile {
-  public score: number;
+  public readonly score: number;
   public id: number;
   public pos: number;
   public location: Location;
@@ -19,12 +19,24 @@ export class Tile {
     color: Color = Color.Off
   ) {
     this.id = id;
-    this.score = score;
     this.pos = pos;
     this.location = location;
     this.color = color;
+    this.score = score;
+
+    this.setScore(score);
   }
- 
+
+  // Setter method for score
+  setScore(newScore: number): void {
+    const possibleScore = Math.min(Math.max(newScore, 0), 9999);
+    // Update the readonly score property using Object.defineProperty
+    Object.defineProperty(this, 'score', {
+      value: possibleScore,
+      writable: false,
+      configurable: true
+    });
+  }
 
   // Method to get tile information as string
   toString(): string {
