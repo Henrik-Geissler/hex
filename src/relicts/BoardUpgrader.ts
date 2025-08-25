@@ -1,7 +1,7 @@
 import { Relict } from '../types/Relict';
 import { Board } from '../directories/Board';
 import { handleUpgrade } from '../utils/mutations/handleUpgrade';
-
+import { Rarety } from '../types/Rarety';
 export class BoardUpgrader implements Relict {
   name: string = 'Board Upgrader';
   description: string = 'On Round End Upgrade all Tiles on the Board';
