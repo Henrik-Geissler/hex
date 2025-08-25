@@ -1,6 +1,6 @@
 import { Relict } from '../types/Relict';
 import { GameState } from '../machines/GameState';
-
+import { Rarety } from '../types/Rarety';
 export class DiscardRewarder implements Relict {
   name: string = 'Discard Rewarder';
   description: string = 'Round End: Get 1 Gold for each remaining Discard';
