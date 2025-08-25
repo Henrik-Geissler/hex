@@ -8,7 +8,7 @@ import { TileFactory } from '../factories/TileFactory';
 
 export class CoinField implements Relict {
   name: string = 'Coin Field';
-  description: string = 'If there is an empty Area of exactly X, fill it with Coins. (Number changes every round)';
+  description: string = 'Surround an empty Area of X Tiles to fill it with Coins. (Number changes every round)';
   icon: string = '🌾'; // Wheat field emoji
   counter?: number = undefined;
   sellValue: number = 2;
@@ -20,7 +20,7 @@ export class CoinField implements Relict {
     this.targetSize = Math.floor(Math.random() * 8) + 1;
     
     // Update description text
-    this.description = `If there is an empty Area of exactly ${this.targetSize}, fill it with Coins. (Number changes every round)`;
+    this.description = `Surround an empty Area of ${this.targetSize} Tiles to fill it with Coins. (Number changes every round)`;
   }
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
