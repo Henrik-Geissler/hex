@@ -3,7 +3,7 @@ import { Tile } from '../types/Tile';
 import { Board } from '../directories/Board';
 import { Hand } from '../directories/Hand';
 import { handleConsume } from '../utils/mutations/handleConsume';
-
+import { Rarety } from '../types/Rarety';
 export class ColorConsumer implements Relict {
   name: string = 'Color Consumer';
   description: string = 'The first Tile of each Color consumes the lowest Tile in your hand';
