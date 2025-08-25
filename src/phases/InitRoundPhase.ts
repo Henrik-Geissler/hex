@@ -24,9 +24,6 @@ export class InitRoundPhase implements PhaseInterface {
     GameState.getInstance().setTurn(0); 
     await Board.getInstance().clear(); 
     TimeManager.resetCounter();
-    for (let i = 0; i < 37+4*6+5*6+6*6+7*6; i++) {
-     await handleStartPlacement(TileFactory.getInstance().createOffTile(), i);
-    }
     for (let i = 0; i < 37; i++) {
       if(Math.random()<.8)
        await handleStartPlacement(TileFactory.getInstance().createFreeTile(), i);
