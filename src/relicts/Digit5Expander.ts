@@ -3,7 +3,7 @@ import { TileFactory } from '../factories/TileFactory';
 import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
-
+import { Rarety } from '../types/Rarety';
 export class Digit5Expander implements Relict {
   name: string = 'Digit 5 Expander';
   description: string = 'When a Tile is placed, for each digit 5 in the played tiles score, replace a neighbouring Off Tile with a Free Tile';
