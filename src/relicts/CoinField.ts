@@ -5,7 +5,7 @@ import { getArea } from '../directories/utils/getArea';
 import { isAreasSame } from '../directories/utils/getArea';
 import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
 import { TileFactory } from '../factories/TileFactory';
-
+import { Rarety } from '../types/Rarety';
 export class CoinField implements Relict {
   name: string = 'Coin Field';
   description: string = 'Surround an empty Area of X Tiles to fill it with Coins. (Number changes every round)';
