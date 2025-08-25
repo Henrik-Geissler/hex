@@ -4,7 +4,7 @@ import { Color } from '../types/Color';
 import { handleUpgrade } from '../utils/mutations/handleUpgrade';
 import { Board } from '../directories/Board';
 import { getNeighbours } from '../directories/utils/getNeighbours';
-
+import { Rarety } from '../types/Rarety';
 export class BlueUpgrader implements Relict {
   name: string = 'Blue Upgrader';
   description: string = 'Placed Tiles upgrade for each blue neighbor';
