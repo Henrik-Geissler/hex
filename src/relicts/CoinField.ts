@@ -12,6 +12,7 @@ export class CoinField implements Relict {
   icon: string = '🌾'; // Wheat field emoji
   counter?: number = undefined;
   sellValue: number = 2;
+  rarety:Rarety =Rarety.Starter;
   
   private targetSize: number = 1;
 
