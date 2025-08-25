@@ -3,7 +3,7 @@ import { Tile } from '../types/Tile';
 import { Board } from '../directories/Board'; 
 import { getNeighbours } from '../directories/utils/getNeighbours'; 
 import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
-
+import { Rarety } from '../types/Rarety';
 export class The13thTile implements Relict {
   name: string = 'The 13th Tile';
   description: string = 'The 13th Tile, thats placed on the board also place copies on every free neighbor';
