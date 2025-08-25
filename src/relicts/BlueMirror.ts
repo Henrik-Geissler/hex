@@ -9,7 +9,8 @@ export class BlueMirror implements Relict {
   description: string = 'Placed Tiles are mirrored at blue neighbors';
   icon: string = '🪞'; // Mirror emoji
   sellValue: number = 1;
-
+  rarety:Rarety =Rarety.Filler;
+  
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
     const neighbors = getNeighbours(tile);
     
