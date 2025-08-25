@@ -18,8 +18,9 @@ export class InitRoundPhase implements PhaseInterface {
     gameState.incrementRound();
     gameState.setTurn(0); // Reset turn counter to 0 at start of new round
     gameState.setDiscards(3);
-    gameState.setTargetScore(Math.floor(gameState.getTargetScore() *
-     (gameState.getRound()%3==0?5:1.5));
+    gameState.setTargetScore(
+      Math.floor(gameState.getTargetScore() *
+     (gameState.getRound()%3==0?5:1.5)));
     gameState.setScore(0); 
     GameState.getInstance().setTurn(0); 
     await Board.getInstance().clear(); 
