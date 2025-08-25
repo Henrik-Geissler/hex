@@ -50,6 +50,8 @@ const ScoreBadge: React.FC<ScoreBadgeProps> = ({
         return '👻';
       case 'coin':
         return '🪙';
+      case 'move':
+        return '👟';
       default:
         return '';
     }

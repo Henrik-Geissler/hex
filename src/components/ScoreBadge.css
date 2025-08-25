@@ -46,8 +46,14 @@
   color: #E91E63;
 }
 
+/* Disappear badge styles */
 .score-badge-disappear {
   color: #9C27B0;
+}
+
+/* Move badge styles */
+.score-badge-move {
+  color: #4CAF50;
 }
 
 /* Visible state */

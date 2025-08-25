@@ -47,6 +47,7 @@ export class Tile {
   isFree = () => this.color == Color.Free; 
   isFreeAndFreeSpot = () => this.isFree() && this.score == SpotType.Free; 
   isOff = () => this.color == Color.Off;
+  isReal = () => !this.isFree() && !this.isOff();
   matchesColor = (color: Color) => this.color == color || this.color == Color.White;
   
   // Clone method that returns a new Tile with the same properties but a new ID

@@ -9,18 +9,18 @@ export class NeighborDevourer implements Relict {
   icon: string = '🦖';
   sellValue: number = 1;
 
-  async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
-    // Get all non-free, non-off neighbors
+  async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> { 
+    if(await this.TryEat(highlight,tile)) return;
     const neighbors = getPlayedNeighbours(tile);
-    
-    // Check if exactly 6 neighbors exist
-    if (neighbors.length === 6) {
-      await highlight();
-      
-      // Consume all 6 neighbors
-      for (const neighbor of neighbors) {
+    for (const neighbor of neighbors) 
+      if(await this.TryEat(highlight,neighbor)) return;
+  }
+  async TryEat(highlight: () => Promise<void>,tile: Tile): Promise<boolean> {
+    const neighbors = getPlayedNeighbours(tile); 
+    if (neighbors.length !== 6) return false;
+      await highlight(); 
+      for (const neighbor of neighbors) 
         await handleConsume(tile, neighbor);
-      }
-    }
+      return true; 
   }
 }
