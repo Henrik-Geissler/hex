@@ -9,6 +9,7 @@ export class Digit5Expander implements Relict {
   description: string = 'When a Tile is placed, for each digit 5 in the played tiles score, replace a neighbouring Off Tile with a Free Tile';
   icon: string = '🔢';
   sellValue: number = 1;
+  rarety:Rarety = Rarety.Rare;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> { 
     let fives = tile.score.toString().split('').filter(digit => digit === '5').length;
