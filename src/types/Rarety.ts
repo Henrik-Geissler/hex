@@ -4,4 +4,4 @@ export const Rarety = {
     Filler: 'Filler',
     Rare: 'Rare'
 } as const
-export type Location = keyof typeof Rarety;
+export type Rarety = keyof typeof Rarety;
