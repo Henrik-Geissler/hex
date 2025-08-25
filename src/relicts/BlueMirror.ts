@@ -3,7 +3,7 @@ import { Tile } from '../types/Tile';
 import { Color } from '../types/Color';
 import { getNeighbours } from '../directories/utils/getNeighbours'; 
 import { handleMirrorClone } from '../utils/mutations/handleMirrorClone';
-
+import { Rarety } from '../types/Rarety';
 export class BlueMirror implements Relict {
   name: string = 'Blue Mirror';
   description: string = 'Placed Tiles are mirrored at blue neighbors';
