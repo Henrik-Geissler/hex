@@ -131,7 +131,8 @@ export class RelictManager {
     }
     const checkValue = isCheck? checkFn():null;
     for (let i = 0; i < this.relicts.length; i++) {
-      if(checkFn ()! =checkValue) break;
+      if(isCheck) 
+      if(checkFn ()!=checkValue) break;
       const relict = this.relicts[i];
       const method = relict[methodName];
       if (method && typeof method === 'function') {
