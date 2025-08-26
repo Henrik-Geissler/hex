@@ -122,7 +122,16 @@ export class RelictManager {
     methodName: keyof Pick<Relict, 'onChoose' | 'onRoundStart' | 'onRoundEnd' | 'onDrawTile' | 'onPlaceTile' | 'onPlaceFreeOrOffTile' | 'onColorChange' | 'onScoreTile' | 'onDiscard' | 'onSell' | 'onSellOther'>, 
     ...args: any[]
   ): Promise<void> {
+    
+    const isCheck = typeof args[0] === "function" ;
+    let checkFn = undefined
+    if(isCheck){
+      ;[checkFn,... args] =args
+      
+    }
+    const checkValue = isCheck? checkFn():null;
     for (let i = 0; i < this.relicts.length; i++) {
+      if(checkFn ()! =checkValue) break;
       const relict = this.relicts[i];
       const method = relict[methodName];
       if (method && typeof method === 'function') {
@@ -142,9 +151,9 @@ export class RelictManager {
 
   onPlaceTile = async (tile: Tile) => {
     if (tile.isFree() || tile.isOff()) {
-      await this.executeLifecycleMethod('onPlaceFreeOrOffTile', tile);
+      await this.executeLifecycleMethod('onPlaceFreeOrOffTile', () =>tile.pos,tile);
     } else {
-      await this.executeLifecycleMethod('onPlaceTile', tile);
+      await this.executeLifecycleMethod('onPlaceTile', ()=>tile.pos,tile);
     }
   };
 
