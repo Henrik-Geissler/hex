@@ -10,9 +10,5 @@ export async function handleMove(tile: Tile, target: Tile): Promise<void> {
       //await TimeManager.Wait(200);
       return tile;
     }, 'move');
-    
-    const emptyTile = TileFactory.getInstance().createFreeTile();
-    await handleStartPlacement(emptyTile,tile.pos);
-    const clonedTile = tile.Clone();
-    await handleStartPlacement(clonedTile,target.pos);
+    await handleStartPlacement(tile,target.pos);
 }
