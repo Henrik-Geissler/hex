@@ -36,6 +36,7 @@ export class Board implements TileDictionary {
   async remove(tile: Tile): Promise<boolean> {
     await handleStartPlacement(TileFactory.getInstance().createFreeTile(), tile)
     tile.location = "Air" 
+    tile.isBeeingPlaced=undefined
     return true;
   }
 
