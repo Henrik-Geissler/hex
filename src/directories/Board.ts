@@ -57,7 +57,7 @@ export class Board implements TileDictionary {
   }
   getTileAtPos(pos: number): Tile {
     this.fillUntil(pos);
-    if(this.tiles[pos] == undefined) {
+    if(this.tiles[pos] == undefined) 
       throw new Error("tile") ;
     return this.tiles[pos];
   }
