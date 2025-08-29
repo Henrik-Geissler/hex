@@ -347,7 +347,7 @@ export class RelictManager {
    */
   public drawStartingRelict(): Relict | null {
     const relictDeck = RelictDeck.getInstance();
-    const starterRelicts = relictDeck.draw(1, relict => relict.rarity === 'Starter');
+    const starterRelicts = relictDeck.draw(1, relict => relict.rarity === Rarity.Starter);
     
     return starterRelicts.length > 0 ? starterRelicts[0] : null;
   }

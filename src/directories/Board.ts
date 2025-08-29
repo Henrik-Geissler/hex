@@ -6,7 +6,7 @@ import { Location } from "../types/Location";
 
 export class Board implements TileDictionary {
   private static instance: Board; 
-  private tiles: Tile[] = [];
+  private tiles: Record<number, Tile> = {};
   private listeners: (() => void)[] = [];
 
   private constructor() {}
@@ -18,19 +18,22 @@ export class Board implements TileDictionary {
     return Board.instance;
   }
 
-  async add(tile: Tile): Promise<void> {
-    this.fillUntil(tile.pos);
-    this.tiles[tile.pos] = tile;
-    this.notifyListeners();
+  /**
+   * Initialize a field at a specific position with an Off tile if it doesn't exist
+   * @param pos - Position to initialize
+   */
+  private initializeField(pos: number): void {
+    if (!(pos in this.tiles)) {
+      const emptyTile = TileFactory.getInstance().createOffTile();
+      emptyTile.pos = pos;
+      emptyTile.location = Location.Board;
+      this.tiles[pos] = emptyTile;
+    }
   }
 
-  fillUntil(pos: number): void {
-    while(pos>=this.tiles.length) {
-      const emptyTile = TileFactory.getInstance().createOffTile();
-      emptyTile.pos = this.tiles.length;
-      emptyTile.location = Location.Board;
-      this.tiles.push(emptyTile);
-    }
+  async add(tile: Tile): Promise<void> {
+    this.tiles[tile.pos] = tile;
+    this.notifyListeners();
   }
 
   async remove(tile: Tile): Promise<boolean> {
@@ -41,26 +44,43 @@ export class Board implements TileDictionary {
   }
 
   async clear(): Promise<void> {
-    this.tiles = [];
+    this.tiles = {};
     this.notifyListeners();
   }
 
   getAllTiles(): Tile[] {
-    return [...this.tiles];
+    return Object.values(this.tiles);
   }
+
   getAllPlayedTiles(): Tile[] {
-    return this.tiles.filter(tile => !tile.isFree() && !tile.isOff());
+    return Object.values(this.tiles).filter(tile => !tile.isFree() && !tile.isOff());
   }
 
   getTileCount(): number {
-    return this.tiles.length;
+    return Object.keys(this.tiles).length;
   }
+
   getTileAtPos(pos: number): Tile {
-    this.fillUntil(pos);
+    this.initializeField(pos);
     const tile = this.tiles[pos];
-    if(tile== undefined) 
-      throw new Error("tile") ;
     return tile;
+  }
+
+  /**
+   * Check if a position has a tile (including Off tiles)
+   * @param pos - Position to check
+   * @returns True if position has any tile
+   */
+  hasTileAtPos(pos: number): boolean {
+    return pos in this.tiles;
+  }
+
+  /**
+   * Get all positions that have tiles
+   * @returns Array of position numbers
+   */
+  getAllPositions(): number[] {
+    return Object.keys(this.tiles).map(Number);
   }
 
   addListener(listener: () => void): void {
@@ -82,5 +102,4 @@ export class Board implements TileDictionary {
   public triggerUpdate(): void {
     this.notifyListeners();
   }
- 
 }
