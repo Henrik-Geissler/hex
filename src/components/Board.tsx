@@ -9,9 +9,38 @@ const Board: React.FC = () => {
   const [boardTiles, setBoardTiles] = useState<{ [position: number]: any }>({});
   const [boardScale, setBoardScale] = useState(1);
   const [boardOffset, setBoardOffset] = useState({ x: 0, y: 0 });
+  const [responsiveScale, setResponsiveScale] = useState(1);
   const board = BoardDirectory.getInstance();
   const tileFactory = TileFactory.getInstance();
   const boardHoverManager = BoardHoverManager.getInstance();
+
+  // Calculate responsive scaling for smaller screens
+  const calculateResponsiveScale = () => {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    
+    // Base breakpoints for responsive scaling
+    if (screenWidth < 800) {
+      setResponsiveScale(0.6);
+    } else 
+    if (screenWidth < 1000) {
+      setResponsiveScale(0.7);
+    } else 
+    if (screenWidth < 1200) {
+      setResponsiveScale(0.8);
+    } else if (screenWidth < 1400) {
+      setResponsiveScale(0.9);
+    } else if (screenWidth < 1600) {
+      setResponsiveScale(0.95);
+    } else {
+      setResponsiveScale(1);
+    }
+    
+    // Additional height-based scaling for very tall/narrow screens
+    if (screenHeight < 800) {
+      setResponsiveScale(prev => Math.min(prev, 0.75));
+    }
+  };
 
   // Calculate optimal board scaling and positioning
   const calculateBoardViewport = (tiles: any[]) => {
@@ -55,6 +84,16 @@ const Board: React.FC = () => {
   };
 
   useEffect(() => {
+    // Calculate initial responsive scale
+    calculateResponsiveScale();
+    
+    // Add resize listener for responsive scaling
+    const handleResize = () => {
+      calculateResponsiveScale();
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
     // Listen for changes to the board
     const updateBoardTiles = () => {
       const tiles = board.getAllTiles();
@@ -79,7 +118,10 @@ const Board: React.FC = () => {
     setBoardTiles(initialTileMap);
     calculateBoardViewport(initialTiles);
     
-    return () => board.removeListener(updateBoardTiles);
+    return () => {
+      board.removeListener(updateBoardTiles);
+      window.removeEventListener('resize', handleResize);
+    };
   }, [board, tileFactory]);
 
   const renderBoardTile = (position: number) => {
@@ -122,7 +164,7 @@ const Board: React.FC = () => {
       <div 
         className="board-container"
         style={{
-          transform: `scale(${boardScale}) translate(${boardOffset.x}px, ${boardOffset.y}px)`,
+          transform: `scale(${boardScale * responsiveScale}) translate(${boardOffset.x}px, ${boardOffset.y}px)`,
           transformOrigin: 'center center',
           transition: 'transform 0.3s ease',
           position: 'relative',

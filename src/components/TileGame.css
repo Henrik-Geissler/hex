@@ -773,3 +773,90 @@
   justify-content: center;
   backdrop-filter: blur(10px);
 }
+
+/* Responsive Design - Media Queries */
+@media (max-width: 1200px) {
+  .board-component {
+    padding: 15px;
+  }
+  
+  .left-panel {
+    width: calc(100% / (1 + 1.2)); /* Slightly reduce left panel on smaller screens */
+  }
+  
+  .right-panel {
+    width: calc(100% * 1.2 / (1 + 1.2));
+  }
+}
+
+@media (max-width: 1000px) {
+  .board-component {
+    padding: 12px;
+  }
+  
+  .hand-component {
+    padding: 15px;
+  }
+  
+  .stats-component,
+  .relict-bar-component,
+  .deck-component {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .board-component {
+    padding: 10px;
+  }
+  
+  .hand-component {
+    padding: 15px;
+  }
+  
+  .stats-component,
+  .relict-bar-component,
+  .deck-component {
+    padding: 10px;
+  }
+  
+  .deck-count {
+    font-size: 3rem;
+  }
+  
+  .deck-label {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .board-component {
+    padding: 5px;
+  }
+  
+  .hand-component {
+    padding: 10px;
+  }
+  
+  .stats-component,
+  .relict-bar-component,
+  .deck-component {
+    padding: 8px;
+  }
+  
+  .deck-count {
+    font-size: 2.5rem;
+  }
+  
+  .deck-label {
+    font-size: 0.9rem;
+  }
+  
+  .stat-item h4 {
+    font-size: 0.9rem;
+  }
+  
+  .stat-value {
+    font-size: 1rem;
+  }
+}

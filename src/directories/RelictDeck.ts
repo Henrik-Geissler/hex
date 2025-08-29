@@ -59,7 +59,7 @@ export class RelictDeck {
        //this.relicts.push(new OddDisappearance());
     //   this.relicts.push(new The13thTile()); //boring
        this.relicts.push(new SingleNeighborClone());
-       //this.relicts.push(new Digit5Expander());
+       this.relicts.push(new Digit5Expander());
        this.relicts.push(new NeighborDevourer());
        this.relicts.push(new WaterMirror());
        this.relicts.push(new UpgradePlacer());
