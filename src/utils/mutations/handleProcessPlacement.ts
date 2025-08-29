@@ -13,9 +13,6 @@ export async function handleProcessPlacement(tile: Tile): Promise<void> {
         console.log('Tile is not being placed', tile);
         throw new Error('Tile is not being placed');
     }
-    if(tile.isBeeingPlaced.isBeeingPlaced != undefined) {
-        await handleProcessPlacement(tile.isBeeingPlaced);
-    }
     await handleScore(tile.isBeeingPlaced, tile);
     
     // Check for special SpotTypes on the tile being placed on and handle them
@@ -32,7 +29,7 @@ export async function handleProcessPlacement(tile: Tile): Promise<void> {
                 break;
         }
     }
-    
+    const wasBeeingPlaced = tile.isBeeingPlaced; // we want to avoid removing other beeingPLaceds from Relicts (aka Moved Tiles)
     await RelictManager.getInstance().onPlaceTile(tile);
 
 
@@ -43,6 +40,7 @@ export async function handleProcessPlacement(tile: Tile): Promise<void> {
         await TimeManager.Wait(25);
     }
     if(!tile.isFreeAndFreeSpot() && !tile.isOff()  )  {await TimeManager.Wait(150)};
+    if(wasBeeingPlaced == tile.isBeeingPlaced) 
     tile.isBeeingPlaced = undefined;
     Board.getInstance().triggerUpdate();
 } 
