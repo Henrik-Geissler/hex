@@ -5,7 +5,7 @@ import { Rarity } from '../types/Rarity';
 export class BoardUpgrader implements Relict {
   name: string = 'Board Upgrader';
   description: string = 'On Round End Upgrade all Tiles on the Board';
-  icon: string = '⬆️'; // Up arrow emoji - alternatives: 🔧 (wrench), ⚡ (lightning), 🚀 (rocket), 📈 (chart)
+  icon: string = '📈'; // Up arrow emoji - alternatives: 🔧 (wrench), ⚡ (lightning), 🚀 (rocket), 📈 (chart)
   sellValue: number = 1;
 rarity:Rarity =Rarity.Starter;
   async onRoundEnd(highlight: () => Promise<void>): Promise<void> {

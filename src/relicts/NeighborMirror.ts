@@ -8,7 +8,7 @@ import { Rarity } from '../types/Rarity';
 export class NeighborMirror implements Relict {
   name: string = 'Red Mirror';
   description: string = 'When you place a Red Tile with exactly 2 Neighbours, Mirror them';
-  icon: string = '✨'; // Sparkles emoji - alternatives: 🪞 (mirror), 🔄 (repeat), ⚡ (lightning), 💫 (dizzy)
+  icon: string = '🪞'; // Sparkles emoji - alternatives: 🪞 (mirror), 🔄 (repeat), ⚡ (lightning), 💫 (dizzy)
   rarity: Rarity = Rarity.Rare;
   sellValue: number = 1;
 

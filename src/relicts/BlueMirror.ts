@@ -7,7 +7,7 @@ import { Rarity } from '../types/Rarity';
 export class BlueMirror implements Relict {
   name: string = 'Blue Mirror';
   description: string = 'Placed Tiles are mirrored at blue neighbors';
-  icon: string = '🔵'; // Blue circle emoji - alternatives: 💎 (gem), 🌊 (wave), 🔷 (blue diamond), �� (mirror)
+  icon: string = '🔷'; // Blue circle emoji - alternatives: 💎 (gem), 🌊 (wave), 🔷 (blue diamond), �� (mirror)
   rarity: Rarity = Rarity.Filler;
   sellValue: number = 1;
   
