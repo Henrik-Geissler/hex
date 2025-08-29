@@ -3,6 +3,7 @@ import { GameState } from '../machines/GameState';
 import { TextEmitter } from './TextEmitter';
 import { indexToPixel } from '../directories/utils/boardSpace';
 import { TimeManager } from '../managers/TimeManager';
+import { Location } from '../types/Location';
 
 /**
  * Handle scoring when a tile is placed
@@ -20,6 +21,12 @@ export async function handleScore(beforeTile: Tile, afterTile: Tile): Promise<vo
   if (afterTile.isFree() || afterTile.isOff()) {
     return; // Don't score initialization or cleanup
   }
+  
+  // Early return if the tile is not on the board
+  if (afterTile.location !== Location.Board) {
+    return; // Don't score tiles that aren't on the board
+  }
+  
   await TimeManager.Wait(200); 
   
   // Calculate score difference

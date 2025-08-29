@@ -8,7 +8,7 @@ import { handleUpgrade } from '../utils/mutations/handleUpgrade';
 export class UpgradeAllFitters implements Relict {
   name: string = 'Upgrade All Fitters';
   description: string = 'When you place a tile, upgrade all cards in hand that would fit in the same spot';
-  icon: string = '🔧'; // Wrench emoji - alternatives: ⚡ (lightning), ⬆️ (up arrow), 📈 (chart), 🎯 (target)
+  icon: string = '👠'; // Wrench emoji - alternatives: ⚡ (lightning), ⬆️ (up arrow), 📈 (chart), 🎯 (target)
   rarity: Rarity = Rarity.Starter;
   sellValue: number = 2;
 
