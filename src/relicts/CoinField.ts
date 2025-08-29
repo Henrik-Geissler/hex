@@ -5,14 +5,14 @@ import { getArea } from '../directories/utils/getArea';
 import { isAreasSame } from '../directories/utils/getArea';
 import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
 import { TileFactory } from '../factories/TileFactory';
-import { Rarety } from '../types/Rarety';
+import { Rarity } from '../types/Rarity';
 export class CoinField implements Relict {
   name: string = 'Coin Field';
   description: string = 'Surround an empty Area of X Tiles to fill it with Coins. (Number changes every round)';
   icon: string = '🌾'; // Wheat field emoji
   counter?: number = undefined;
   sellValue: number = 2;
-  rarity:Rarety =Rarety.Starter;
+  rarity:Rarity =Rarity.Starter;
   
   private targetSize: number = 1;
 

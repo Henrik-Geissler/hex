@@ -3,12 +3,12 @@ import { Tile } from '../types/Tile';
 import { Color } from '../types/Color';
 import { getNeighbours } from '../directories/utils/getNeighbours'; 
 import { handleMirrorClone } from '../utils/mutations/handleMirrorClone';
-import { Rarety } from '../types/Rarety';
+import { Rarity } from '../types/Rarity';
 export class BlueMirror implements Relict {
   name: string = 'Blue Mirror';
   description: string = 'Placed Tiles are mirrored at blue neighbors';
   icon: string = '🪞'; // Mirror emoji
-  rarity: Rarety = Rarety.Filler;
+  rarity: Rarity = Rarity.Filler;
   sellValue: number = 1;
   
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {

@@ -3,13 +3,13 @@ import { Tile } from '../types/Tile';
 import { getNeighbours } from '../directories/utils/getNeighbours'; 
 import { handleMove } from '../utils/mutations/handleMove';
 import { getRow } from '../directories/utils/getRow';
-import { Rarety } from '../types/Rarety';
+import { Rarity } from '../types/Rarity';
 
 export class Gravity implements Relict {
   name: string = 'Gravity';
   description: string = 'Tiles Fall Down';
   icon: string = '🌍';
-  rarity: Rarety = Rarety.Rare;
+  rarity: Rarity = Rarity.Rare;
   sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> { 

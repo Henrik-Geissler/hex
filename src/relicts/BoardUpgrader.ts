@@ -1,13 +1,13 @@
 import { Relict } from '../types/Relict';
 import { Board } from '../directories/Board';
 import { handleUpgrade } from '../utils/mutations/handleUpgrade';
-import { Rarety } from '../types/Rarety';
+import { Rarity } from '../types/Rarity';
 export class BoardUpgrader implements Relict {
   name: string = 'Board Upgrader';
   description: string = 'On Round End Upgrade all Tiles on the Board';
   icon: string = '⬆️';
   sellValue: number = 1;
-rarity:Rarety =Rarety.Starter;
+rarity:Rarity =Rarity.Starter;
   async onRoundEnd(highlight: () => Promise<void>): Promise<void> {
     const boardTiles = Board.getInstance().getAllPlayedTiles();
     

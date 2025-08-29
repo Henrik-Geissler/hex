@@ -1,7 +1,7 @@
 // Union type for Locations
-export const Rarety = {
+export const Rarity = {
     Starter: 'Starter',
     Filler: 'Filler',
     Rare: 'Rare'
 } as const
-export type Rarety = keyof typeof Rarety;
+export type Rarity = keyof typeof Rarity;

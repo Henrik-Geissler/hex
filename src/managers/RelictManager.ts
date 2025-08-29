@@ -4,7 +4,7 @@ import { Empty } from '../relicts/Empty';
 import { GameState } from '../machines/GameState';
 import { RelictDeck } from '../directories/RelictDeck';
 import { TimeManager } from './TimeManager';
-import { Rarety } from '../types/Rarety';
+import { Rarity } from '../types/Rarity';
 
 export class RelictManager {
   private static instance: RelictManager;
@@ -232,7 +232,7 @@ export class RelictManager {
     if (playerGold > 20) {
       this.shopRelicts = relictDeck.draw(3);
     }else{
-      this.shopRelicts = relictDeck.draw(3,relict=>relict.rarity!==Rarety.Rare);
+      this.shopRelicts = relictDeck.draw(3,relict=>relict.rarity!==Rarity.Rare);
     }
       
       // Increment reroll cost for next time
@@ -331,14 +331,14 @@ export class RelictManager {
     if (playerGold > 20) {
       // Player has enough gold for rare relicts
       // Draw exactly one rare and two others
-      const rareRelicts = relictDeck.draw(1, relict => relict.rarity === Rarety.Rare);
-      const nonRareRelicts = relictDeck.draw(2, relict => relict.rarity !== Rarety.Rare);
+      const rareRelicts = relictDeck.draw(1, relict => relict.rarity === Rarity.Rare);
+      const nonRareRelicts = relictDeck.draw(2, relict => relict.rarity !== Rarity.Rare);
       
       return [...rareRelicts, ...nonRareRelicts];
     } else {
       // Player doesn't have enough gold for rare relicts
       // Draw any rarity, but filter out rare relicts
-      return relictDeck.draw(3, relict => relict.rarity !==Rarety.Rare);
+      return relictDeck.draw(3, relict => relict.rarity !==Rarity.Rare);
     }
   }
 

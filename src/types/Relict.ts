@@ -1,12 +1,12 @@
 import { Tile } from './Tile';
-import { Rarety } from './Rarety';
+import { Rarity } from './Rarity';
 
 export interface Relict {
   // Required properties
   name: string;
   description: string;
   icon: string;
-  rarity: Rarety; // Rarity of the relict
+  rarity: Rarity; // Rarity of the relict
   counter?: number; // Optional score
   sellValue: number; // Value when selling the relict
 

@@ -4,13 +4,13 @@ import { Board } from '../directories/Board';
 import { TileFactory } from '../factories/TileFactory'; 
 import { handleStartPlacement } from '../utils/mutations/handleStartPlacement'; 
 import { getNeighbours } from '../directories/utils/getNeighbours'; 
-import { Rarety } from '../types/Rarety';
+import { Rarity } from '../types/Rarity';
 
 export class WaterToucher implements Relict {
   name: string = 'Water Toucher';
   description: string = 'When you touch the water for the first time, Add a double and a coin to the board';
   icon: string = '🏊'; // Swimmer emoji for touching water
-  rarity: Rarety = Rarety.Starter;
+  rarity: Rarity = Rarity.Starter;
   sellValue: number = 1;
   
   private hasTouchedWater: boolean = false;

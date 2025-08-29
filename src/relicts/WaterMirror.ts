@@ -2,13 +2,13 @@ import { getNeighbours, getPlayedNeighbours } from '../directories/utils/getNeig
 import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile'; 
 import { handleMirrorClone } from '../utils/mutations/handleMirrorClone';
-import { Rarety } from '../types/Rarety';
+import { Rarity } from '../types/Rarity';
 
 export class WaterMirror implements Relict {
   name: string = 'Water Mirror';
   description: string = 'All Tiles get Mirrored by Water';
   icon: string = '💧'; // Water drop emoji
-  rarity: Rarety = Rarety.Rare;
+  rarity: Rarity = Rarity.Rare;
   sellValue: number = 1;
 
   /**

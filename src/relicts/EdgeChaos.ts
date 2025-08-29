@@ -2,14 +2,14 @@ import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { getNeighbours } from '../directories/utils/getNeighbours';
 import { handleRandomColorChange } from '../utils/mutations/handleRandomColorChange';
-import { Rarety } from '../types/Rarety';
+import { Rarity } from '../types/Rarity';
 
 export class EdgeChaos implements Relict {
   name: string = 'Edge Chaos';
   description: string = 'Tiles placed on the edge of the game board switch to a random color';
   icon: string = '🌈';
   sellValue: number = 1;
-  rarity:Rarety =Rarety.Rare;
+  rarity:Rarity =Rarity.Rare;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
     // Check if the placed tile is on the edge of the board
