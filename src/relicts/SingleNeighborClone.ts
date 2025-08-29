@@ -8,7 +8,7 @@ export class SingleNeighborClone implements Relict {
   name: string = 'Single Neighbor Clone';
   description: string = 'If you place a tile with only one free neighbor, clone it to that spot';
   icon: string = '🔄';
-  rarity: Rarity = Rarity.Rare;
+  rarity: Rarity = Rarity.Starter;
   sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
