@@ -41,7 +41,7 @@ export class Tile {
 
   // Method to get tile information as string
   toString(): string {
-    return `Tile ${this.id}: Score=${this.score}, Pos=${this.pos}, Location=${this.location}, Color=${this.color}`;
+    return `#${this.id}: ${this.color}@${this.location}${this.pos} Score=${this.score}`;
   }
 
   isFree = () => this.color == Color.Free; 

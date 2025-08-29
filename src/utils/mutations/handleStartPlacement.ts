@@ -23,7 +23,7 @@ export async function handleStartPlacement(tile: Tile, tileOrPosition: Tile | nu
     console.log(tile,"placedTile")
     await Board.getInstance().add(tile);
     PlacingQueue.getInstance().add(tile);
-    if(tile.isFree() &&!tile.isBeeingPlaced.isFree()) {
+    if(tile.isFree() && !tile.isBeeingPlaced.isFree()) {
         await TimeManager.Wait(25);
     }
     if(tile.isOff() &&!tile.isBeeingPlaced.isOff()) {

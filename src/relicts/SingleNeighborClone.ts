@@ -20,6 +20,6 @@ export class SingleNeighborClone implements Relict {
     
     const freeNeighbor = freeNeighbors[0];
     const clonedTile = tile.Clone();
-    handleStartPlacement(clonedTile, freeNeighbor.pos);
+    await handleStartPlacement(clonedTile, freeNeighbor.pos);
   }
 }

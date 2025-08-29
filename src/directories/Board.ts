@@ -57,9 +57,10 @@ export class Board implements TileDictionary {
   }
   getTileAtPos(pos: number): Tile {
     this.fillUntil(pos);
-    if(this.tiles[pos] == undefined) 
+    const tile = this.tiles[pos];
+    if(tile== undefined) 
       throw new Error("tile") ;
-    return this.tiles[pos];
+    return tile;
   }
 
   addListener(listener: () => void): void {

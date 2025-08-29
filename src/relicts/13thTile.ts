@@ -25,7 +25,7 @@ export class The13thTile implements Relict {
     
     for (const freeNeighbor of freeNeighbors) {
       const clonedTile = tile.Clone();
-      handleStartPlacement(clonedTile, freeNeighbor.pos);
+      await handleStartPlacement(clonedTile, freeNeighbor.pos);
     }
   }
 }
