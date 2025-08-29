@@ -23,6 +23,7 @@ import { UpgradePlacer } from '../relicts/UpgradePlacer';
 import { WaterToucher } from '../relicts/WaterToucher';
 import { CoinField } from '../relicts/CoinField';
 import { Gravity } from '../relicts/Gravity';
+import { UpgradeAllFitters } from '../relicts/UpgradeAllFitters';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -66,6 +67,7 @@ export class RelictDeck {
        this.relicts.push(new WaterToucher());
        this.relicts.push(new CoinField());
        this.relicts.push(new Gravity());
+       this.relicts.push(new UpgradeAllFitters());
     
     this.shuffle();
   }
