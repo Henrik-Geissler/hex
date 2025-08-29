@@ -9,7 +9,7 @@ import { Rarity } from '../types/Rarity';
 export class CoinField implements Relict {
   name: string = 'Coin Field';
   description: string = 'Surround an empty Area of X Tiles to fill it with Coins. (Number changes every round)';
-  icon: string = '🪙'; // Coin emoji - alternatives: 💰 (money bag), 🪙 (coin), 🏆 (trophy), 💎 (gem)
+  icon: string = '🌾'; // Wheat field emoji - alternatives: 🪙 (coin), 💰 (money bag), 🏆 (trophy), 💎 (gem)
   counter?: number = undefined;
   sellValue: number = 2;
   rarity:Rarity =Rarity.Starter;

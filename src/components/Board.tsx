@@ -4,13 +4,33 @@ import { TileFactory } from '../factories/TileFactory';
 import Hexagon from './Hexagon';
 import { indexToPixel } from '../directories/utils/boardSpace';
 import { BoardHoverManager } from '../managers/BoardHoverManager';
+import PlayableHexagonsInlineOverlay from './PlayableHexagonsInlineOverlay';
+import { Tile } from '../types/Tile';
 
 const Board: React.FC = () => {
   const [boardTiles, setBoardTiles] = useState<{ [position: number]: any }>({});
   const [boardScale, setBoardScale] = useState(1);
   const [boardOffset, setBoardOffset] = useState({ x: 0, y: 0 });
   const [responsiveScale, setResponsiveScale] = useState(1);
+  const [overlayState, setOverlayState] = useState<{
+    tile: Tile;
+    position: { x: number; y: number };
+  } | null>(null);
+  const [clickedTileId, setClickedTileId] = useState<number | null>(null);
   const board = BoardDirectory.getInstance();
+
+  // Handle board tile click
+  const handleBoardTileClick = (tile: Tile) => {
+    // Only show overlay for free tiles (playable positions)
+    if (!tile.isFree()) return;
+    
+    // Toggle overlay for this tile
+    if (clickedTileId === tile.id) {
+      setClickedTileId(null);
+    } else {
+      setClickedTileId(tile.id);
+    }
+  };
   const tileFactory = TileFactory.getInstance();
   const boardHoverManager = BoardHoverManager.getInstance();
 
@@ -92,7 +112,21 @@ const Board: React.FC = () => {
       calculateResponsiveScale();
     };
     
+    // Add global click handler to close overlay
+    const handleGlobalClick = (event: MouseEvent) => {
+      // Check if the click is outside of any board tile
+      const target = event.target as HTMLElement;
+      const isBoardTile = target.closest('.board-tile');
+      const isOverlay = target.closest('.playable-hexagons-inline-overlay');
+      
+      // If click is not on a board tile or overlay, close the overlay
+      if (!isBoardTile && !isOverlay && clickedTileId !== null) {
+        setClickedTileId(null);
+      }
+    };
+    
     window.addEventListener('resize', handleResize);
+    window.addEventListener('click', handleGlobalClick);
     
     // Listen for changes to the board
     const updateBoardTiles = () => {
@@ -121,8 +155,9 @@ const Board: React.FC = () => {
     return () => {
       board.removeListener(updateBoardTiles);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('click', handleGlobalClick);
     };
-  }, [board, tileFactory]);
+  }, [board, tileFactory, clickedTileId]);
 
   const renderBoardTile = (position: number) => {
     const tile = boardTiles[position];
@@ -134,7 +169,12 @@ const Board: React.FC = () => {
     // Higher y-coordinates (lower on page) get higher z-index values
     // We'll use a base z-index and add the y-coordinate
     const baseZIndex = 1000;
-    const zIndex = baseZIndex + Math.round(y);
+    let zIndex = baseZIndex + Math.round(y);
+    
+    // If this tile has an active overlay, give it maximum z-index priority
+    if (clickedTileId === tile.id) {
+      zIndex = 99998; // Just below the overlay container (99999) but above everything else
+    }
     
     return (
       <div
@@ -149,12 +189,23 @@ const Board: React.FC = () => {
         }}
         onMouseEnter={() => boardHoverManager.setHoveredTile(tile)}
         onMouseLeave={() => boardHoverManager.setHoveredTile(null)}
+        onClick={() => handleBoardTileClick(tile)}
       >
         <Hexagon
           width={100}
           height={100}
           tile={tile} 
         />
+        
+        {/* Show playable hexagons overlay when this tile is clicked */}
+        {clickedTileId === tile.id && (
+          <div className="playable-hexagons-inline-overlay">
+            <PlayableHexagonsInlineOverlay 
+              centerTile={tile} 
+              onClose={() => setClickedTileId(null)}
+            />
+          </div>
+        )}
       </div>
     );
   };

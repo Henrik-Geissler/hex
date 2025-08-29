@@ -318,6 +318,16 @@
   z-index: 1000 !important;
 }
 
+/* Don't change z-index on hover if the tile has an active overlay */
+.board-tile:hover .playable-hexagons-inline-overlay {
+  z-index: 99999 !important;
+}
+
+/* Override hover z-index when overlay is active */
+.board-tile:has(.playable-hexagons-inline-overlay):hover {
+  z-index: 99998 !important;
+}
+
 .board-hexagon {
   transition: all 0.3s ease;
 }
@@ -1065,4 +1075,23 @@
     grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
     gap: 5px;
   }
+}
+
+/* Playable Hexagons Inline Overlay */
+.playable-hexagons-inline-overlay {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  width: 200px;
+  height: 200px;
+  pointer-events: auto;
+  z-index: 99999;
+}
+
+.playable-hexagon-wrapper {
+  pointer-events: auto;
+}
+
+.playable-hexagon-wrapper:hover {
+  z-index: 100000;
 }
