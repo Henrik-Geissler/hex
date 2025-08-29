@@ -9,7 +9,7 @@ import { Rarity } from '../types/Rarity';
 export class WaterToucher implements Relict {
   name: string = 'Water Toucher';
   description: string = 'When you touch the water for the first time, Add a double and a coin to the board';
-  icon: string = '🏊'; // Swimmer emoji for touching water
+  icon: string = '��'; // Swimmer emoji - alternatives: 💧 (droplet), 🌊 (wave), ⚡ (lightning), 🎯 (target)
   rarity: Rarity = Rarity.Starter;
   sellValue: number = 1;
   

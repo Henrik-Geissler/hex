@@ -8,7 +8,7 @@ import { Rarity } from '../types/Rarity';
 export class GreenGrowth implements Relict {
   name: string = 'Green Growth';
   description: string = 'When you draw a green Tile, upgrade all green Tiles on the board';
-  icon: string = '🌱';
+  icon: string = '🌱'; // Seedling emoji - alternatives: 📈 (chart), ⬆️ (up arrow), 🌿 (leaf), 🚀 (rocket)
   rarity: Rarity = Rarity.Starter;
   sellValue: number = 1;
 

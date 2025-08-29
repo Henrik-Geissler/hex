@@ -4,7 +4,7 @@ import { Rarity } from '../types/Rarity';
 export class DiscardRewarder implements Relict {
   name: string = 'Discard Rewarder';
   description: string = 'Round End: Get 1 Gold for each remaining Discard';
-  icon: string = '🗑️'; // Trash can emoji for discarding
+  icon: string = '🎁'; // Gift emoji - alternatives: 🏆 (trophy), ⭐ (star), 💎 (gem), 🎯 (target)
   sellValue: number = 3;
   rarity:Rarity = Rarity.Rare;
   async onRoundEnd(highlight: () => Promise<void>): Promise<void> {

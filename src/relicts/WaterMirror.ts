@@ -7,7 +7,7 @@ import { Rarity } from '../types/Rarity';
 export class WaterMirror implements Relict {
   name: string = 'Water Mirror';
   description: string = 'All Tiles get Mirrored by Water';
-  icon: string = '💧'; // Water drop emoji
+  icon: string = '💧'; // Water drop emoji - alternatives: 🪞 (mirror), 🔄 (repeat), 🌊 (wave), ⚡ (lightning)
   rarity: Rarity = Rarity.Rare;
   sellValue: number = 1;
 

@@ -7,7 +7,7 @@ import { Rarity } from '../types/Rarity';
 export class ColorConsumer implements Relict {
   name: string = 'Color Consumer';
   description: string = 'The first Tile of each Color consumes the lowest Tile in your hand';
-  icon: string = '🍽️';
+  icon: string = '🎨'; // Artist palette emoji - alternatives: 🍽️ (plate), 🔥 (fire), ⚡ (lightning), 💫 (dizzy)
   sellValue: number = 1;
   rarity:Rarity =Rarity.Starter;
 

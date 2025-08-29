@@ -7,7 +7,7 @@ import { Rarity } from '../types/Rarity';
 export class Pioneer implements Relict {
   name: string = 'Pioneer'; // TODO: change to 'First Strike'
   description: string = 'The first Tile on A Board Doubles';
-  icon: string = '🚀'; // Rocket emoji
+  icon: string = '🚀'; // Rocket emoji - alternatives: ⚡ (lightning), 🎯 (target), 🥇 (first place), 🔥 (fire)
   rarity: Rarity = Rarity.Starter;
   sellValue: number = 1;
 

@@ -8,7 +8,7 @@ import { Rarity } from '../types/Rarity';
 export class Incrementer implements Relict {
   name: string = 'Incrementer';
   description: string = 'Whenever a tile is placed, increment all board and hand tiles';
-  icon: string = '📈';
+  icon: string = '📈'; // Chart increasing emoji - alternatives: ➕ (plus), ⬆️ (up arrow), 🔢 (number), ⚡ (lightning)
   rarity: Rarity = Rarity.Starter;
   sellValue: number = 1;
 

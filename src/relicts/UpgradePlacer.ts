@@ -8,7 +8,7 @@ import { Rarity } from '../types/Rarity';
 export class UpgradePlacer implements Relict {
   name: string = 'Upgrade Placer';
   description: string = 'Places Upgrade Tiles on 6 random tiles after free tiles are placed';
-  icon: string = '📍'; // Pin emoji for placing/positioning
+  icon: string = '📍'; // Pin emoji - alternatives: 🎯 (target), ⬆️ (up arrow), 🔧 (wrench), ⚡ (lightning)
   rarity: Rarity = Rarity.Starter;
   sellValue: number = 1;
 

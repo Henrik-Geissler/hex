@@ -7,7 +7,7 @@ import { Rarity } from '../types/Rarity';
 export class SingleNeighborClone implements Relict {
   name: string = 'Single Neighbor Clone';
   description: string = 'If you place a tile with only one free neighbor, clone it to that spot';
-  icon: string = '🔄';
+  icon: string = '🔄'; // Repeat button emoji - alternatives: 🐑 (sheep), 📋 (clipboard), ⚡ (lightning), 🎯 (target)
   rarity: Rarity = Rarity.Starter;
   sellValue: number = 1;
 

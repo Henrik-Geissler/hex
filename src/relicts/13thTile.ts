@@ -7,7 +7,7 @@ import { Rarity } from '../types/Rarity';
 export class The13thTile implements Relict {
   name: string = 'The 13th Tile';
   description: string = 'The 13th Tile, thats placed on the board also place copies on every free neighbor';
-  icon: string = '🎲';
+  icon: string = '🎲'; // Die emoji - alternatives: 🎯 (target), ⚡ (lightning), 🔥 (fire), 💫 (dizzy)
   sellValue: number = 1;
   rarity:Rarity =Rarity.Starter;
 

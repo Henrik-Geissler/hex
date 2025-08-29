@@ -7,7 +7,7 @@ import { Rarity } from '../types/Rarity';
 export class Digit5Expander implements Relict {
   name: string = 'Digit 5 Expander';
   description: string = 'When a Tile is placed, for each digit 5 in the played tiles score, replace a neighbouring Off Tile with a Free Tile';
-  icon: string = '🔢';
+  icon: string = '🔢'; // Number emoji - alternatives: ⬆️ (up arrow), 🔧 (wrench), ⚡ (lightning), 📈 (chart)
   sellValue: number = 1;
   rarity:Rarity = Rarity.Rare;
 

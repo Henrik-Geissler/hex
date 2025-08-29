@@ -8,7 +8,7 @@ import { Rarity } from '../types/Rarity';
 export class GreenDoubler implements Relict {
   name: string = 'Green Doubler';
   description: string = 'When you place a green Tile, Double it and change its color';
-  icon: string = '🌿'; // Leaf emoji
+  icon: string = '🌿'; // Leaf emoji - alternatives: ✖️ (multiplication), 🔄 (repeat), ⚡ (lightning), 🎯 (target)
   rarity: Rarity = Rarity.Starter;
   sellValue: number = 1;
 

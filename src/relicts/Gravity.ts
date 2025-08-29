@@ -8,7 +8,7 @@ import { Rarity } from '../types/Rarity';
 export class Gravity implements Relict {
   name: string = 'Gravity';
   description: string = 'Tiles Fall Down';
-  icon: string = '🌍';
+  icon: string = '🌍'; // Earth globe emoji - alternatives: ⬇️ (down arrow), 🪨 (rock), 💧 (droplet), 🌊 (wave)
   rarity: Rarity = Rarity.Rare;
   sellValue: number = 1;
 

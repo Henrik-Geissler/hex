@@ -6,7 +6,7 @@ import { Rarity } from '../types/Rarity';
 export class OddDisappearance implements Relict {
   name: string = 'Odd Disappearance';
   description: string = 'Odd Tiles disappear for the round after placement';
-  icon: string = '👻';
+  icon: string = '👻'; // Ghost emoji - alternatives: 💨 (dash), 🚫 (prohibited), ⚡ (lightning), 💫 (dizzy)
   rarity: Rarity = Rarity.Rare;
   sellValue: number = 1;
 

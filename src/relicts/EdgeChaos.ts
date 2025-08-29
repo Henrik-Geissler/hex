@@ -7,7 +7,7 @@ import { Rarity } from '../types/Rarity';
 export class EdgeChaos implements Relict {
   name: string = 'Edge Chaos';
   description: string = 'Tiles placed on the edge of the game board switch to a random color';
-  icon: string = '🌈';
+  icon: string = '🌀'; // Cyclone emoji - alternatives: 🌪️ (tornado), ⚡ (lightning), 🔥 (fire), 💫 (dizzy)
   sellValue: number = 1;
   rarity:Rarity =Rarity.Rare;
 

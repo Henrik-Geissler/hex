@@ -5,7 +5,7 @@ import { Rarity } from '../types/Rarity';
 export class GoldMiner implements Relict {
   name: string = 'Gold Miner';
   description: string = 'Round Start: Earn 1 Gold';
-  icon: string = '💰'; // Money bag emoji
+  icon: string = '💰'; // Money bag emoji - alternatives: ⛏️ (pickaxe), 🪙 (coin), 🏆 (trophy), 💎 (gem)
   rarity: Rarity = Rarity.Filler;
   sellValue: number = 1; // Gold Miner can be sold for 1 gold
 
