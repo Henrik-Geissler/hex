@@ -6,7 +6,7 @@ export class DiscardRewarder implements Relict {
   description: string = 'Round End: Get 1 Gold for each remaining Discard';
   icon: string = '🗑️'; // Trash can emoji for discarding
   sellValue: number = 3;
-  rarety:Rarety = Rarety.Rare;
+  rarity:Rarety = Rarety.Rare;
   async onRoundEnd(highlight: () => Promise<void>): Promise<void> {
     const gameState = GameState.getInstance();
     const remainingDiscards = gameState.getDiscards();

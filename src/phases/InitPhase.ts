@@ -24,13 +24,12 @@ export class InitPhase implements PhaseInterface {
 
     RelictDeck.getInstance().reset();
     
-    // Draw a random relict and add it to the relictbar
-    const relictDeck = RelictDeck.getInstance();
-    const drawnRelicts = relictDeck.draw(1);
-    if (drawnRelicts.length > 0) {
-      const relictManager = RelictManager.getInstance();
+    // Draw a random starter relict and add it to the relictbar
+    const relictManager = RelictManager.getInstance();
+    const startingRelict = relictManager.drawStartingRelict();
+    if (startingRelict) {
       // Find the first empty slot (index 0 should be empty after reset)
-      relictManager.setRelict(0, drawnRelicts[0]);
+      relictManager.setRelict(0, startingRelict);
     }
     
     StateMachine.getInstance().setPhase('InitRoundPhase');

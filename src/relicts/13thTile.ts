@@ -9,7 +9,7 @@ export class The13thTile implements Relict {
   description: string = 'The 13th Tile, thats placed on the board also place copies on every free neighbor';
   icon: string = '🎲';
   sellValue: number = 1;
-  rarety:Rarety =Rarety.Starter;
+  rarity:Rarety =Rarety.Starter;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
     

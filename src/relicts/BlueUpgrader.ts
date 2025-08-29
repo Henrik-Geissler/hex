@@ -10,7 +10,7 @@ export class BlueUpgrader implements Relict {
   description: string = 'Placed Tiles upgrade for each blue neighbor';
   icon: string = '🔵';  
   sellValue: number = 1;
-  rarety:Rarety =Rarety.Starter;
+  rarity:Rarety =Rarety.Starter;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> { 
     const blueNeighborCount = getNeighbours(tile).filter(t => t.matchesColor(Color.Blue)).length;
