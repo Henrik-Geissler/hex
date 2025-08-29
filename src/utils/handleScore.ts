@@ -3,7 +3,7 @@ import { GameState } from '../machines/GameState';
 import { TextEmitter } from './TextEmitter';
 import { indexToPixel } from '../directories/utils/boardSpace';
 import { TimeManager } from '../managers/TimeManager';
-import { Location } from '../types/Location';
+
 
 /**
  * Handle scoring when a tile is placed
@@ -23,7 +23,7 @@ export async function handleScore(beforeTile: Tile, afterTile: Tile): Promise<vo
   }
   
   // Early return if the tile is not on the board
-  if (afterTile.location !== Location.Board) {
+  if (!afterTile.isBoard()) {
     return; // Don't score tiles that aren't on the board
   }
   

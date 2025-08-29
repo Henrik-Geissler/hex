@@ -50,6 +50,13 @@ export class Tile {
   isReal = () => !this.isFree() && !this.isOff();
   matchesColor = (color: Color) => this.color == color || this.color == Color.White;
   
+  // Location helper methods
+  isDeck = () => this.location === Location.Deck;
+  isHand = () => this.location === Location.Hand;
+  isBoard = () => this.location === Location.Board;
+  isDiscardPile = () => this.location === Location.DiscardPile;
+  isAir = () => this.location === Location.Air;
+  
   // Clone method that returns a new Tile with the same properties but a new ID
   Clone(): Tile {
     return TileFactory.getInstance().cloneTile(this);

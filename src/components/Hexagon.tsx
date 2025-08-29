@@ -104,7 +104,7 @@ const Hexagon: React.FC<HexagonProps> = ({
   // Listen for drag events and evaluate drop zone validity
   useEffect(() => {
     const handleDragEvent = (draggedTile: Tile | null) => {
-      if (tile.location === 'Board' && draggedTile) {
+              if (tile.isBoard() && draggedTile) {
         // Check if this tile is a valid drop target
         const isValid = isValidDropTarget(draggedTile, tile);
         setIsValidDropTargetState(isValid);
@@ -127,7 +127,7 @@ const Hexagon: React.FC<HexagonProps> = ({
   // Listen for board hover and drag state changes
   useEffect(() => {
     const updateHighlightState = () => {
-      if (tile.location === 'Board') {
+              if (tile.isBoard()) {
         setIsHighlighted(boardHoverManager.shouldHighlightBoardTile(tile));
       }
     };
@@ -150,7 +150,7 @@ const Hexagon: React.FC<HexagonProps> = ({
 
   // Check if hand tile is placeable anywhere on the board
   useEffect(() => {
-    if (tile.location === 'Hand' && canDragDrop) {
+            if (tile.isHand() && canDragDrop) {
       const checkPlaceability = () => {
         // If we have a specific hover location, use that
         if (isPlayableAtHoveredLocation !== undefined) {
@@ -188,8 +188,8 @@ const Hexagon: React.FC<HexagonProps> = ({
   }, [tile.id, badgeManager]);
 
   // Automatically determine if this hexagon should be draggable or a drop zone
-  const isDraggable = canDragDrop && tile.location === 'Hand' && isPlaceable;
-  const isDropZone = canDragDrop && tile.location === 'Board' && isValidDropTargetState;
+        const isDraggable = canDragDrop && tile.isHand() && isPlaceable;
+        const isDropZone = canDragDrop && tile.isBoard() && isValidDropTargetState;
 
   // Handle drag start
   const handleDragStart = (e: React.DragEvent) => {
@@ -252,7 +252,7 @@ const Hexagon: React.FC<HexagonProps> = ({
   // Determine cursor style based on drag/drop state
   const getCursorStyle = () => {
     if (!canDragDrop) return 'default';
-    if (tile.location === 'Hand' && !isPlaceable) return 'not-allowed';
+            if (tile.isHand() && !isPlaceable) return 'not-allowed';
     if (isDraggable) return isDragging ? 'grabbing' : 'grab';
     if (isDropZone) return 'pointer';
     return 'default';
@@ -261,7 +261,7 @@ const Hexagon: React.FC<HexagonProps> = ({
   // Determine opacity based on drag state and placeability
   const getOpacity = () => {
     if (isDragging) return 0.5;
-    if (tile.location === 'Hand' && !isPlaceable) return 0.6;
+            if (tile.isHand() && !isPlaceable) return 0.6;
     return 1;
   };
 
@@ -299,7 +299,7 @@ const Hexagon: React.FC<HexagonProps> = ({
         width={width} 
         height={height}  
         style={{ 
-          filter: tile.location === 'Hand' && !isPlaceable 
+          filter: tile.isHand() && !isPlaceable 
             ? 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3)) grayscale(0.7)' 
             : tile.isBeeingPlaced
             ? 'drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5))'

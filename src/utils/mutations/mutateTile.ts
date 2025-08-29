@@ -33,10 +33,10 @@ export async function mutateTile(
   const mutatedTile = await mutationFn(tile);
   
   // Trigger UI update to show score change immediately
-  if (tile.location === 'Board') {
+      if (tile.isBoard()) {
     const board = Board.getInstance();
     board.triggerUpdate();
-  } else if (tile.location === 'Hand') {
+      } else if (tile.isHand()) {
     const hand = Hand.getInstance();
     hand.triggerUpdate();
   }

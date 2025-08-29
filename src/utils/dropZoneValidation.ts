@@ -11,7 +11,7 @@ function isTileFree(targetTile: Tile): boolean {
 
 // Step 2: Check if tile is on board
 function isTileOnBoard(targetTile: Tile): boolean {
-  return targetTile.location === 'Board';
+  return targetTile.isBoard();
 }
 
 // Step 3: Check if there are valid neighbors or board is empty
