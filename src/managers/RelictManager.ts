@@ -4,6 +4,7 @@ import { Empty } from '../relicts/Empty';
 import { GameState } from '../machines/GameState';
 import { RelictDeck } from '../directories/RelictDeck';
 import { TimeManager } from './TimeManager';
+import { Rarety } from '../types/Rarety';
 
 export class RelictManager {
   private static instance: RelictManager;
@@ -226,8 +227,13 @@ export class RelictManager {
       // Add current shop relicts back to the deck
       relictDeck.addBack(this.shopRelicts);
       
-      // Draw new relicts
+      // Draw new relicts for reroll (any rarity allowed) 
+    const playerGold = gameState.getGold();
+    if (playerGold > 20) {
       this.shopRelicts = relictDeck.draw(3);
+    }else{
+      this.shopRelicts = relictDeck.draw(3,relict=>relict.rarity!==Rarety.Rare);
+    }
       
       // Increment reroll cost for next time
       this.rerollCost++;
@@ -310,5 +316,39 @@ export class RelictManager {
   // Notify shop listeners
   private notifyShopListeners(): void {
     this.shopListeners.forEach(listener => listener());
+  }
+
+  /**
+   * Draw relicts for the initial shop based on player's gold
+   * If player has >20 gold: exactly one rare and two others
+   * If player has ≤20 gold: any rarity
+   */
+  public drawInitialShopRelicts(): Relict[] {
+    const gameState = GameState.getInstance();
+    const playerGold = gameState.getGold();
+    const relictDeck = RelictDeck.getInstance();
+    
+    if (playerGold > 20) {
+      // Player has enough gold for rare relicts
+      // Draw exactly one rare and two others
+      const rareRelicts = relictDeck.draw(1, relict => relict.rarity === Rarety.Rare);
+      const nonRareRelicts = relictDeck.draw(2, relict => relict.rarity !== Rarety.Rare);
+      
+      return [...rareRelicts, ...nonRareRelicts];
+    } else {
+      // Player doesn't have enough gold for rare relicts
+      // Draw any rarity, but filter out rare relicts
+      return relictDeck.draw(3, relict => relict.rarity !==Rarety.Rare);
+    }
+  }
+
+  /**
+   * Draw initial starting relict (only starter rarity)
+   */
+  public drawStartingRelict(): Relict | null {
+    const relictDeck = RelictDeck.getInstance();
+    const starterRelicts = relictDeck.draw(1, relict => relict.rarity === 'Starter');
+    
+    return starterRelicts.length > 0 ? starterRelicts[0] : null;
   }
 }

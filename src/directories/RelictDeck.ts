@@ -83,15 +83,27 @@ export class RelictDeck {
   /**
    * Draw a specified number of relicts from the deck
    * @param count - Number of relicts to draw
+   * @param filter - Optional filter function to apply before drawing
    * @returns Array of drawn relicts
    */
-  public draw(count: number): Relict[] {
+  public draw(count: number, filter?: (relict: Relict) => boolean): Relict[] {
     const drawn: Relict[] = [];
-    const actualCount = Math.min(count, this.relicts.length);
+    let availableRelicts = [...this.relicts];
+    
+    // Apply filter if provided
+    if (filter) {
+      availableRelicts = availableRelicts.filter(filter);
+    }
+    
+    const actualCount = Math.min(count, availableRelicts.length);
     
     for (let i = 0; i < actualCount; i++) {
-      const relict = this.relicts.pop();
-      if (relict) {
+      // Find the first relict that matches the filter in the original array
+      const relictToDraw = availableRelicts[i];
+      const index = this.relicts.indexOf(relictToDraw);
+      
+      if (index !== -1) {
+        const relict = this.relicts.splice(index, 1)[0];
         drawn.push(relict);
       }
     }

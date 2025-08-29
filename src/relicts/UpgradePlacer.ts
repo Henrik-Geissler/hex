@@ -3,11 +3,13 @@ import { Tile } from '../types/Tile';
 import { Board } from '../directories/Board';
 import { TileFactory } from '../factories/TileFactory'; 
 import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
+import { Rarety } from '../types/Rarety';
 
 export class UpgradePlacer implements Relict {
   name: string = 'Upgrade Placer';
   description: string = 'Places Upgrade Tiles on 6 random tiles after free tiles are placed';
   icon: string = '📍'; // Pin emoji for placing/positioning
+  rarity: Rarety = Rarety.Starter;
   sellValue: number = 1;
 
   /**

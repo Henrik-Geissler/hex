@@ -3,11 +3,13 @@ import { Tile } from '../types/Tile';
 import { Board } from '../directories/Board';
 import { handleUpgrade } from '../utils/mutations/handleUpgrade';
 import { Color } from '../types/Color';
+import { Rarety } from '../types/Rarety';
 
 export class GreenGrowth implements Relict {
   name: string = 'Green Growth';
   description: string = 'When you draw a green Tile, upgrade all green Tiles on the board';
   icon: string = '🌱';
+  rarity: Rarety = Rarety.Starter;
   sellValue: number = 1;
 
   async onDrawTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {

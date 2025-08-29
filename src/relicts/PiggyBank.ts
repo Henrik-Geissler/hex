@@ -1,10 +1,11 @@
-import { Relict } from '../types/Relict';
-import { Tile } from '../types/Tile';
+import { Relict } from '../types/Relict'; 
+import { Rarety } from '../types/Rarety';
 
 export class PiggyBank implements Relict {
   name: string = 'Piggy Bank';
   description: string = 'Round Start: Sell value increases by 1';
   icon: string = '🐷'; // Pig emoji
+  rarity: Rarety = Rarety.Filler;
   sellValue: number = 1; // Starting sell value
 
   // Only implement onRoundStart, others return default

@@ -3,11 +3,13 @@ import { Tile } from '../types/Tile';
 import { Board } from '../directories/Board';
 import { Hand } from '../directories/Hand';
 import { handleIncrement } from '../utils/mutations/handleIncrement';
+import { Rarety } from '../types/Rarety';
 
 export class Incrementer implements Relict {
   name: string = 'Incrementer';
   description: string = 'Whenever a tile is placed, increment all board and hand tiles';
   icon: string = '📈';
+  rarity: Rarety = Rarety.Starter;
   sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {

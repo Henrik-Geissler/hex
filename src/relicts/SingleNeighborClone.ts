@@ -2,11 +2,13 @@ import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { getNeighbours } from '../directories/utils/getNeighbours'; 
 import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
+import { Rarety } from '../types/Rarety';
 
 export class SingleNeighborClone implements Relict {
   name: string = 'Single Neighbor Clone';
   description: string = 'If you place a tile with only one free neighbor, clone it to that spot';
   icon: string = '🔄';
+  rarity: Rarety = Rarety.Rare;
   sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {

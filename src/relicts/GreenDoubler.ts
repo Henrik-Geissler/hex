@@ -3,11 +3,13 @@ import { Tile } from '../types/Tile';
 import { Color } from '../types/Color';
 import { handleDouble } from '../utils/mutations/handleDouble';
 import { handleRandomColorChange } from '../utils/mutations/handleRandomColorChange';
+import { Rarety } from '../types/Rarety';
 
 export class GreenDoubler implements Relict {
   name: string = 'Green Doubler';
   description: string = 'When you place a green Tile, Double it and change its color';
   icon: string = '🌿'; // Leaf emoji
+  rarity: Rarety = Rarety.Starter;
   sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {

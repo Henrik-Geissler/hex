@@ -2,11 +2,13 @@ import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { getPlayedNeighbours } from '../directories/utils/getNeighbours';
 import { handleConsume } from '../utils/mutations/handleConsume';
+import { Rarety } from '../types/Rarety';
 
 export class NeighborDevourer implements Relict {
   name: string = 'Neighbor Devourer';
   description: string = 'When a Tile is placed with 6 neighbours, it consumes them all';
   icon: string = '🦖';
+  rarity: Rarety = Rarety.Starter;
   sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> { 
