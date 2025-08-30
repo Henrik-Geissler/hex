@@ -21,8 +21,7 @@ export class InitRoundPhase implements PhaseInterface {
     gameState.setTargetScore(
       Math.floor(gameState.getTargetScore() *
      (gameState.getRound()%3==0?5:1.5)));
-    gameState.setScore(0); 
-    GameState.getInstance().setTurn(0); 
+    gameState.setScore(0);  
     await Board.getInstance().clear(); 
     TimeManager.resetCounter();
     for (let i = 0; i < 37; i++) {
