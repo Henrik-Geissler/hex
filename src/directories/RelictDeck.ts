@@ -29,6 +29,7 @@ import { ColorMaster } from '../relicts/ColorMaster';
 import { Echo } from '../relicts/Echo';
 import { LeftColorChanger } from '../relicts/LeftColorChanger';
 import { Rotator } from '../relicts/Rotator';
+import { LittleRedRaptor } from '../relicts/LittleRedRaptor';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -78,6 +79,7 @@ export class RelictDeck {
      this.relicts.push(new Echo());
      this.relicts.push(new LeftColorChanger());
      this.relicts.push(new Rotator());
+     this.relicts.push(new LittleRedRaptor());
     
     this.shuffle();
   }
@@ -144,5 +146,19 @@ export class RelictDeck {
    */
   public getAllRelicts(): Relict[] {
     return [...this.relicts];
+  }
+
+  /**
+   * Remove a specific relict from the deck
+   * @param relict - The relict to remove
+   * @returns true if the relict was found and removed, false otherwise
+   */
+  public removeRelict(relict: Relict): boolean {
+    const index = this.relicts.indexOf(relict);
+    if (index !== -1) {
+      this.relicts.splice(index, 1);
+      return true;
+    }
+    return false;
   }
 }

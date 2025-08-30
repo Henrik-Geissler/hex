@@ -2,6 +2,7 @@ import React from 'react';
 import Stats from './Stats';
 import RelictBar from './RelictBar';
 import Deck from './Deck';
+import RelictSelector from './RelictSelector';
 import Board from './Board';
 import Hand from './Hand';
 import Shop from './Shop';
@@ -27,6 +28,7 @@ const TileGame: React.FC = () => {
         <Stats />
         <RelictBar />
         <Deck />
+        <RelictSelector />
       </div>
       <div className="right-panel">
         {renderMainArea()}

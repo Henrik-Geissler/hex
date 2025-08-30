@@ -1,7 +1,7 @@
 import { Relict } from '../types/Relict';
 import { Tile } from '../types/Tile';
 import { Rarity } from '../types/Rarity';
-import { getNeighbours } from '../directories/utils/getNeighbours';
+import { getE, getNeighbours, getW } from '../directories/utils/getNeighbours';
 import { handleColorChange } from '../utils/mutations/handleColorChange';
 
 export class LeftColorChanger implements Relict {
@@ -18,15 +18,16 @@ export class LeftColorChanger implements Relict {
       await this.spreadColor(highlight, tileAfterColorChange);
   }
   async spreadColor(highlight: () => Promise<void>, tile: Tile): Promise<void> {
-    const neighbors = getNeighbours(tile);
+    const leftNeighbor = getW(tile);
+    const rightNeighbor = getE(tile)
     
-    if (neighbors[4].isReal()) {
+    if (leftNeighbor.isReal()) {
         await highlight();
-        await handleColorChange(neighbors[4],tile.color); 
+        await handleColorChange(leftNeighbor,tile.color); 
       }
-    if (neighbors[1].isReal()) {
+    if (    rightNeighbor      .isReal()) {
       await highlight();
-      await handleColorChange(tile,neighbors[1].color); 
+      await handleColorChange(tile,rightNeighbor.color); 
     }
   }
 }

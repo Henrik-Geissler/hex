@@ -3,6 +3,7 @@ import { Tile } from '../types/Tile';
 import { Rarity } from '../types/Rarity';
 import { getNeighbours } from '../directories/utils/getNeighbours';
 import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
+import { Location } from '../types/Location';
 
 export class Rotator implements Relict {
   name: string = 'Rotator';
@@ -36,6 +37,7 @@ export class Rotator implements Relict {
     await handleStartPlacement(neighbors[3],pos[4]);
     await handleStartPlacement(neighbors[2],pos[3]);
     await handleStartPlacement(neighbors[1],pos[2]);
+    neighbors[0].location = Location.Air
     await handleStartPlacement(neighbors[0],pos[1]);
   }
 }

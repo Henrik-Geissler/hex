@@ -5,6 +5,84 @@ import { cubeToIndex, DIRS, indexToCube } from './boardSpace';
 export function getPlayedNeighbours(tile: Tile): Tile[] { 
   return getNeighbours(tile).filter(t => !t.isFree() && !t.isOff());
 }
+
+/**
+ * Get the Northeast neighbor tile (DIRS[4] - results[0])
+ * @param tile - The tile to find the NE neighbor for
+ * @returns The NE neighbor tile or undefined if position is empty
+ */
+export function getNE(tile: Tile): Tile  {
+  const board = Board.getInstance();
+  const cube = indexToCube(tile.pos);
+  const [dx, dy, dz] = DIRS[4];
+  const neighborPos = cubeToIndex([cube[0] + dx, cube[1] + dy, cube[2] + dz]);
+  return board.getTileAtPos(neighborPos);
+}
+
+/**
+ * Get the East neighbor tile (DIRS[5] - results[1])
+ * @param tile - The tile to find the E neighbor for
+ * @returns The E neighbor tile or undefined if position is empty
+ */
+export function getE(tile: Tile): Tile  {
+  const board = Board.getInstance();
+  const cube = indexToCube(tile.pos);
+  const [dx, dy, dz] = DIRS[5];
+  const neighborPos = cubeToIndex([cube[0] + dx, cube[1] + dy, cube[2] + dz]);
+  return board.getTileAtPos(neighborPos);
+}
+
+/**
+ * Get the Southeast neighbor tile (DIRS[0] - results[2])
+ * @param tile - The tile to find the SE neighbor for
+ * @returns The SE neighbor tile or undefined if position is empty
+ */
+export function getSE(tile: Tile): Tile  {
+  const board = Board.getInstance();
+  const cube = indexToCube(tile.pos);
+  const [dx, dy, dz] = DIRS[0];
+  const neighborPos = cubeToIndex([cube[0] + dx, cube[1] + dy, cube[2] + dz]);
+  return board.getTileAtPos(neighborPos);
+}
+
+/**
+ * Get the Southwest neighbor tile (DIRS[1] - results[3])
+ * @param tile - The tile to find the SW neighbor for
+ * @returns The SW neighbor tile or undefined if position is empty
+ */
+export function getSW(tile: Tile): Tile  {
+  const board = Board.getInstance();
+  const cube = indexToCube(tile.pos);
+  const [dx, dy, dz] = DIRS[1];
+  const neighborPos = cubeToIndex([cube[0] + dx, cube[1] + dy, cube[2] + dz]);
+  return board.getTileAtPos(neighborPos);
+}
+
+/**
+ * Get the West neighbor tile (DIRS[2] - results[4])
+ * @param tile - The tile to find the W neighbor for
+ * @returns The W neighbor tile or undefined if position is empty
+ */
+export function getW(tile: Tile): Tile  {
+  const board = Board.getInstance();
+  const cube = indexToCube(tile.pos);
+  const [dx, dy, dz] = DIRS[2];
+  const neighborPos = cubeToIndex([cube[0] + dx, cube[1] + dy, cube[2] + dz]);
+  return board.getTileAtPos(neighborPos);
+}
+
+/**
+ * Get the Northwest neighbor tile (DIRS[3] - results[5])
+ * @param tile - The tile to find the NW neighbor for
+ * @returns The NW neighbor tile or undefined if position is empty
+ */
+export function getNW(tile: Tile): Tile  {
+  const board = Board.getInstance();
+  const cube = indexToCube(tile.pos);
+  const [dx, dy, dz] = DIRS[3];
+  const neighborPos = cubeToIndex([cube[0] + dx, cube[1] + dy, cube[2] + dz]);
+  return board.getTileAtPos(neighborPos);
+}
 /**
  * Get all 6 neighboring tiles for a given tile
  * @param tile - The tile to find neighbors for

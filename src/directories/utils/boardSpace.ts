@@ -2,12 +2,12 @@ const SQRT3 = Math.sqrt(3);
 
 // Cube direction vectors, clockwise from NE
 export const DIRS = [
-  [ 0, -1,  1],  // NW
-  [-1,  0,  1], // W
-  [-1,  1,  0], // SW
-  [ 0,  1, -1], // SE
-  [ 1,  0, -1], // E
-  [ 1, -1,  0], // NE
+  [ 0, -1,  1],  // SE
+  [-1,  0,  1], // SW
+  [-1,  1,  0], // W
+  [ 0,  1, -1], // NW
+  [ 1,  0, -1], // NE
+  [ 1, -1,  0], // E
 ];
 
 // Find ring k for index n (max index on ring k is 3k(k+1))

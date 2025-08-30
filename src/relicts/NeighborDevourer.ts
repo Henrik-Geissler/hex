@@ -7,7 +7,7 @@ import { Rarity } from '../types/Rarity';
 export class NeighborDevourer implements Relict {
   name: string = 'Neighbor Devourer';
   description: string = 'When a Tile is placed with 6 neighbours, it consumes them all';
-  icon: string = '🦖'; // T-Rex emoji - alternatives: 🐉 (dragon), 🔥 (fire), ⚡ (lightning), 💀 (skull)
+  icon: string = '🐉'; // T-Rex emoji - alternatives: 🐉 (dragon), 🔥 (fire), ⚡ (lightning), 💀 (skull)
   rarity: Rarity = Rarity.Starter;
   sellValue: number = 1;
 
