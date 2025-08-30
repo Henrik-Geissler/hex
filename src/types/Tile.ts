@@ -56,6 +56,7 @@ export class Tile {
   isBoard = () => this.location === Location.Board;
   isDiscardPile = () => this.location === Location.DiscardPile;
   isAir = () => this.location === Location.Air;
+  isProcessed= () => this.isBeeingPlaced == undefined;
   
   // Count how often a specific digit appears in the tile's score
   countDigit(digit: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9): 0 | 1 | 2 | 3 | 4 {
