@@ -27,6 +27,7 @@ import { UpgradeAllFitters } from '../relicts/UpgradeAllFitters';
 import { Insurance } from '../relicts/Insurance';
 import { ColorMaster } from '../relicts/ColorMaster';
 import { Echo } from '../relicts/Echo';
+import { LeftColorChanger } from '../relicts/LeftColorChanger';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -74,6 +75,7 @@ export class RelictDeck {
      this.relicts.push(new Insurance());
    //  this.relicts.push(new ColorMaster());
      this.relicts.push(new Echo());
+     this.relicts.push(new LeftColorChanger());
     
     this.shuffle();
   }

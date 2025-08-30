@@ -30,7 +30,7 @@ export class Tile {
 
   // Setter method for score
   setScore(newScore: number): void {
-    const possibleScore = Math.min(Math.max(newScore, 0), 9999);
+    const possibleScore = Math.min(Math.max(newScore, 0), 999);
     // Update the readonly score property using Object.defineProperty
     Object.defineProperty(this, 'score', {
       value: possibleScore,
