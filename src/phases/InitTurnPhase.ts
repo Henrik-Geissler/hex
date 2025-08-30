@@ -26,6 +26,9 @@ export class InitTurnPhase implements PhaseInterface {
       await PlacingQueue.getInstance().Play(); 
     }
     TimeManager.resetCounter();
+    await RelictManager.getInstance().onTurnStart();
+    await PlacingQueue.getInstance().Play(); 
+    TimeManager.resetCounter();
     
     StateMachine.getInstance().setPhase('CheckWinPhase', { nextPhaseOnNoWin: Phase.CheckLoosePhase });
   }

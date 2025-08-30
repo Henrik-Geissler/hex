@@ -24,6 +24,7 @@ import { WaterToucher } from '../relicts/WaterToucher';
 import { CoinField } from '../relicts/CoinField';
 import { Gravity } from '../relicts/Gravity';
 import { UpgradeAllFitters } from '../relicts/UpgradeAllFitters';
+import { Insurance } from '../relicts/Insurance';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -68,6 +69,7 @@ export class RelictDeck {
        this.relicts.push(new CoinField());
        this.relicts.push(new Gravity());
        this.relicts.push(new UpgradeAllFitters());
+     this.relicts.push(new Insurance());
     
     this.shuffle();
   }

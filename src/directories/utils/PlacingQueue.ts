@@ -9,7 +9,7 @@ import { handleProcessPlacement } from '../../utils/mutations/handleProcessPlace
 export class PlacingQueue {
   private static instance: PlacingQueue;
   private queue: Tile[] = [];
-
+ private isPlaying: boolean = false;
   private constructor() {}
 
   /**
@@ -41,11 +41,13 @@ export class PlacingQueue {
   }
 
   public async Play(): Promise<void> {
+    if(this.isPlaying) return;
+    this.isPlaying = true;
     while(true) {
       const next = this.getNext();
-      if (!next) return;
+      if (!next) break;
       await handleProcessPlacement(next);
     }
-      
+      this.isPlaying = false;
   }
 }
