@@ -11,6 +11,7 @@ export class Tile {
   public location: Location;
   public color: Color;
   public isBeeingPlaced?: Tile = undefined;
+  public isGhost: boolean;
 
   constructor(
     id: number,
@@ -24,6 +25,7 @@ export class Tile {
     this.location = location;
     this.color = color;
     this.score = score;
+    this.isGhost = false;
 
     this.setScore(score);
   }
@@ -66,5 +68,12 @@ export class Tile {
   // Clone method that returns a new Tile with the same properties but a new ID
   Clone(): Tile {
     return TileFactory.getInstance().cloneTile(this);
+  }
+  
+  // Clone method that returns a new Tile with the same properties but a new ID
+  CloneGhost(): Tile {
+    const ghost = this.Clone();
+    ghost.isGhost = true; 
+    return ghost;
   }
 }

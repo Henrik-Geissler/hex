@@ -20,7 +20,7 @@ export async function handleMirrorClone(tileToMirror: Tile, mirrorTile: Tile): P
       return tile;
     }, 'mirror');
     
-    const clonedTile = tileToMirror.Clone();
+    const clonedTile = tileToMirror.CloneGhost();
     await handleStartPlacement(clonedTile,mirroredPos);
     return true;
 }

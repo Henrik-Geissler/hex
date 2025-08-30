@@ -1,5 +1,4 @@
 import { Deck } from '../directories/Deck';
-import { DiscardPile } from '../directories/DiscardPile';
 import { TileFactory } from '../factories/TileFactory';
 import { StateMachine } from '../machines/StateMachine';
 import { GameState } from '../machines/GameState';
@@ -8,6 +7,7 @@ import { Board } from '../directories/Board';
 import { PlacingQueue } from '../directories/utils/PlacingQueue';
 import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
 import { TimeManager } from '../managers/TimeManager';
+import { moveNonGhostTilesToDeck } from '../utils/moveNonGhostTilesToDeck';
 
 export class InitRoundPhase implements PhaseInterface {
   async run(): Promise<void> {
@@ -28,10 +28,7 @@ export class InitRoundPhase implements PhaseInterface {
       if(Math.random()<.8)
        await handleStartPlacement(TileFactory.getInstance().createFreeTile(), i);
     }
-    await DiscardPile.getInstance().getAllTiles().forEach(async tile  =>     {
-      await DiscardPile.getInstance().remove(tile);
-      await Deck.getInstance().add(tile);
-    }); 
+    await moveNonGhostTilesToDeck();
     await PlacingQueue.getInstance().Play(); 
     await Deck.getInstance().shuffle();
     TimeManager.resetCounter(); 

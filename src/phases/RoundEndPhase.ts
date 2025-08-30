@@ -8,8 +8,7 @@ import { StateMachine } from '../machines/StateMachine';
 import { GameState } from '../machines/GameState';
 import { TimeManager } from '../managers/TimeManager';
 import { PlacingQueue } from '../directories/utils/PlacingQueue';
-import { DiscardPile } from '../directories/DiscardPile';
-import { Deck } from '../directories/Deck';
+import { moveNonGhostTilesToDeck } from '../utils/moveNonGhostTilesToDeck';
 
 export class RoundEndPhase implements PhaseInterface {
   async run(): Promise<void> { 
@@ -32,14 +31,7 @@ export class RoundEndPhase implements PhaseInterface {
     gameState.setScore(0); 
     
     // Move all tiles from discard pile back to deck
-    const discardPile = DiscardPile.getInstance();
-    const deck = Deck.getInstance();
-    const discardedTiles = discardPile.getAllTiles();
-    
-    for (const tile of discardedTiles) {
-      await discardPile.remove(tile);
-      await deck.add(tile);
-    }
+    await moveNonGhostTilesToDeck();
 
     await TimeManager.Wait(500); // Simulate async work
     StateMachine.getInstance().setPhase('ShopPhase');

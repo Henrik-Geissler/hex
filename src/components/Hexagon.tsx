@@ -261,7 +261,8 @@ const Hexagon: React.FC<HexagonProps> = ({
   // Determine opacity based on drag state and placeability
   const getOpacity = () => {
     if (isDragging) return 0.5;
-            if (tile.isHand() && !isPlaceable) return 0.6;
+    if (tile.isHand() && !isPlaceable) return 0.6;
+    if (tile.isGhost) return 0.7; // Ghost tiles are more transparent
     return 1;
   };
 
@@ -279,23 +280,48 @@ const Hexagon: React.FC<HexagonProps> = ({
     return 'all 0.3s ease'; // Smooth transition when leaving placement state
   };
 
+  // Get ghostly filter effects for ghost tiles
+  const getGhostFilter = () => {
+    if (tile.isGhost) {
+      return 'drop-shadow(0 0 10px rgba(128, 128, 255, 0.6)) drop-shadow(0 0 20px rgba(128, 128, 255, 0.4)) blur(0.5px)';
+    }
+    return '';
+  };
+
+  // Get ghostly glow effect for ghost tiles
+  const getGhostGlow = () => {
+    if (tile.isGhost) {
+      return 'drop-shadow(0 0 8px rgba(128, 128, 255, 0.8)) drop-shadow(0 0 16px rgba(128, 128, 255, 0.6))';
+    }
+    return '';
+  };
+
   return (
     <div
-      style={{
-        cursor: getCursorStyle(),
-        opacity: getOpacity(),
-        transform: getTransform(),
-        transition: getTransition(),
-        display: 'inline-block'
-      }}
+              style={{
+          cursor: getCursorStyle(),
+          opacity: getOpacity(),
+          transform: getTransform(),
+          transition: getTransition(),
+          display: 'inline-block',
+          animation: tile.isGhost ? 'ghostFloat 3s ease-in-out infinite' : 'none'
+        }}
       draggable={isDraggable}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-    >
-      <svg 
+              onDrop={handleDrop}
+      >
+        <style>
+          {`
+            @keyframes ghostFloat {
+              0%, 100% { transform: translateY(0px); }
+              50% { transform: translateY(-3px); }
+            }
+          `}
+        </style>
+        <svg 
         width={width} 
         height={height}  
         style={{ 
@@ -303,6 +329,8 @@ const Hexagon: React.FC<HexagonProps> = ({
             ? 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3)) grayscale(0.7)' 
             : tile.isBeeingPlaced
             ? 'drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5))'
+            : tile.isGhost
+            ? getGhostFilter()
             : 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))', 
           display: `${tile.color==Color.Off?'none':'block' }`,
           pointerEvents: 'none',
@@ -314,8 +342,11 @@ const Hexagon: React.FC<HexagonProps> = ({
        <polygon
          points={points.join(' ')}
          fill={isHighlighted ?  color:(color+"cc") }
-         stroke={isHighlighted ? "rgba(0, 255, 0, 0.4)" : "rgba(255, 255, 255, 0.3)"}
-         strokeWidth={isHighlighted ? "2" : "2"}
+         stroke={isHighlighted ? "rgba(0, 255, 0, 0.4)" : tile.isGhost ? "rgba(128, 128, 255, 0.6)" : "rgba(255, 255, 255, 0.3)"}
+         strokeWidth={isHighlighted ? "2" : tile.isGhost ? "3" : "2"}
+         style={{
+           filter: tile.isGhost ? getGhostGlow() : 'none'
+         }}
        />
       
       
@@ -325,13 +356,17 @@ const Hexagon: React.FC<HexagonProps> = ({
         y={centerY}
         textAnchor="middle"
         dominantBaseline="middle"
-        fill="white"
+        fill={tile.isGhost ? "rgba(255, 255, 255, 0.9)" : "white"}
         fontSize={Math.max(26, radius * 0.6)}
         fontWeight="bold"
         transform={`rotate(-30 ${centerX} ${centerY})`}
         style={{
-          textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
-          filter: 'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.7))'
+          textShadow: tile.isGhost 
+            ? '0 0 8px rgba(128, 128, 255, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.8)' 
+            : '2px 2px 4px rgba(0, 0, 0, 0.8)',
+          filter: tile.isGhost 
+            ? 'drop-shadow(0 0 6px rgba(128, 128, 255, 0.6)) drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.7))'
+            : 'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.7))'
         }}
               >
         {displayText}

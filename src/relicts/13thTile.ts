@@ -24,7 +24,7 @@ export class The13thTile implements Relict {
     await highlight();
     
     for (const freeNeighbor of freeNeighbors) {
-      const clonedTile = tile.Clone();
+      const clonedTile = tile.CloneGhost();
       await handleStartPlacement(clonedTile, freeNeighbor.pos);
     }
   }
