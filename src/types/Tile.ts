@@ -57,6 +57,11 @@ export class Tile {
   isDiscardPile = () => this.location === Location.DiscardPile;
   isAir = () => this.location === Location.Air;
   
+  // Count how often a specific digit appears in the tile's score
+  countDigit(digit: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9): 0 | 1 | 2 | 3 | 4 {
+    return this.score.toString().split('').filter(d => d === digit.toString()).length as 0 | 1 | 2 | 3 | 4;
+  }
+  
   // Clone method that returns a new Tile with the same properties but a new ID
   Clone(): Tile {
     return TileFactory.getInstance().cloneTile(this);

@@ -12,7 +12,7 @@ export class Digit5Expander implements Relict {
   rarity:Rarity = Rarity.Rare;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> { 
-    let fives = tile.score.toString().split('').filter(digit => digit === '5').length;
+    let fives = tile.countDigit(5);
 
     const offNeighbors = getNeighbours(tile).filter(n => n.isOff());
     
