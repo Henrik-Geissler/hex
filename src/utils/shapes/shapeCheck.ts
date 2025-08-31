@@ -28,11 +28,14 @@ async function shapeCheckForPosition(newTile: Tile): Promise<void> {
             tile.isBeeingPlaced = noTile;
     board.triggerUpdate();
     await TimeManager.Wait(400);
+    for(let i = 0; i < circle.length; i++)
     for(const tile of tiles) {
-        for(let i = 0; i < circle.length; i++)
-        await handleScore(noTile,tile);
         await TimeManager.Wait(50);
+        await handleScore(noTile,tile);
+    }
+    await TimeManager.Wait(400);
+    for(const tile of tiles) {
         await handleStartPlacement(TileFactory.getInstance().createOffTile(), tile.pos);
-        await TimeManager.Wait(100);
+        await TimeManager.Wait(300);
     }
 }
