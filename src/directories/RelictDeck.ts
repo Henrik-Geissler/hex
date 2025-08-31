@@ -55,7 +55,7 @@ export class RelictDeck {
     //  this.relicts.push(new Incrementer()); //boring
        this.relicts.push(new GreenDoubler());
      this.relicts.push(new BlueUpgrader());
-      this.relicts.push(new BlueMirror());
+      //this.relicts.push(new BlueMirror());
       this.relicts.push(new ColorUpgrader());
      // this.relicts.push(new NeighborMirror()); //weird
      this.relicts.push(new BoardUpgrader());

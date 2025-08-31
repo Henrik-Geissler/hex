@@ -3,8 +3,10 @@ import { Color } from './Color';
 import { Location } from './Location';
 import { SpotType } from './SpotType';
 
+
 // Tile class with all required properties
 export class Tile {
+  public static readonly MAX_SCORE: number = 999;
   public readonly score: number;
   public id: number;
   public pos: number;
@@ -32,7 +34,7 @@ export class Tile {
 
   // Setter method for score
   setScore(newScore: number): void {
-    const possibleScore = Math.min(Math.max(newScore, 0), 999);
+    const possibleScore = Math.min(Math.max(newScore, 0), Tile.MAX_SCORE);
     // Update the readonly score property using Object.defineProperty
     Object.defineProperty(this, 'score', {
       value: possibleScore,
@@ -59,6 +61,7 @@ export class Tile {
   isDiscardPile = () => this.location === Location.DiscardPile;
   isAir = () => this.location === Location.Air;
   isProcessed= () => this.isBeeingPlaced == undefined;
+  isMaxed= () => this.score >= Tile.MAX_SCORE;
   
   // Count how often a specific digit appears in the tile's score
   countDigit(digit: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9): 0 | 1 | 2 | 3 | 4 {

@@ -2,10 +2,12 @@ import { Tile } from '../../types/Tile';
 import { RemoveATileFromCurrentLocation } from '../RemoveATileFromCurrentLocation';
 import { mutateTile } from './mutateTile';
 
-export async function handleConsume(tile: Tile, meal: Tile): Promise<void> {
-  await mutateTile(tile, async (tile) => {
+export async function handleConsume(consumer: Tile, meal: Tile): Promise<void> {
+  if(consumer.isMaxed())  
+    return; 
+  await mutateTile(consumer, async (consumer) => {
     RemoveATileFromCurrentLocation(meal);
-    tile.setScore(tile.score + meal.score);
-    return tile;
+    consumer.setScore(consumer.score + meal.score);
+    return consumer;
   }, 'consume');
 }
