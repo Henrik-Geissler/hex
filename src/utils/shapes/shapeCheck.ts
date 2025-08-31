@@ -3,10 +3,18 @@ import { cubeToIndex, indexToCube } from '../../directories/utils/boardSpace';
 import { TileFactory } from '../../factories/TileFactory';
 import { TimeManager } from '../../managers/TimeManager';
 import { Tile } from '../../types/Tile';
+import { CubeCoordinates } from '../../types/CubeCoordinates';
 import { getRealTileCubeCoordinates } from '../getRealTileCubeCoordinates';
 import { handleScore } from '../handleScore';
 import { handleStartPlacement } from '../mutations/handleStartPlacement';
 import { checkNewCircle } from './circle';
+import { ShapeFunction } from './types';
+
+// List of all shape functions to check
+const shapeFunctions: ShapeFunction[] = [
+    checkNewCircle,
+    // Add more shape functions here as they are created
+];
 
 export async function shapeCheck(newTile: Tile, beforeTile: Tile): Promise<void> {
     if(!newTile.isReal()) 
@@ -18,22 +26,36 @@ export async function shapeCheck(newTile: Tile, beforeTile: Tile): Promise<void>
 async function shapeCheckForPosition(newTile: Tile): Promise<void> {
     const realTileCoordinates = getRealTileCubeCoordinates();
     const newTileCoordinates = indexToCube(newTile.pos);
-    const circle = checkNewCircle(realTileCoordinates, newTileCoordinates);
-    if(circle==undefined)return;
+    
+    // Run through all shape functions
+    for (const shapeFunction of shapeFunctions) {
+        const shape = shapeFunction(realTileCoordinates, newTileCoordinates);
+        if (shape !== undefined) {
+            await handleShapeFound(shape);
+        }
+    }
+}
+
+async function handleShapeFound(shape: CubeCoordinates[]): Promise<void> {
     const board = Board.getInstance();
-    const tiles = circle.map(coords => board.getTileAtPos(cubeToIndex(coords)));
+    const tiles = shape.map(coords => board.getTileAtPos(cubeToIndex(coords)));
     const noTile = TileFactory.getInstance().createFreeTile();
+    
     for(const tile of tiles)
         if(tile.isBeeingPlaced == undefined)
             tile.isBeeingPlaced = noTile;
+    
     board.triggerUpdate();
     await TimeManager.Wait(400);
-    for(let i = 0; i < circle.length; i++)
+    
+    for(let i = 0; i < shape.length; i++)
     for(const tile of tiles) {
         await TimeManager.Wait(50);
         await handleScore(noTile,tile);
     }
+    
     await TimeManager.Wait(400);
+    
     for(const tile of tiles) {
         await handleStartPlacement(TileFactory.getInstance().createOffTile(), tile.pos);
         await TimeManager.Wait(300);

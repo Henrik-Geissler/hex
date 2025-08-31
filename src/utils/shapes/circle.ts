@@ -1,11 +1,12 @@
 import { DIRS } from '../../directories/utils/boardSpace';
 import { CubeCoordinates, CubeCoordinatesString, cubeToString } from '../../types/CubeCoordinates';
+import { ShapeFunction } from './types';
 
 /**
  * Checks if adding `newHex` to the board completes a 6-hex "circle".
  * Returns the circle coordinates if found, otherwise undefined.
  */
-export function checkNewCircle(board: Set<CubeCoordinatesString>, newHex: CubeCoordinates): CubeCoordinates[] | undefined {
+export const checkNewCircle: ShapeFunction = (board: Set<CubeCoordinatesString>, newHex: CubeCoordinates): CubeCoordinates[] | undefined => {
   const [x, y, z] = newHex;
 
   for (const [dx, dy, dz] of DIRS) {
