@@ -7,12 +7,14 @@ import { CubeCoordinates } from '../../types/CubeCoordinates';
 import { getRealTileCubeCoordinates } from '../getRealTileCubeCoordinates';
 import { handleScore } from '../handleScore';
 import { handleStartPlacement } from '../mutations/handleStartPlacement';
-import { checkNewCircle } from './circle';
+import { checkCircle } from './circle';
 import { ShapeFunction } from './types';
+import { checkTriangle } from './triangle';
 
 // List of all shape functions to check
 const shapeFunctions: ShapeFunction[] = [
-    checkNewCircle,
+    checkTriangle,
+    checkCircle,
     // Add more shape functions here as they are created
 ];
 
@@ -26,14 +28,17 @@ export async function shapeCheck(newTile: Tile, beforeTile: Tile): Promise<void>
 async function shapeCheckForPosition(newTile: Tile): Promise<void> {
     const realTileCoordinates = getRealTileCubeCoordinates();
     const newTileCoordinates = indexToCube(newTile.pos);
-    
+    let shapes: CubeCoordinates[] | undefined = undefined;
     // Run through all shape functions
     for (const shapeFunction of shapeFunctions) {
         const shape = shapeFunction(realTileCoordinates, newTileCoordinates);
         if (shape !== undefined) {
-            await handleShapeFound(shape);
+            shapes = [...shapes??[],...shape]; 
         }
     }
+    if(shapes == undefined)
+        return;
+    await handleShapeFound(shapes);
 }
 
 async function handleShapeFound(shape: CubeCoordinates[]): Promise<void> {
