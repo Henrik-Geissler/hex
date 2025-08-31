@@ -53,7 +53,7 @@ export class Board implements TileDictionary {
   }
 
   getAllPlayedTiles(): Tile[] {
-    return Object.values(this.tiles).filter(tile => !tile.isFree() && !tile.isOff());
+    return Object.values(this.tiles).filter(tile => tile.isReal());
   }
 
   getTileCount(): number {

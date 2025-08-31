@@ -16,8 +16,10 @@ export function ringOf(n: number) {
   return Math.ceil((-3 + Math.sqrt(9 + 12 * n)) / 6);
 }
 
+import { CubeCoordinates } from '../../types/CubeCoordinates';
+
 // n → cube coordinates (x,y,z) with x+y+z=0
-export function indexToCube(n: number): [number, number, number] {
+export function indexToCube(n: number): CubeCoordinates {
   if (n === 0) return [0, 0, 0];
 
   const k = ringOf(n);                  // ring number
@@ -48,7 +50,7 @@ export function indexToCube(n: number): [number, number, number] {
   return [x, y, z];
 }
 
-export function cubeToIndex([x, y, z]: [number, number, number]): number {
+export function cubeToIndex([x, y, z]: CubeCoordinates): number {
   if (x === 0 && y === 0 && z === 0) return 0;
 
   const k = Math.max(Math.abs(x), Math.abs(y), Math.abs(z)); // ring

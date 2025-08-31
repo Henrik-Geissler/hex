@@ -1,6 +1,7 @@
 import { Tile } from '../../types/Tile';
 import { Board } from '../Board'; 
 import { cubeToIndex, DIRS, indexToCube } from './boardSpace';
+import { CubeCoordinates } from '../../types/CubeCoordinates';
 
 export function getPlayedNeighbours(tile: Tile): Tile[] { 
   return getNeighbours(tile).filter(t => !t.isFree() && !t.isOff());
@@ -108,7 +109,7 @@ function getAdjacentPositions(n: number): [number,number,number,number,number,nu
     const shiftedDirs = [DIRS[4],DIRS[5],DIRS[0],DIRS[1],DIRS[2],DIRS[3]];
     let i = 0;
     for (const [dx, dy, dz] of shiftedDirs) {
-      const neighbor: [number, number, number] = [
+      const neighbor: CubeCoordinates = [
         cube[0] + dx,
         cube[1] + dy,
         cube[2] + dz,
@@ -142,7 +143,7 @@ export function mirrorPositionByNumbers(positionToMirror: number, mirrorPosition
   
   // Calculate the mirrored cube coordinates
   // Mirroring across a point: mirrored = 2 * mirror - original
-  const mirroredCube: [number, number, number] = [
+  const mirroredCube: CubeCoordinates = [
     2 * cubeMirror[0] - cubeToMirror[0],
     2 * cubeMirror[1] - cubeToMirror[1],
     2 * cubeMirror[2] - cubeToMirror[2]

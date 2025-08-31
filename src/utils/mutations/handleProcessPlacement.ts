@@ -7,12 +7,14 @@ import { SpotType } from '../../types/SpotType';
 import { handleUpgrade } from './handleUpgrade';
 import { handleDouble } from './handleDouble';
 import { handleCoin } from './handleCoin';
+import { shapeCheck } from '../shapes/shapeCheck';
 
 export async function handleProcessPlacement(tile: Tile): Promise<void> {
     if (tile.isBeeingPlaced == undefined) {
         console.log('Tile is not being placed', tile);
         throw new Error('Tile is not being placed');
     }
+    await shapeCheck(tile, tile.isBeeingPlaced);
     await handleScore(tile.isBeeingPlaced, tile);
     
     // Check for special SpotTypes on the tile being placed on and handle them
