@@ -7,14 +7,19 @@ import { Rarity } from '../types/Rarity';
 
 export class UpgradePlacer implements Relict {
   name: string = 'Upgrade Placer';
-  description: string = 'Start with 6 Upgrade Tiles';
   icon: string = '📍'; // Pin emoji - alternatives: 🎯 (target), ⬆️ (up arrow), 🔧 (wrench), ⚡ (lightning)
   rarity: Rarity = Rarity.Starter;
   sellValue: number = 1;
+  
+  private upgradeSlots: number = 1; // Start with 1 upgrade slot
+
+  get description(): string {
+    return `Start with ${this.upgradeSlots} Upgrade Tile${this.upgradeSlots !== 1 ? 's' : ''}`;
+  }
 
   /**
    * Called at the start of each round
-   * Places Upgrade tiles on 6 random tiles after free tiles are placed
+   * Places Upgrade tiles on random tiles after free tiles are placed
    */
   async onRoundStart(highlight: () => Promise<void>): Promise<void> {
     const board = Board.getInstance();
@@ -22,8 +27,8 @@ export class UpgradePlacer implements Relict {
     const allTiles = board.getAllTiles();
     const freeTiles = allTiles.filter(tile => tile.isFreeAndFreeSpot());
     
-    // Randomly select 6 tiles to upgrade (or all if less than 6)
-    const tilesToUpgrade = this.getRandomTiles(freeTiles, Math.min(6, freeTiles.length));
+    // Randomly select tiles to upgrade based on current upgrade slots
+    const tilesToUpgrade = this.getRandomTiles(freeTiles, Math.min(this.upgradeSlots, freeTiles.length));
     
     // Place Upgrade tiles on the selected positions
     for (const tile of tilesToUpgrade) {
@@ -31,6 +36,15 @@ export class UpgradePlacer implements Relict {
       await highlight();
       await handleStartPlacement(upgradeTile, tile.pos); 
     }
+  }
+
+  /**
+   * Called at the end of each round
+   * Increases the number of upgrade slots
+   */
+  async onRoundEnd(highlight: () => Promise<void>): Promise<void> {
+    this.upgradeSlots++;
+    await highlight();
   }
 
   /**
