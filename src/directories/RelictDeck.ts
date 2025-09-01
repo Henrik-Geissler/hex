@@ -33,6 +33,7 @@ import { DigitGoldRewarder } from '../relicts/DigitGoldRewarder';
 import { WhiteZeroAdder } from '../relicts/WhiteZeroAdder';
 import { ColorMasterTile } from '../relicts/ColorMasterTile';
 import { EvenSteven } from '../relicts/EvenSteven';
+import { SelfMirror } from '../relicts/SelfMirror';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -78,13 +79,14 @@ export class RelictDeck {
     this.relicts.push(new NeighborDevourer());
     this.relicts.push(new LittleRedRaptor());
 
-         //Clone
-     this.relicts.push(new SingleNeighborClone());
-     this.relicts.push(new WaterMirror());
-     //this.relicts.push(new ColorMasterTile());
-     //this.relicts.push(new BlueMirror());
-      // this.relicts.push(new NeighborMirror()); //weird
-     //   this.relicts.push(new The13thTile()); //boring
+                  //Clone
+      this.relicts.push(new SingleNeighborClone());
+      this.relicts.push(new WaterMirror());
+      this.relicts.push(new SelfMirror());
+      //this.relicts.push(new ColorMasterTile());
+      //this.relicts.push(new BlueMirror());
+       // this.relicts.push(new NeighborMirror()); //weird
+      //   this.relicts.push(new The13thTile()); //boring
 
      //Permanent
      this.relicts.push(new WhiteZeroAdder());
