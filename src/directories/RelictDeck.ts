@@ -32,6 +32,7 @@ import { Rotator } from '../relicts/Rotator';
 import { LittleRedRaptor } from '../relicts/LittleRedRaptor';
 import { DigitGoldRewarder } from '../relicts/DigitGoldRewarder';
 import { WhiteZeroAdder } from '../relicts/WhiteZeroAdder';
+import { ColorMasterTile } from '../relicts/ColorMasterTile';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -51,39 +52,56 @@ export class RelictDeck {
    */
   public reset(): void {
     this.relicts = [];
-     // this.relicts.push(new GoldMiner());
-    //  this.relicts.push(new PiggyBank());
-     //this.relicts.push(new Pioneer()); //boring
+    //Upgrade
+    this.relicts.push(new BlueUpgrader());
+    this.relicts.push(new ColorUpgrader());
+    this.relicts.push(new GreenGrowth());
+    this.relicts.push(new UpgradePlacer());
+    this.relicts.push(new UpgradeAllFitters());
+    //  this.relicts.push(new BoardUpgrader());
     //  this.relicts.push(new Incrementer()); //boring
-       this.relicts.push(new GreenDoubler());
-     this.relicts.push(new BlueUpgrader());
-      //this.relicts.push(new BlueMirror());
-      this.relicts.push(new ColorUpgrader());
-     // this.relicts.push(new NeighborMirror()); //weird
-   //  this.relicts.push(new BoardUpgrader());
-      this.relicts.push(new EdgeChaos());
-       //      this.relicts.push(new ColorConsumer()); //boring
+
+    //Gold
+    this.relicts.push(new DigitGoldRewarder());
+    this.relicts.push(new CoinField());
+    // this.relicts.push(new GoldMiner());
+   //  this.relicts.push(new PiggyBank());
    //    this.relicts.push(new DiscardRewarder());
-       this.relicts.push(new GreenGrowth());
-       //this.relicts.push(new OddDisappearance());
-    //   this.relicts.push(new The13thTile()); //boring
-       this.relicts.push(new SingleNeighborClone());
-       this.relicts.push(new Digit5Expander());
-       this.relicts.push(new NeighborDevourer());
-       this.relicts.push(new WaterMirror());
-       this.relicts.push(new UpgradePlacer());
-       this.relicts.push(new WaterToucher());
-       this.relicts.push(new CoinField());
-       this.relicts.push(new Gravity());
-       this.relicts.push(new UpgradeAllFitters());
-     this.relicts.push(new Insurance());
-   //  this.relicts.push(new ColorMaster());
-     this.relicts.push(new Echo());
+
+    //Double
+    this.relicts.push(new GreenDoubler());
+    this.relicts.push(new WaterToucher());
+    //this.relicts.push(new Pioneer()); //boring
+    
+    //Consume
+    this.relicts.push(new NeighborDevourer());
+    this.relicts.push(new LittleRedRaptor());
+
+         //Clone
+     this.relicts.push(new SingleNeighborClone());
+     this.relicts.push(new WaterMirror());
+     //this.relicts.push(new ColorMasterTile());
+     //this.relicts.push(new BlueMirror());
+      // this.relicts.push(new NeighborMirror()); //weird
+     //   this.relicts.push(new The13thTile()); //boring
+
+     //Permanent
+     this.relicts.push(new WhiteZeroAdder());
+
+    //Rescore
+    this.relicts.push(new Echo());
+    this.relicts.push(new Gravity());
+    this.relicts.push(new Rotator());
+
+    //Space
+    this.relicts.push(new Insurance());
+    this.relicts.push(new Digit5Expander());
+    //this.relicts.push(new OddDisappearance());
+
+
+      this.relicts.push(new EdgeChaos());
+       //      this.relicts.push(new ColorConsumer()); //boring 
      this.relicts.push(new LeftColorChanger());
-            this.relicts.push(new Rotator());
-       this.relicts.push(new LittleRedRaptor());
-       this.relicts.push(new DigitGoldRewarder());
-       this.relicts.push(new WhiteZeroAdder());
     
     this.shuffle();
   }
