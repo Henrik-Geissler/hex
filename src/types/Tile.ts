@@ -2,6 +2,7 @@ import { TileFactory } from '../factories/TileFactory';
 import { Color } from './Color';
 import { Location } from './Location';
 import { SpotType } from './SpotType';
+import { Digit } from './Digit';
 
 
 // Tile class with all required properties
@@ -64,8 +65,11 @@ export class Tile {
   isMaxed= () => this.score >= Tile.MAX_SCORE;
   
   // Count how often a specific digit appears in the tile's score
-  countDigit(digit: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9): 0 | 1 | 2 | 3 | 4 {
-    return this.score.toString().split('').filter(d => d === digit.toString()).length as 0 | 1 | 2 | 3 | 4;
+  countDigit(digit: Digit): 0 | 1 | 2 | 3 {
+    return this.score.toString().split('').filter(d => d === digit.toString()).length as 0 | 1 | 2 | 3;
+  }
+  isDigit(digit: Digit): boolean {
+    return this.countDigit(digit) > 0;
   }
   
   // Clone method that returns a new Tile with the same properties but a new ID
