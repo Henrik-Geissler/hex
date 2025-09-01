@@ -31,6 +31,7 @@ import { LeftColorChanger } from '../relicts/LeftColorChanger';
 import { Rotator } from '../relicts/Rotator';
 import { LittleRedRaptor } from '../relicts/LittleRedRaptor';
 import { DigitGoldRewarder } from '../relicts/DigitGoldRewarder';
+import { WhiteZeroAdder } from '../relicts/WhiteZeroAdder';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -82,6 +83,7 @@ export class RelictDeck {
             this.relicts.push(new Rotator());
        this.relicts.push(new LittleRedRaptor());
        this.relicts.push(new DigitGoldRewarder());
+       this.relicts.push(new WhiteZeroAdder());
     
     this.shuffle();
   }
