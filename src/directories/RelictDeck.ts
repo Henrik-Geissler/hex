@@ -24,8 +24,7 @@ import { WaterToucher } from '../relicts/WaterToucher';
 import { CoinField } from '../relicts/CoinField';
 import { Gravity } from '../relicts/Gravity';
 import { UpgradeAllFitters } from '../relicts/UpgradeAllFitters';
-import { Insurance } from '../relicts/Insurance';
-import { ColorMaster } from '../relicts/ColorMaster';
+import { Insurance } from '../relicts/Insurance'; 
 import { Echo } from '../relicts/Echo';
 import { LeftColorChanger } from '../relicts/LeftColorChanger';
 import { Rotator } from '../relicts/Rotator';
@@ -33,6 +32,7 @@ import { LittleRedRaptor } from '../relicts/LittleRedRaptor';
 import { DigitGoldRewarder } from '../relicts/DigitGoldRewarder';
 import { WhiteZeroAdder } from '../relicts/WhiteZeroAdder';
 import { ColorMasterTile } from '../relicts/ColorMasterTile';
+import { EvenSteven } from '../relicts/EvenSteven';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -53,11 +53,12 @@ export class RelictDeck {
   public reset(): void {
     this.relicts = [];
     //Upgrade
-    this.relicts.push(new BlueUpgrader());
     this.relicts.push(new ColorUpgrader());
     this.relicts.push(new GreenGrowth());
     this.relicts.push(new UpgradePlacer());
     this.relicts.push(new UpgradeAllFitters());
+    this.relicts.push(new EvenSteven());
+    //this.relicts.push(new BlueUpgrader()); //leads to blue only bubble
     //  this.relicts.push(new BoardUpgrader());
     //  this.relicts.push(new Incrementer()); //boring
 
