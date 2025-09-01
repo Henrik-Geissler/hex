@@ -72,6 +72,16 @@ export class Tile {
     return this.countDigit(digit) > 0;
   }
   
+  // Check if the tile's score is even
+  isEven(): boolean {
+    return this.score % 2 === 0;
+  }
+  
+  // Check if the tile's score is odd
+  isOdd(): boolean {
+    return this.score % 2 === 1;
+  }
+  
   // Clone method that returns a new Tile with the same properties but a new ID
   Clone(): Tile {
     return TileFactory.getInstance().cloneTile(this);

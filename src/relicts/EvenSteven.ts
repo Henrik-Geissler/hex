@@ -17,7 +17,7 @@ export class EvenSteven implements Relict {
    * @returns true if the tile's score is even
    */
   private isEvenTile(tile: Tile): boolean {
-    return tile.score % 2 === 0;
+    return tile.isEven();
   }
  
 

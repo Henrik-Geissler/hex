@@ -12,7 +12,7 @@ export class OddDisappearance implements Relict {
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
     // Check if the tile's score is odd
-    if ((tile.score || 0) % 2 === 0) return;
+    if (!tile.isOdd()) return;
     
     await highlight();
     await handleDisappear(tile);
