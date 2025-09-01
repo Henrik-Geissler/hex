@@ -19,6 +19,7 @@ const shapeFunctions: ShapeFunction[] = [
 ];
 
 export async function shapeCheck(newTile: Tile, beforeTile: Tile): Promise<void> {
+    return; //TODO
     if(!newTile.isReal()) 
         return; 
     if(beforeTile.isReal()) 
