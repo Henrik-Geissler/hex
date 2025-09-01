@@ -3,6 +3,14 @@ import { mutateTile } from './mutateTile';
 
 export async function handleUpgrade(tile: Tile): Promise<void> {
   await mutateTile(tile, async (tile) => {
+    tile.setScore(tile.score+10);
+    return tile;
+
+
+
+
+
+    
     // Upgrade the score by incrementing the first digit
     const currentScore = tile.score || 0;
     const scoreString = currentScore.toString();
