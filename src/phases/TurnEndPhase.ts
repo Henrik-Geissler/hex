@@ -5,18 +5,18 @@ import { RelictManager } from '../managers/RelictManager';
 import { TimeManager } from '../managers/TimeManager';
 import { Board } from '../directories/Board';
 import { TileFactory } from '../factories/TileFactory';
-import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
-import { PlacingQueue } from '../directories/utils/PlacingQueue';
+import { handleStartPlacement } from '../utils/mutations/handleStartPlacement'; 
+import { executeStep } from './utils/executeStep';
 
 export class TurnEndPhase implements PhaseInterface {
   async run(): Promise<void> { 
     TimeManager.resetCounter();
     
     // Clear ghost tiles and place free tiles
-    await this.clearGhosts();
+    await executeStep(async () => await this.clearGhosts());
     
     // Trigger onTurnEnd for all relicts
-    await RelictManager.getInstance().onTurnEnd(); 
+    await executeStep(async () => await RelictManager.getInstance().onTurnEnd()); 
 
     StateMachine.getInstance().setPhase('CheckWinPhase', { nextPhaseOnNoWin: Phase.InitTurnPhase });
   }
@@ -24,8 +24,7 @@ export class TurnEndPhase implements PhaseInterface {
   /**
    * Place free tiles on all ghost tiles on the board
    */
-  private async clearGhosts(): Promise<void> {
-    TimeManager.resetCounter();
+  private async clearGhosts(): Promise<void> { 
     const board = Board.getInstance();
     const tileFactory = TileFactory.getInstance();
     
@@ -39,8 +38,6 @@ export class TurnEndPhase implements PhaseInterface {
     for (const ghostTile of ghostTiles) {
       const freeTile = tileFactory.createFreeTile();
       await handleStartPlacement(freeTile, ghostTile.pos);
-    }
-    await PlacingQueue.getInstance().Play(); 
-    TimeManager.resetCounter();
+    } 
   }
 }

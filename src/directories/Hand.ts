@@ -1,4 +1,5 @@
 import { RelictManager } from '../managers/RelictManager';
+import { TimeManager } from '../managers/TimeManager';
 import { Location } from '../types/Location';
 import { Tile } from '../types/Tile';
 import { TileDictionary } from '../types/TileDictionary';
@@ -25,6 +26,7 @@ export class Hand implements TileDictionary {
   async drawFull(): Promise<void> {
     while(this.tiles.length < Hand.HandSize) {
       const tile = await Deck.getInstance().drawTile();
+      await TimeManager.Wait(200);
       if (tile) {
         this.add(tile);
         await RelictManager.getInstance().onDrawTile(tile);

@@ -1,10 +1,10 @@
 import { PhaseInterface } from '../types/PhaseInterface';
 import { Tile } from '../types/Tile'; 
 import { StateMachine } from '../machines/StateMachine';
-import { PlacingQueue } from '../directories/utils/PlacingQueue';
 import { Phase } from '../types/Phase';
 import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
 import { TimeManager } from '../managers/TimeManager';
+import { executeStep } from './utils/executeStep';
 
 interface PlayPhaseParams {
   draggedTile?: Tile;
@@ -13,13 +13,12 @@ interface PlayPhaseParams {
 
 export class PlayPhase implements PhaseInterface {
   async run(params?: PlayPhaseParams): Promise<void> { 
-    await TimeManager.Wait(100); // Simulate async work
-    
     if (!params?.draggedTile || !params?.droppedOnTile) return;
-    await handleStartPlacement(params.draggedTile, params.droppedOnTile.pos);
-    await PlacingQueue.getInstance().Play();
-    await TimeManager.Wait(100); // Simulate async work
+
+    await TimeManager.Wait(100); 
+    await executeStep(async () => await handleStartPlacement(params.draggedTile!, params.droppedOnTile!.pos)); 
+    await TimeManager.Wait(100);  
+
     StateMachine.getInstance().setPhase(Phase.TurnEndPhase);
-    
   }
 }

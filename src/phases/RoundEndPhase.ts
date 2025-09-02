@@ -6,23 +6,19 @@ import { handTileIntoDeck } from '../utils/handTileIntoDeck';
 import { Hand } from '../directories/Hand';
 import { StateMachine } from '../machines/StateMachine';
 import { GameState } from '../machines/GameState';
-import { TimeManager } from '../managers/TimeManager';
-import { PlacingQueue } from '../directories/utils/PlacingQueue';
-import { moveNonGhostTilesToDeck } from '../utils/moveNonGhostTilesToDeck';
+import { TimeManager } from '../managers/TimeManager'; 
+import { moveTilesToDeck } from '../utils/moveTilesToDeck';
+import { executeStep } from './utils/executeStep';
 
 export class RoundEndPhase implements PhaseInterface {
   async run(): Promise<void> { 
-    await RelictManager.getInstance().onRoundEnd();
-    TimeManager.resetCounter();
-
+    await executeStep(RelictManager.getInstance().onRoundEnd); 
+    await executeStep(async () => {
     for (const tile of Hand.getInstance().getAllTiles())
-      await handTileIntoDeck(tile);
-    
+      await handTileIntoDeck(tile); 
     for (const tile of Board.getInstance().getAllPlayedTiles()) 
       await boardTileIntoDeck(tile);
-    
-    await PlacingQueue.getInstance().Play(); 
-    TimeManager.resetCounter();
+  });
 
     const gameState = GameState.getInstance();
     gameState.addGold(5);
@@ -31,7 +27,7 @@ export class RoundEndPhase implements PhaseInterface {
     gameState.setScore(0); 
     
     // Move all tiles from discard pile back to deck
-    await moveNonGhostTilesToDeck();
+    await moveTilesToDeck();
 
     await TimeManager.Wait(500); // Simulate async work
     StateMachine.getInstance().setPhase('ShopPhase');

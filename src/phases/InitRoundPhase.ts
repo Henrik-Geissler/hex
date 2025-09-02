@@ -3,17 +3,14 @@ import { TileFactory } from '../factories/TileFactory';
 import { StateMachine } from '../machines/StateMachine';
 import { GameState } from '../machines/GameState';
 import { PhaseInterface } from '../types/PhaseInterface';
-import { Board } from '../directories/Board';
-import { PlacingQueue } from '../directories/utils/PlacingQueue';
-import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
-import { TimeManager } from '../managers/TimeManager';
-import { moveNonGhostTilesToDeck } from '../utils/moveNonGhostTilesToDeck';
+import { Board } from '../directories/Board'; 
+import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';  
+import { executeStep } from './utils/executeStep';
+import { Phase } from '../types/Phase';
+import { moveTilesToDeck } from '../utils/moveTilesToDeck';
 
 export class InitRoundPhase implements PhaseInterface {
   async run(): Promise<void> {
-    console.log('Running InitRoundPhase');
-    
-    // Increment round, set discards to 3, and multiply target score by 1.5
     const gameState = GameState.getInstance();
     gameState.incrementRound();
     gameState.setTurn(0); // Reset turn counter to 0 at start of new round
@@ -23,15 +20,14 @@ export class InitRoundPhase implements PhaseInterface {
      (gameState.getRound()%3==0?5:1.5)));
     gameState.setScore(0);  
     await Board.getInstance().clear(); 
-    TimeManager.resetCounter();
-    for (let i = 0; i < 37; i++) {
-      if(Math.random()<.8)
-       await handleStartPlacement(TileFactory.getInstance().createFreeTile(), i);
-    }
-    await moveNonGhostTilesToDeck();
-    await PlacingQueue.getInstance().Play(); 
-    await Deck.getInstance().shuffle();
-    TimeManager.resetCounter(); 
-    StateMachine.getInstance().setPhase('CheckWinPhase');
+    await executeStep(async () => { 
+      for (let i = 0; i < 37; i++) {
+        if(Math.random()<.8)
+        await handleStartPlacement(TileFactory.getInstance().createFreeTile(), i);
+      }    
+      await moveTilesToDeck();
+    });
+    await Deck.getInstance().shuffle();  
+    StateMachine.getInstance().setPhase(Phase.CheckWinPhase, { nextPhaseOnNoWin: Phase.InitTurnPhase });
   }
 }

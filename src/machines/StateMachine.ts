@@ -7,6 +7,7 @@ import { CheckWinPhase } from '../phases/CheckWinPhase';
 import { CheckLoosePhase } from '../phases/CheckLoosePhase';
 import { WaitForInputPhase } from '../phases/WaitForInputPhase';
 import { PlayPhase } from '../phases/PlayPhase';
+import { TurnEndPhase } from '../phases/TurnEndPhase';
 import { ShopPhase } from '../phases/ShopPhase';
 import { DiscardPhase } from '../phases/DiscardPhase';
 import { LoosePhase } from '../phases/LoosePhase';
@@ -34,48 +35,33 @@ export class StateMachine {
     return this.currentPhase;
   }
 
+  // Phase factory mapping
+  private readonly phaseFactory: Record<Phase, (params?: any) => PhaseInterface> = {
+    [Phase.InitPhase]: () => new InitPhase(),
+    [Phase.InitRoundPhase]: () => new InitRoundPhase(),
+    [Phase.InitTurnPhase]: () => new InitTurnPhase(),
+    [Phase.CheckWinPhase]: (params?: any) => new CheckWinPhase(params?.nextPhaseOnNoWin),
+    [Phase.CheckLoosePhase]: () => new CheckLoosePhase(),
+    [Phase.WaitForInputPhase]: () => new WaitForInputPhase(),
+    [Phase.PlayPhase]: () => new PlayPhase(),
+    [Phase.TurnEndPhase]: () => new TurnEndPhase(),
+    [Phase.ShopPhase]: () => new ShopPhase(),
+    [Phase.DiscardPhase]: () => new DiscardPhase(),
+    [Phase.LoosePhase]: () => new LoosePhase(),
+    [Phase.RoundEndPhase]: () => new RoundEndPhase(),
+  } as const;
+
   // Set current phase and run the phase
   async setPhase(phase: Phase, params?: any): Promise<void> {
     this.currentPhase = phase;
-    let phaseClass: PhaseInterface;
     
-    switch (phase) {
-      case 'InitPhase':
-        phaseClass = new InitPhase();
-        break;
-      case 'InitRoundPhase':
-        phaseClass = new InitRoundPhase();
-        break;
-      case 'InitTurnPhase':
-        phaseClass = new InitTurnPhase();
-        break;
-      case 'CheckWinPhase':
-        phaseClass = new CheckWinPhase(params?.nextPhaseOnNoWin);
-        break;
-      case 'CheckLoosePhase':
-        phaseClass = new CheckLoosePhase();
-        break;
-      case 'WaitForInputPhase':
-        phaseClass = new WaitForInputPhase();
-        break;
-      case 'PlayPhase':
-        phaseClass = new PlayPhase();
-        break;
-      case 'ShopPhase':
-        phaseClass = new ShopPhase();
-        break;
-      case 'DiscardPhase':
-        phaseClass = new DiscardPhase();
-        break;
-      case 'LoosePhase':
-        phaseClass = new LoosePhase();
-        break;
-      case 'RoundEndPhase':
-        phaseClass = new RoundEndPhase();
-        break;
-      default:
-        throw new Error(`Unknown phase: ${phase}`);
+    // Get the phase factory function and create the phase instance
+    const factory = this.phaseFactory[phase];
+    if (!factory) {
+      throw new Error(`Unknown phase: ${phase}`);
     }
+    
+    const phaseClass = factory(params);
     
     // Notify listeners of phase change
     this.notifyListeners(phase);
