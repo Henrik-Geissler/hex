@@ -76,8 +76,9 @@ const RelictSelector: React.FC = () => {
         const spaceBelow = viewportHeight - buttonRect.bottom;
         const spaceAbove = buttonRect.top;
         
-        // If there's more space above than below, show above
-        if (spaceAbove > spaceBelow && spaceAbove > 300) {
+        // For full-height dropdown, prefer below unless there's very little space
+        // Only show above if there's significantly more space above and very little below
+        if (spaceAbove > spaceBelow * 2 && spaceBelow < 200) {
           setDropdownPosition('above');
         } else {
           setDropdownPosition('below');
@@ -125,7 +126,6 @@ const RelictSelector: React.FC = () => {
                  </div>
                  <div className="relict-info">
                    <div className="relict-name">{relict.name}</div>
-                   <div className="relict-description">{relict.description}</div>
                  </div>
                </div>
              ))}

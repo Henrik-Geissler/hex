@@ -34,6 +34,7 @@ import { WhiteZeroAdder } from '../relicts/WhiteZeroAdder';
 import { ColorMasterTile } from '../relicts/ColorMasterTile';
 import { EvenSteven } from '../relicts/EvenSteven';
 import { SelfMirror } from '../relicts/SelfMirror';
+import { DigitAreaUpgrader } from '../relicts/DigitAreaUpgrader';
 
 export class RelictDeck {
   private static instance: RelictDeck;
@@ -59,6 +60,7 @@ export class RelictDeck {
     this.relicts.push(new UpgradePlacer());
     this.relicts.push(new UpgradeAllFitters());
     this.relicts.push(new EvenSteven());
+    this.relicts.push(new DigitAreaUpgrader());
     //this.relicts.push(new BlueUpgrader()); //leads to blue only bubble
     //  this.relicts.push(new BoardUpgrader());
     //  this.relicts.push(new Incrementer()); //boring

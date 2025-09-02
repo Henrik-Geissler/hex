@@ -73,6 +73,12 @@ export class Tile {
   isDigit(digit: Digit): boolean {
     return this.countDigit(digit) > 0;
   }
+  getDigits(): Digit[] { 
+    return this.score.toString().split('').map(d => parseInt(d) as Digit);
+  }
+  getDigitsSet(): Set<Digit> { 
+    return new Set(this.getDigits());
+  }
   
   isEven(): boolean {
     return this.score % 2 === 0;

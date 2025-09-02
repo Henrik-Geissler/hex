@@ -8,7 +8,7 @@ import { Location } from '../types/Location';
 export class Rotator implements Relict {
   name: string = 'Rotator';
   description: string = 'After placing a tile, rotate the neighbours';
-  icon: string = '🔧'; // Lightning bolt emoji
+  icon: string = '🔧'; // Lightning bolt emoji 🔄
   sellValue: number = 1;
   rarity: Rarity = Rarity.Rare;
 

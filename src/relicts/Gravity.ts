@@ -9,7 +9,7 @@ export class Gravity implements Relict {
   name: string = 'Gravity';
   description: string = 'Tiles Fall Down';
   icon: string = '🌍'; // Earth globe emoji - alternatives: ⬇️ (down arrow), 🪨 (rock), 💧 (droplet), 🌊 (wave)
-  rarity: Rarity = Rarity.Rare;
+  rarity: Rarity = Rarity.Filler;
   sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> { 
