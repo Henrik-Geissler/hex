@@ -9,27 +9,32 @@ import { PlacingQueue } from '../directories/utils/PlacingQueue';
 
 export class InitTurnPhase implements PhaseInterface {
   async run(): Promise<void> { 
-    TimeManager.resetCounter();
-    // Initialize turn state, draw cards, etc.
-    await TimeManager.Wait(100); // Simulate async work
+    await Hand.getInstance().drawFull(); 
 
-    await Hand.getInstance().drawFull();
+    GameState.getInstance().incrementTurn();
+
+    await this.onRoundStart(); 
+     
+    await this.onTurnStart();
     
-    // Increment turn counter
+    StateMachine.getInstance().setPhase('CheckWinPhase', { nextPhaseOnNoWin: Phase.CheckLoosePhase });
+  }
+  
+  private async onRoundStart(): Promise<void> {  
     const gameState = GameState.getInstance();
-    gameState.incrementTurn();
-    
     // Only trigger onRoundStart for relicts on the first turn of the round
-    if (gameState.getTurn() === 1) {
+    if (gameState.getTurn() !== 1) return;
       TimeManager.resetCounter();
       await RelictManager.getInstance().onRoundStart();
-      await PlacingQueue.getInstance().Play(); 
-    }
+      await PlacingQueue.getInstance().Play();   
+      TimeManager.resetCounter();
+  }
+
+
+  private async onTurnStart(): Promise<void> { 
     TimeManager.resetCounter();
     await RelictManager.getInstance().onTurnStart();
     await PlacingQueue.getInstance().Play(); 
     TimeManager.resetCounter();
-    
-    StateMachine.getInstance().setPhase('CheckWinPhase', { nextPhaseOnNoWin: Phase.CheckLoosePhase });
-  }
+  } 
 }

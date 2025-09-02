@@ -19,7 +19,7 @@ export class PlayPhase implements PhaseInterface {
     await handleStartPlacement(params.draggedTile, params.droppedOnTile.pos);
     await PlacingQueue.getInstance().Play();
     await TimeManager.Wait(100); // Simulate async work
-    StateMachine.getInstance().setPhase('CheckWinPhase', { nextPhaseOnNoWin: Phase.InitTurnPhase });
+    StateMachine.getInstance().setPhase(Phase.TurnEndPhase);
     
   }
 }

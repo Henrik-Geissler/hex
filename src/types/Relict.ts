@@ -16,6 +16,7 @@ export interface Relict {
   onChoose?(highlight: () => Promise<void>,relict: Relict): Promise<void>;
   onRoundStart?(highlight: () => Promise<void>): Promise<void>;
   onTurnStart?(highlight: () => Promise<void>): Promise<void>;
+  onTurnEnd?(highlight: () => Promise<void>): Promise<void>;
   onRoundEnd?(highlight: () => Promise<void>): Promise<void>;
   onDrawTile?(highlight: () => Promise<void>, tile: Tile): Promise<void>;
   onPlaceTile?(highlight: () => Promise<void>, tile: Tile): Promise<void>;

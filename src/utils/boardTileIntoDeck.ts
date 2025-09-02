@@ -8,14 +8,9 @@ import { Board } from '../directories/Board';
  * @param tile - The tile to discard
  */
 export async function boardTileIntoDeck(tile: Tile): Promise<void> {  
-  
   const deck = Deck.getInstance();
   const board = Board.getInstance();
   await board.remove(tile);
-  // Don't add ghost tiles to the deck
-  if (tile.isGhost) {
-    return;
-  }
   tile.location = 'Deck';
   await deck.add(tile);
 }

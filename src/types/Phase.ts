@@ -7,6 +7,7 @@ export const Phase = {
     CheckLoosePhase: 'CheckLoosePhase',
     WaitForInputPhase: 'WaitForInputPhase',
     PlayPhase: 'PlayPhase',
+    TurnEndPhase: 'TurnEndPhase',
     ShopPhase: 'ShopPhase',
     DiscardPhase: 'DiscardPhase',
     LoosePhase: 'LoosePhase',
