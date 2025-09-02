@@ -14,6 +14,9 @@ export class WaterToucher implements Relict {
   sellValue: number = 1;
   
   private hasTouchedWater: boolean = false;
+  async onRoundStart(highlight: () => Promise<void>): Promise<void> {
+    this.hasTouchedWater = false;
+  }
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
     // Check if this is the first time touching water (Blue tiles)

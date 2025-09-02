@@ -3,11 +3,11 @@ import { Tile } from '../types/Tile';
 import { Hand } from '../directories/Hand'; 
 import { Rarity } from '../types/Rarity';
 import { isValidDropTarget } from '../utils/dropZoneValidation';
-import { handleUpgrade } from '../utils/mutations/handleUpgrade';
+import { handleIncrement } from '../utils/mutations/handleIncrement';
 
 export class UpgradeAllFitters implements Relict {
   name: string = 'Upgrade All Fitters';
-  description: string = 'When you place a tile, upgrade all cards in hand that would fit in the same spot';
+  description: string = 'When you place a tile, increment all cards in hand that would fit in the same spot';
   icon: string = '👠'; // Wrench emoji - alternatives: ⚡ (lightning), ⬆️ (up arrow), 📈 (chart), 🎯 (target)
   rarity: Rarity = Rarity.Starter;
   sellValue: number = 2;
@@ -23,7 +23,7 @@ export class UpgradeAllFitters implements Relict {
       // Check if this hand tile would fit in the same position using existing validation logic
       if (isValidDropTarget(handTile, tile.isBeeingPlaced!)) {
         await highlight();
-        await handleUpgrade(handTile);
+        await handleIncrement(handTile);
       }
     }
   } 

@@ -14,7 +14,7 @@ export class UpgradePlacer implements Relict {
   private upgradeSlots: number = 1; // Start with 1 upgrade slot
 
   get description(): string {
-    return `Start with ${this.upgradeSlots} Upgrade Tile${this.upgradeSlots !== 1 ? 's' : ''}`;
+    return `Start with ${this.upgradeSlots} Upgrade Tile${this.upgradeSlots !== 1 ? 's' : ''} (Increases every Round)`;
   }
 
   /**

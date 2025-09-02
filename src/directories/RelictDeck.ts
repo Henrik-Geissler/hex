@@ -79,7 +79,7 @@ export class RelictDeck {
     this.relicts.push(new NeighborDevourer());
     this.relicts.push(new LittleRedRaptor());
 
-                  //Clone
+     //Clone
       this.relicts.push(new SingleNeighborClone());
       this.relicts.push(new WaterMirror());
       this.relicts.push(new SelfMirror());

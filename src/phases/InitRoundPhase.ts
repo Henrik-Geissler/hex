@@ -8,6 +8,7 @@ import { handleStartPlacement } from '../utils/mutations/handleStartPlacement';
 import { executeStep } from './utils/executeStep';
 import { Phase } from '../types/Phase';
 import { moveTilesToDeck } from '../utils/moveTilesToDeck';
+import { getTargetScore } from '../utils/targetScores';
 
 export class InitRoundPhase implements PhaseInterface {
   async run(): Promise<void> {
@@ -15,9 +16,7 @@ export class InitRoundPhase implements PhaseInterface {
     gameState.incrementRound();
     gameState.setTurn(0); // Reset turn counter to 0 at start of new round
     gameState.setDiscards(3);
-    gameState.setTargetScore(
-      Math.floor(gameState.getTargetScore() *
-     (gameState.getRound()%3==0?5:1.5)));
+    gameState.setTargetScore(getTargetScore(gameState.getRound()));
     gameState.setScore(0);  
     await Board.getInstance().clear(); 
     await executeStep(async () => { 

@@ -3,10 +3,17 @@ import { usePhase } from '../hooks/usePhase';
 import { useGameState } from '../hooks/useGameState';
 import AnimatedNumber from './AnimatedNumber';
 import { GameState } from '../machines/GameState';
+import { getNextTargetScore } from '../utils/targetScores';
+import { Phase } from '../types/Phase';
 
 const Stats: React.FC = () => {
   const { currentPhase } = usePhase();
   const { round, turn, discards, gold, targetScore, score } = useGameState();
+  
+  // Show next target score in ShopPhase, current target score otherwise
+  const displayTargetScore = currentPhase === Phase.ShopPhase 
+    ? getNextTargetScore(round) 
+    : targetScore;
 
   return (
     <div className="stats-component">
@@ -72,7 +79,7 @@ const Stats: React.FC = () => {
         <div className="stat-item">
           <h4>Target Score:</h4>
           <AnimatedNumber 
-            value={targetScore} 
+            value={displayTargetScore} 
             className="stat-value target-score-value" 
             duration={1400}
           />

@@ -7,14 +7,13 @@ import { GameState } from '../machines/GameState';
 import { PhaseInterface } from '../types/PhaseInterface';
 import { Board } from '../directories/Board';
 import { RelictDeck } from '../directories/RelictDeck';
-import { RelictManager } from '../managers/RelictManager';
+import { RelictManager } from '../managers/RelictManager'; 
 
 export class InitPhase implements PhaseInterface {
   async run(): Promise<void> { 
     RelictManager.getInstance().reset();
      GameState.getInstance().setRound(0);
-    GameState.getInstance().setGold(0);
-    GameState.getInstance().setTargetScore(20); 
+    GameState.getInstance().setGold(0); 
     
     Board.getInstance().clear();
     Hand.getInstance().clear();

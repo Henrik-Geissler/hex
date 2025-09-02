@@ -39,11 +39,8 @@ export const ColorMap: Record<keyof typeof Color, string>
  * @returns A random color that is different from the current color
  */
 export function randomNextColorFunction(currentColor: Color): Color {
-    const availableColors = Object.values(Color).filter(color => 
-        color !== currentColor && 
-        color !== Color.Off && 
-        color !== Color.Free && 
-        color !== Color.White
+    const availableColors = BaseColors.filter(color => 
+        color !== currentColor 
     );
     
     if (availableColors.length === 0) {

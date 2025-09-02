@@ -25,7 +25,7 @@ export class LittleRedRaptor implements Relict {
 
   async TryEatNeighbors(highlight: () => Promise<void>, redTile: Tile): Promise<boolean> {
     // Only work with red tiles
-    if (redTile.matchesColor(Color.Red)) return false;
+    if (!redTile.matchesColor(Color.Red)) return false;
     
     // Get left and right neighbors using the new direction functions
     const leftNeighbor = getW(redTile); // West neighbor
