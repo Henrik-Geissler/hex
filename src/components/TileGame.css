@@ -209,10 +209,11 @@
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  white-space: nowrap;
   z-index: 1000;
   margin-bottom: 8px;
-  min-width: 200px;
+  width: 250px;
+  height: 180px;
+  overflow: hidden;
 }
 
 .relict-tooltip::after {
@@ -250,13 +251,13 @@
 
 .tooltip-counter {
   font-size: 11px;
-  color: #ffd700;
+  color: white;
   font-weight: bold;
 }
 
 .tooltip-sell-value {
   font-size: 11px;
-  color: #ffa500;
+  color: white;
   font-weight: bold;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   padding-top: 6px;

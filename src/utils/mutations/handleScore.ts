@@ -1,8 +1,8 @@
-import { Tile } from '../types/Tile';
-import { GameState } from '../machines/GameState';
-import { TextEmitter } from './TextEmitter';
-import { indexToPixel } from '../directories/utils/boardSpace';
-import { TimeManager } from '../managers/TimeManager';
+import { Tile } from '../../types/Tile';
+import { GameState } from '../../machines/GameState';
+import { TextEmitter } from '../TextEmitter';
+import { indexToPixel } from '../../directories/utils/boardSpace';
+import { TimeManager } from '../../managers/TimeManager';
 
 
 /**

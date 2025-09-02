@@ -46,7 +46,7 @@ const Hexagon: React.FC<HexagonProps> = ({
   let displayText = "";
   if (tile.isFree()) {
     // Show emojis for special SpotTypes
-    switch (tile.score) {
+    switch (tile.freeTileType) {
       case SpotType.Upgrade:
         displayText = "⬆️";
         break;

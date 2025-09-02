@@ -5,7 +5,7 @@ import { TimeManager } from '../../managers/TimeManager';
 import { Tile } from '../../types/Tile';
 import { CubeCoordinates } from '../../types/CubeCoordinates';
 import { getRealTileCubeCoordinates } from '../getRealTileCubeCoordinates';
-import { handleScore } from '../handleScore';
+import { handleScore } from '../mutations/handleScore';
 import { handleStartPlacement } from '../mutations/handleStartPlacement';
 import { checkCircle } from './circle';
 import { ShapeFunction } from './types';

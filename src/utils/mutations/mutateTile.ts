@@ -1,5 +1,5 @@
 import { Tile } from '../../types/Tile';
-import { handleScore } from '../handleScore';
+import { handleScore } from './handleScore';
 import { Board } from '../../directories/Board';
 import { Hand } from '../../directories/Hand';
 import { BadgeManager } from '../BadgeManager';

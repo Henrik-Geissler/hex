@@ -28,14 +28,14 @@ const RelictDisplay: React.FC<RelictDisplayProps> = ({
 
   return (
     <div className={`relict-display ${compact ? 'compact' : ''}`}>
-      <div className="relict-icon">{relict.icon}</div>
-      <div className="relict-name">{relict.name}</div>
       {showCost && (
-        <div className="relict-cost">{cost} Gold</div>
+        <div className="relict-cost-top-right">{cost} Gold</div>
       )}
       {showSellValue && (
-        <div className="relict-sell-value">Sell: {relict.sellValue} Gold</div>
+        <div className="relict-sell-value-top-right">Sell: {relict.sellValue} Gold</div>
       )}
+      <div className="relict-icon">{relict.icon}</div>
+      <div className="relict-name">{relict.name}</div>
       <div className="relict-description">{relict.description}</div>
       {showBuyButton && (
         <button 

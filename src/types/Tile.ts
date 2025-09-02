@@ -15,6 +15,7 @@ export class Tile {
   public color: Color;
   public isBeeingPlaced?: Tile = undefined;
   public isGhost: boolean;
+  public freeTileType: SpotType;
 
   constructor(
     id: number,
@@ -29,6 +30,7 @@ export class Tile {
     this.color = color;
     this.score = score;
     this.isGhost = false;
+    this.freeTileType = SpotType.Free;
 
     this.setScore(score);
   }
@@ -50,7 +52,7 @@ export class Tile {
   }
 
   isFree = () => this.color == Color.Free; 
-  isFreeAndFreeSpot = () => this.isFree() && this.score == SpotType.Free; 
+  isFreeAndFreeSpot = () => this.isFree() && this.freeTileType == SpotType.Free; 
   isOff = () => this.color == Color.Off;
   isReal = () => !this.isFree() && !this.isOff();
   matchesColor = (color: Color) => this.color == color || this.color == Color.White;

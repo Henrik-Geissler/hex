@@ -31,10 +31,10 @@ export class TileFactory {
     return tile;
   }
 
-  createFreeTile = (): Tile => this.createTile(0, Color.Free, SpotType.Free);
-  createDoubleTile = (): Tile => this.createTile(0, Color.Free, SpotType.Double);
-  createCoinTile = (): Tile => this.createTile(0, Color.Free, SpotType.Coin);
-  createUpgradeTile = (): Tile => this.createTile(0, Color.Free, SpotType.Upgrade);
+  createFreeTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=SpotType.Free;return t;};
+  createDoubleTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=SpotType.Double;return t;};
+  createCoinTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=SpotType.Coin;return t;};
+  createUpgradeTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=SpotType.Upgrade;return t;};
 
   createOffTile = (): Tile => this.createTile(0, Color.Off, OffType.Free);
  

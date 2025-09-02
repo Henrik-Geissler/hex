@@ -1,6 +1,6 @@
 import { Tile } from '../../types/Tile';
 import { RelictManager } from '../../managers/RelictManager';
-import { handleScore } from '../handleScore';
+import { handleScore } from './handleScore';
 import { Board } from '../../directories/Board';
 import { TimeManager } from '../../managers/TimeManager';
 import { SpotType } from '../../types/SpotType';
@@ -19,7 +19,7 @@ export async function handleProcessPlacement(tile: Tile): Promise<void> {
     
     // Check for special SpotTypes on the tile being placed on and handle them
     if (tile.isBeeingPlaced.isFree() && !tile.isFree() && !tile.isOff()) {
-        switch (tile.isBeeingPlaced.score) {
+        switch (tile.isBeeingPlaced.freeTileType) {
             case SpotType.Upgrade:
                 await handleUpgrade(tile);
                 break;
