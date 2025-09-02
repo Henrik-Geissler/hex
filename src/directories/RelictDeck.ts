@@ -83,7 +83,7 @@ export class RelictDeck {
       this.relicts.push(new SingleNeighborClone());
       this.relicts.push(new WaterMirror());
       this.relicts.push(new SelfMirror());
-      //this.relicts.push(new ColorMasterTile());
+      this.relicts.push(new ColorMasterTile());
       //this.relicts.push(new BlueMirror());
        // this.relicts.push(new NeighborMirror()); //weird
       //   this.relicts.push(new The13thTile()); //boring
