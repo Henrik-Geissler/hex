@@ -93,7 +93,7 @@ const Relict: React.FC<RelictProps> = ({
         <div className="relict-tooltip">
           <RelictDisplay 
             relict={relict} 
-            showSellValue={true}
+            showSellValue={false}
             compact={true}
           />
           {relict.counter !== undefined && (
