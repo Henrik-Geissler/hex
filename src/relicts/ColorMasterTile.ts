@@ -8,10 +8,26 @@ import { Color } from '../types/Color';
 
 export class ColorMasterTile implements Relict {
   name: string = 'Color Master Tile';
-  description: string = 'When you hold all colors, place ghost copies on all free neighbors';
+  description: string = 'When you hold all colors, place ghost copies on 1 free spots (Increases on Use)';
   icon: string = '🎨'; // Artist palette emoji
   sellValue: number = 2;
   rarity: Rarity = Rarity.Filler;
+  counter: number = 0;
+  maxCounter: number = 1;
+
+  async onTurnStart(highlight: () => Promise<void>): Promise<void> {
+    if (this.counter == 0) return;
+    this.counter = 0;
+      this.maxCounter++;
+      this.updateDescription();
+  }
+
+  /**
+   * Update the description to show current counter values
+   */
+  private updateDescription(): void {
+    this.description = `When you hold all colors, place ghost copies on ${this.maxCounter} free spots (Increases on Use)`;
+  }
 
   /**
    * Check if the hand contains at least one tile of each base color
@@ -30,7 +46,8 @@ export class ColorMasterTile implements Relict {
     return hasRed && hasYellow && hasGreen && hasBlue;
   }
 
-  async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
+  async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> { 
+    if (this.counter > this.maxCounter) return; 
     // Check if the hand contains all base colors
     if (!this.hasAllColors()) {
       return;
@@ -41,6 +58,7 @@ export class ColorMasterTile implements Relict {
     
     // Place ghost copies on all free neighbors
     for (const freeNeighbor of freeNeighbors) {
+      if (++this.counter > this.maxCounter) break; 
       const clonedTile = tile.CloneGhost();
       await highlight();
       await handleStartPlacement(clonedTile, freeNeighbor);

@@ -23,7 +23,7 @@ export class DigitAreaUpgrader implements Relict {
       
 
       
-      if (area.length <3) return;
+      if (area.length <3) continue;
         await highlight();
         
         // Upgrade each tile in the area

@@ -71,14 +71,15 @@ export class Tile {
   isMaxed= () => this.score >= Tile.MAX_SCORE;
   
   // Count how often a specific digit appears in the tile's score
+  getDigits(): Digit[] { 
+    if(!this.isReal()) return [];
+    return this.score.toString().split('').map(d => parseInt(d) as Digit);
+  }
   countDigit(digit: Digit): 0 | 1 | 2 | 3 {
-    return this.score.toString().split('').filter(d => d === digit.toString()).length as 0 | 1 | 2 | 3;
+    return this.getDigits().filter(d => d === digit).length as 0 | 1 | 2 | 3;
   }
   isDigit(digit: Digit): boolean {
-    return this.countDigit(digit) > 0;
-  }
-  getDigits(): Digit[] { 
-    return this.score.toString().split('').map(d => parseInt(d) as Digit);
+    return this.getDigits().includes(digit);
   }
   getDigitsSet(): Set<Digit> { 
     return new Set(this.getDigits());
