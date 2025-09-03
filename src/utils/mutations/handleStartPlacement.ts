@@ -9,6 +9,7 @@ import { TimeManager } from '../../managers/TimeManager';
  * @param tileOrPosition - Either a Tile to be placed or a position number
  */
 export async function handleStartPlacement(tile: Tile, tileOrPosition: Tile | number): Promise<void> {
+    console.log('handleStartPlacement', tile.toString(), 'onto', tileOrPosition.toString());
     // Get the tile that was at this position before (if any)
     const board = Board.getInstance(); 
     const position = typeof tileOrPosition === "number" ? tileOrPosition : tileOrPosition.pos;

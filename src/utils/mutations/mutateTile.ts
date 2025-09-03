@@ -19,7 +19,8 @@ export async function mutateTile(
   tile: Tile, 
   mutationFn: TileMutationFunction, 
   animationType?: BadgeType
-): Promise<void> {
+): Promise<void> {  
+  console.log('mutateTile', tile.toString(), animationType);
   // Create a copy of the tile
   const tileCopy = tile.Clone();
   

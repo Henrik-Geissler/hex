@@ -6,6 +6,7 @@ import { handleStartPlacement } from './handleStartPlacement';
 import { TimeManager } from '../../managers/TimeManager';
 
 export async function handleMirrorClone(tileToMirror: Tile, mirrorTile: Tile): Promise<boolean> {
+  console.log('handleMirrorClone', tileToMirror.toString(), mirrorTile.toString());
   // Calculate the mirrored position
   const mirroredPos = mirrorPosition(tileToMirror, mirrorTile);
   

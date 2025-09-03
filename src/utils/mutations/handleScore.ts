@@ -13,7 +13,8 @@ import { TimeManager } from '../../managers/TimeManager';
  * @param beforeTile - The tile that was there before (could be free/off tile)
  * @param afterTile - The tile that was placed
  */
-export async function handleScore(beforeTile: Tile, afterTile: Tile): Promise<void> {
+export async function handleScore(beforeTile: Tile, afterTile: Tile): Promise<void> { 
+  console.log('handleScore', beforeTile.toString(), afterTile.toString());
   const gameState = GameState.getInstance();
   
   // Only score if this is an actual gameplay tile placement

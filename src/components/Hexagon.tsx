@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Tile } from '../types/Tile';
 import { Color, ColorMap } from '../types/Color';
-import { SpotType } from '../types/SpotType';
+import { FreeTileType } from '../types/FreeTileType';
 import { StateMachine } from '../machines/StateMachine';
 import { Hand as HandDirectory } from '../directories/Hand';
 import { Board as BoardDirectory } from '../directories/Board';
@@ -45,15 +45,15 @@ const Hexagon: React.FC<HexagonProps> = ({
   // Determine what to display in the center
   let displayText = "";
   if (tile.isFree()) {
-    // Show emojis for special SpotTypes
+    // Show emojis for special FreeTileTypes
     switch (tile.freeTileType) {
-      case SpotType.Upgrade:
+      case FreeTileType.Upgrade:
         displayText = "⬆️";
         break;
-      case SpotType.Double:
+      case FreeTileType.Double:
         displayText = "⚡";
         break;
-      case SpotType.Coin:
+      case FreeTileType.Coin:
         displayText = "🪙";
         break;
       default:

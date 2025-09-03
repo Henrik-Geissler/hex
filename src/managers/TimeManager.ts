@@ -25,7 +25,7 @@ export class TimeManager {
    */
   public static async Wait(milliseconds: number): Promise<void> {
     const counter = TimeManager.getInstance().counter;
-    const waitTime = Math.max(1, milliseconds - Math.max(0, counter-2000)/30);
+    const waitTime = Math.max(0, milliseconds - Math.max(0, counter-2000)/30);
     TimeManager.getInstance().counter += waitTime;
     return new Promise(resolve => setTimeout(resolve, waitTime));
   } 

@@ -43,7 +43,7 @@ export class ColorMasterTile implements Relict {
     for (const freeNeighbor of freeNeighbors) {
       const clonedTile = tile.CloneGhost();
       await highlight();
-      await handleStartPlacement(clonedTile, freeNeighbor.pos);
+      await handleStartPlacement(clonedTile, freeNeighbor);
     }
   }
 }

@@ -2,7 +2,7 @@ import { Tile } from '../types/Tile';
 import { BaseColors, Color } from '../types/Color';
 import { Location } from '../types/Location';
 import { DiscardPile } from '../directories/DiscardPile'; 
-import { SpotType } from '../types/SpotType';
+import { FreeTileType } from '../types/FreeTileType';
 import { OffType } from '../types/OffType';
 
 export class TileFactory {
@@ -31,10 +31,10 @@ export class TileFactory {
     return tile;
   }
 
-  createFreeTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=SpotType.Free;return t;};
-  createDoubleTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=SpotType.Double;return t;};
-  createCoinTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=SpotType.Coin;return t;};
-  createUpgradeTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=SpotType.Upgrade;return t;};
+  createFreeTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=FreeTileType.Free;return t;};
+  createDoubleTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=FreeTileType.Double;return t;};
+  createCoinTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=FreeTileType.Coin;return t;};
+  createUpgradeTile = (): Tile => {const t=this.createTile(0, Color.Free);t.freeTileType=FreeTileType.Upgrade;return t;};
 
   createOffTile = (): Tile => this.createTile(0, Color.Off, OffType.Free);
  

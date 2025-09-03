@@ -13,40 +13,29 @@ export class LittleRedRaptor implements Relict {
   sellValue: number = 1;
 
   async onPlaceTile(highlight: () => Promise<void>, tile: Tile): Promise<void> {
-    await this.TryEatNeighbors(highlight, tile);
-    await this.TryEatNeighbors(highlight, getE(tile));
-    await this.TryEatNeighbors(highlight, getW(tile));
+    await this.TryEatNeighbors(highlight, tile, true);
+    await this.TryEatNeighbors(highlight, tile, false);
+    await this.TryEatNeighbors(highlight, getE(tile), true);
+    await this.TryEatNeighbors(highlight, getW(tile), false);
   }
   async onColorChange(highlight: () => Promise<void>, tile: Tile): Promise<void> {
-    await this.TryEatNeighbors(highlight, tile);
-    await this.TryEatNeighbors(highlight, getE(tile));
-    await this.TryEatNeighbors(highlight, getW(tile));
+    await this.TryEatNeighbors(highlight, tile, true);
+    await this.TryEatNeighbors(highlight, tile, false);
+    await this.TryEatNeighbors(highlight, getE(tile), true);
+    await this.TryEatNeighbors(highlight, getW(tile), false);
   }
 
-  async TryEatNeighbors(highlight: () => Promise<void>, redTile: Tile): Promise<boolean> {
+  async TryEatNeighbors(highlight: () => Promise<void>, redTile: Tile, left:boolean): Promise<void> {
     // Only work with red tiles
-    if (!redTile.matchesColor(Color.Red)) return false;
+    if (!redTile.matchesColor(Color.Red)) return;
     
     // Get left and right neighbors using the new direction functions
-    const leftNeighbor = getW(redTile); // West neighbor
-    const rightNeighbor = getE(redTile); // East neighbor
-    
-    let ateSomething = false;
+    const neighbor = left ? getW(redTile) : getE(redTile); // West neighbor 
     
     // Try to eat left neighbor if it's a different color and exists
-    if (leftNeighbor.isReal() && !leftNeighbor.matchesColor(Color.Red)) {
+    if (neighbor.isReal() && !neighbor.matchesColor(Color.Red)) {
       await highlight();
-      await handleConsume(redTile, leftNeighbor);
-      ateSomething = true;
-    }
-    
-    // Try to eat left neighbor if it's a different color and exists
-    if (rightNeighbor.isReal() && !rightNeighbor.matchesColor(Color.Red)) {
-      await highlight();
-      await handleConsume(redTile, rightNeighbor);
-      ateSomething = true;
-    }
-    
-    return ateSomething;
+      await handleConsume(redTile, neighbor); 
+    } 
   }
 }

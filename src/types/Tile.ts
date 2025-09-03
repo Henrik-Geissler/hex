@@ -1,7 +1,7 @@
 import { TileFactory } from '../factories/TileFactory';
 import { Color } from './Color';
 import { Location } from './Location';
-import { SpotType } from './SpotType';
+import { FreeTileType } from './FreeTileType';
 import { Digit } from './Digit';
 
 
@@ -15,7 +15,7 @@ export class Tile {
   public color: Color;
   public isBeeingPlaced?: Tile = undefined;
   public isGhost: boolean;
-  public freeTileType: SpotType;
+  public freeTileType: FreeTileType;
 
   constructor(
     id: number,
@@ -30,7 +30,7 @@ export class Tile {
     this.color = color;
     this.score = score;
     this.isGhost = false;
-    this.freeTileType = SpotType.Free;
+    this.freeTileType = FreeTileType.Free;
 
     this.setScore(score);
   }
@@ -48,11 +48,15 @@ export class Tile {
 
   // Method to get tile information as string
   toString(): string {
-    return `#${this.id}: ${this.color}@${this.location}${this.pos} Score=${this.score}`;
+    const name = this.color == Color.Free ? this.freeTileType : this.color;
+    const ghost = this.isGhost ? '(Ghost)' : '';
+    const score = this.isReal() ? ` S[${this.score}]` : '';
+    const placed = this.isProcessed() ? '': ` Onto=\n${this.isBeeingPlaced}`;
+    return `<${name}${ghost} @${this.location}_${this.pos} #${this.id}${score}${placed}>`;
   }
 
   isFree = () => this.color == Color.Free; 
-  isFreeAndFreeSpot = () => this.isFree() && this.freeTileType == SpotType.Free; 
+  isFreeAndFreeSpot = () => this.isFree() && this.freeTileType == FreeTileType.Free; 
   isOff = () => this.color == Color.Off;
   isReal = () => !this.isFree() && !this.isOff();
   matchesColor = (color: Color) => this.color == color || this.color == Color.White;

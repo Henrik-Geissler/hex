@@ -3,30 +3,31 @@ import { RelictManager } from '../../managers/RelictManager';
 import { handleScore } from './handleScore';
 import { Board } from '../../directories/Board';
 import { TimeManager } from '../../managers/TimeManager';
-import { SpotType } from '../../types/SpotType';
+import { FreeTileType } from '../../types/FreeTileType';
 import { handleUpgrade } from './handleUpgrade';
 import { handleDouble } from './handleDouble';
 import { handleCoin } from './handleCoin';
 import { shapeCheck } from '../shapes/shapeCheck';
 
 export async function handleProcessPlacement(tile: Tile): Promise<void> {
+    console.log('handleProcessPlacement', tile.toString());
     if (tile.isBeeingPlaced == undefined) {
-        console.log('Tile is not being placed', tile);
+        console.log('Tile is not being placed', tile.toString());
         throw new Error('Tile is not being placed');
     }
     await shapeCheck(tile, tile.isBeeingPlaced);
     await handleScore(tile.isBeeingPlaced, tile);
     
-    // Check for special SpotTypes on the tile being placed on and handle them
+    // Check for special FreeTileTypes on the tile being placed on and handle them
     if (tile.isBeeingPlaced.isFree() && !tile.isFree() && !tile.isOff()) {
         switch (tile.isBeeingPlaced.freeTileType) {
-            case SpotType.Upgrade:
+            case FreeTileType.Upgrade:
                 await handleUpgrade(tile);
                 break;
-            case SpotType.Double:
+            case FreeTileType.Double:
                 await handleDouble(tile);
                 break;
-            case SpotType.Coin:
+            case FreeTileType.Coin:
                 await handleCoin(tile);
                 break;
         }
