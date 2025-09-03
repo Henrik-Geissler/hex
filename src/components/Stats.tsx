@@ -90,7 +90,8 @@ const Stats: React.FC = () => {
           style={{ cursor: 'pointer' }}
           onClick={() => {
             const gameState = GameState.getInstance();
-            gameState.addScore(10);
+            const scoreToAdd = Math.floor(displayTargetScore / 10);
+            gameState.addScore(scoreToAdd);
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.color = '#ffd700';
